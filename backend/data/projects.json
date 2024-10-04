@@ -1,0 +1,22 @@
+{
+    "projects": [
+        {
+            "title": "Local Cluster",
+            "description": "The local-cluster project is designed to simulate a production-like cluster environment on a local machine. It leverages tools like Vagrant, Ansible, and Kubernetes to create a topology closely resembling real-world infrastructure. This includes Infrastructure as Code (IaC), GitOps, observability, and declarative service management. The repository structure is designed to aid learning, featuring GitOps configurations, IaC manifests, Helm charts, and scripts for experimentation.",
+            "link": "https://github.com/ioaiaaii/local-cluster",
+            "category": "Classical"
+        },
+        {
+            "title": "GoDuckDuckGo",
+            "description": "The goduckduckgo project is a set of microservices built in Go to interact with DuckDuckGo's API. It serves as a playground for learning Golang and experimenting with software engineering and systems design under the SRE discipline. The architecture includes a Query service (API interface for client queries with caching and storage capabilities) and a Store service (handling persistence in PostgreSQL through gRPC). The project also covers CI/CD, telemetry (logging, metrics, traces), and monitoring.",
+            "link": "https://github.com/ioaiaaii/goduckduckgo",
+            "category": "Classical"
+        },
+        {
+            "title": "Quantum Teleportation",
+            "description": "An essay about Teleportation, a key principle in quantum mechanics allowing the transfer of quantum states between non-local quantum systems. It covers the theoretical foundations, presenting the teleportation protocol in Qiskit.",
+            "link": "https://github.com/ioaiaaii/quantum-computing-research/blob/main/Teleportation/Teleportation.pdf",
+            "category": "Quantum"
+        }
+    ]
+}

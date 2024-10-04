@@ -1,0 +1,150 @@
+{
+    "name": "IOANNIS SAVVAIDIS",
+    "title": "Senior Site Reliability Engineer",
+    "email": "johnsavvaidis@gmail.com",
+    "linkedIn": "https://www.linkedin.com/in/ioannissavvaidis/",
+    "github": "https://github.com/ioaiaaii",
+    "profile": "Site Reliability Engineer managing large production infrastructures, focusing on coding, observability, and systems performance. Sound Artist sourcing sound(s) from theoretical contexts of computer science and nature.",
+    "experience": [
+      {
+        "role": "Senior SRE",
+        "company": "TileDB",
+        "location": "Remote",
+        "startDate": "01/2023",
+        "endDate": "Present",
+        "description": [
+          "Responsible for Infrastructure and Product reliability",
+          "Led the SRE Roadmap for Cultural and Engineering improvements",
+          "Led Kubernetes upgrades from 1.21 to 1.26",
+          "Optimized Kubernetes Nodegroups and Workloads Reliability",
+          "Introduced Alerts and streamlined Monitoring",
+          "Delivered RCAs tacking Infrastructure issues with Business Impact",
+          "Introduced API Gateway as a Product’s component",
+          "Introduced Pyroscope Continues Profiling",
+          "Participated in On-Call, Postmortems, and consultancy support for Engineers"
+        ]
+      },
+      {
+        "role": "Senior SRE",
+        "company": "Sitecore",
+        "location": "Remote",
+        "startDate": "05/2022",
+        "endDate": "12/2022",
+        "description": [
+          "Introduced SRE Discipline for Products adaption"
+        ]
+      },
+      {
+        "role": "Senior SRE",
+        "company": "Beat",
+        "location": "ATH",
+        "startDate": "04/2019",
+        "endDate": "04/2022",
+        "description": [
+          "Responsible for Observability and Release Engineering",
+          "Ownership of Infrastructure",
+          "Delivered centralized Metrics and Tracing systems with SLIs/SLOs",
+          "Led the migration from Docker to Harbor OCI Registry",
+          "Developed CLI to apply Prometheus and Grafana manifests with GitOps",
+          "Contributed to GitHub Runners, Loki, and Argo CD",
+          "Streamlined reusable CI/CD pipelines",
+          "Led the SSO provisioning for AWS with OneLogin",
+          "Contributed to an inhouse PaaS supporting SWE teams with micro-services",
+          "Contributed to noisy alerts and cost reductions",
+          "Contact point of the SET domain, supporting their vision",
+          "Participated in On-Call, Postmortems, and consultancy support for Engineers"
+        ]
+      },
+      {
+        "role": "Systems Engineer",
+        "company": "Upstream",
+        "location": "ATH",
+        "startDate": "09/2014",
+        "endDate": "03/2019",
+        "description": [
+          "Responsible for on-premises, large-scale Physical and Virtual Infrastructure",
+          "Ownership of Web, Reverse Proxy, DNS, and Monitoring Servers",
+          "Initiated and led the automation of VMs provisioning",
+          "Initiated and led cost and network flows automated reports",
+          "Led the migration of production traffic from NGINX to Apache farms",
+          "Participated in On-Call for 3rd-level support and Postmortems"
+        ]
+      },
+      {
+        "role": "Systems Engineer",
+        "company": "UOM",
+        "location": "SKG",
+        "startDate": "08/2013",
+        "endDate": "01/2014",
+        "description": [
+          "Designed and delivered the University’s IaaS Community Cloud"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc in Quantum Computing and Quantum Technologies",
+        "institution": "DUTH",
+        "location": "Remote",
+        "startDate": "10/2023",
+        "endDate": "Present"
+      },
+      {
+        "degree": "BSc in Applied Informatics",
+        "institution": "UOM",
+        "location": "SKG",
+        "startDate": "09/2006",
+        "endDate": "02/2013",
+        "specialization": "Specialization in OOP, OS, Networks, and Distributed Systems",
+        "dissertation": "Cloud Computing with an IaaS implementation of OpenStack"
+      }
+    ],
+    "projects": [
+      {
+        "title": "Local Cluster",
+        "description": "Production cluster simulation to local workstation environment.",
+        "link": "GitHub Link"
+      },
+      {
+        "title": "GoDuckDuckGo",
+        "description": "Synthesised micro-services, answering client's queries by talking to GDD's API.",
+        "link": "GitHub Link"
+      },
+      {
+        "title": "Centralized Metrics System",
+        "description": "Multi-cluster HA Monitoring with Thanos, Prometheus, and Grafana.",
+        "link": "Beat Engineering Blog"
+      }
+    ],
+    "skillGroups": [
+      {
+        "category": "Physical Infrastructure",
+        "skills": ["DC Operations", "DCIM", "DELL R6/R7", "Unity/VNX series"]
+      },
+      {
+        "category": "Virtual/Container/Cloud",
+        "skills": ["VMware", "Kubernetes", "AWS", "OpenStack", "Synnefo"]
+      },
+      {
+        "category": "IAC and CI/CD",
+        "skills": ["Terraform", "Ansible", "Jenkins", "Argo", "GitHub Actions", "Harbor"]
+      },
+      {
+        "category": "Observability",
+        "skills": ["Grafana", "Prometheus", "Thanos", "Tempo", "Loki", "SLIs/SLOs"]
+      },
+      {
+        "category": "Services",
+        "skills": ["Apache", "NGINX", "BIND"]
+      },
+      {
+        "category": "Programming",
+        "skills": ["Bash", "Golang", "Groovy", "Jsonnet"]
+      },
+      {
+        "category": "Tooling",
+        "skills": ["MKDocs", "GitHub", "JIRA", "VSCode", "git", "vim"]
+      }
+    ]
+  }
+  
