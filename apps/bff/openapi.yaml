@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: Ioannis Savvaidis API
+  version: 1.0.0
+  description: This API provides information about projects, releases, live performances, and personal bio.
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/ioaiaaii:
+    get:
+      summary: Get Profile Information
+      description: Returns personal profile information.
+      responses:
+        '200':
+          description: Profile information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+
+  /api/info:
+    get:
+      summary: Get Resume Information
+      description: Returns resume details.
+      responses:
+        '200':
+          description: Resume information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+
+  /api/projects:
+    get:
+      summary: Get Project Information
+      description: Returns information on projects.
+      responses:
+        '200':
+          description: Projects information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteProjectEntry'
+
+  /api/releases:
+    get:
+      summary: Get Release Information
+      description: Returns information on musical releases.
+      responses:
+        '200':
+          description: Releases information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Release'
+
+  /api/live:
+    get:
+      summary: Get Live Performance Information
+      description: Returns information on live performances.
+      responses:
+        '200':
+          description: Live performances information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivePerformance'
+
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+
+    Resume:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        linkedIn:
+          type: string
+        gitHub:
+          type: string
+        profile:
+          type: string
+        artistBio:
+          type: string
+        engineerBio:
+          type: string
+        experience:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExperienceEntry'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationEntry'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectEntry'
+
+    ExperienceEntry:
+      type: object
+      properties:
+        role:
+          type: string
+        company:
+          type: string
+        location:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        description:
+          type: array
+          items:
+            type: string
+
+    EducationEntry:
+      type: object
+      properties:
+        degree:
+          type: string
+        institution:
+          type: string
+        location:
+          type: string
+        specialization:
+          type: string
+        dissertation:
+          type: string
+
+    ProjectEntry:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+
+    WebsiteProjectEntry:
+      type: object
+      properties:
+        category:
+          type: string
+        projectEntry:
+          $ref: '#/components/schemas/ProjectEntry'
+
+    Release:
+      type: object
+      properties:
+        title:
+          type: string
+        artist:
+          type: string
+        releaseDate:
+          type: string
+        label:
+          type: string
+        discogsLink:
+          type: string
+        bandcampLink:
+          type: string
+        soundCloudLink:
+          type: string
+
+    LivePerformance:
+      type: object
+      properties:
+        title:
+          type: string
+        date:
+          type: string
+        eventLink:
+          type: string
+        listenLink:
+          type: string
