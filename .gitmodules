@@ -1,0 +1,3 @@
+[submodule "repo-operator"]
+	path = repo-operator
+	url = https://github.com/ioaiaaii/repo-operator/
