@@ -1,5 +1,10 @@
 override OPERATOR_PATH := repo-operator
+override OPENAPI_FILE := apps/bff/openapi.yaml
+override OPENAPI_DOCS_PATH := docs/OpenAPI
+
 include ${OPERATOR_PATH}/makefiles/base.mk
+include ${OPERATOR_PATH}/makefiles/openapi.mk
+
 
 ## local-dev-run, runs bff and backend locally in dev mode
 .PHONY: local-dev-run
