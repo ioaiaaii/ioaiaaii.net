@@ -247,53 +247,6 @@ func serveInfoContent(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(infoResume)
 }
 
-func serveReleaseDetails(w http.ResponseWriter, r *http.Request) {
-	// Get selected release title from query parameter
-	title := r.URL.Query().Get("title")
-
-	var releaseDetails Release
-	for _, release := range releases {
-		if release.Title == title {
-			releaseDetails = release
-			break
-		}
-	}
-
-	if releaseDetails.Title == "" {
-		// If no matching release found, return an error response
-		http.Error(w, "Release not found", http.StatusNotFound)
-		return
-	}
-
-	// Encode and send the release details as JSON response
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(releaseDetails)
-}
-
-// Function to get release by title
-func getReleaseByTitle(w http.ResponseWriter, r *http.Request) {
-	// Extract title from URL path
-	pathParts := strings.Split(r.URL.Path, "/")
-	if len(pathParts) < 4 {
-		http.Error(w, "Invalid request URL", http.StatusBadRequest)
-		return
-	}
-	title := strings.ToLower(pathParts[3])
-
-	// Find the release in the list
-	for _, release := range releases {
-		if strings.ToLower(release.Title) == title {
-			// Return the release as JSON
-			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(release)
-			return
-		}
-	}
-
-	// If release not found, return an error message
-	http.Error(w, "Release not found", http.StatusNotFound)
-}
-
 func main() {
 
 	websiteProjects, websiteProjectsError = loadWebsiteProjects("./data/projects.json")
@@ -307,8 +260,6 @@ func main() {
 	http.HandleFunc("/api/projects", serveProjectsContent)
 	http.HandleFunc("/api/releases", serveReleasesContent)
 	http.HandleFunc("/api/live", serveLiveContent)
-	http.HandleFunc("/api/release", serveReleaseDetails)
-	http.HandleFunc("/api/releases/", getReleaseByTitle)
 
 	// Serve static files and frontend routes
 	http.HandleFunc("/", ServeStatic)
