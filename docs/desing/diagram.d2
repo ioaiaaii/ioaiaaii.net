@@ -1,0 +1,15 @@
+Frontend -> API: "API Requests (/api/*)"
+
+API: {
+  label: "API"
+
+  WebServer -> Interfaces: "Route to Handlers"
+  Interfaces -> UseCases: "Routing to UseCases"
+  UseCases -> Entities: "Fetching Entities"
+  UseCases -> Repositories: "Fetch Data from Repository"
+  Repositories -> DataSource: "Load Data"
+
+  WebServer <- Interfaces: "Return Response (Entities)"
+}
+
+API -> Frontend: "Response (JSON)"
