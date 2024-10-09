@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Ioannis Savvaidis API
+  title: IOAIAAII.NET API
   version: 1.0.0
-  description: This API provides information about projects, releases, live performances, and personal bio.
+  description: BFF API provides information about projects, releases, live performances, and personal bio.
 servers:
   - url: http://localhost:8080
     description: Local development server

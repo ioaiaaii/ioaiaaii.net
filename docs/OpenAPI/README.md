@@ -1,4 +1,4 @@
-# Documentation for Ioannis Savvaidis API
+# Documentation for IOAIAAII.NET API
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
