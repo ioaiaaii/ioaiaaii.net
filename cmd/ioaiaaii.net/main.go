@@ -4,10 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
-	"path/filepath"
-	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 // Resume Struct Start
@@ -57,7 +56,6 @@ type SkillCategory struct {
 	Skills   []string `json:"skills"`
 }
 
-// Item represents a general item with title, details, and items
 type Item struct {
 	Title   string   `json:"title"`
 	Details string   `json:"details"`
@@ -69,10 +67,10 @@ type Release struct {
 	Artist         string   `json:"artist"`
 	ReleaseDate    string   `json:"releaseDate"`
 	Label          string   `json:"label"`
-	Image          []string `json:"image,omitempty"`           // Optional images
-	DiscogsLink    string   `json:"discogs_link"`              // Link to Discogs
-	BandcampLink   string   `json:"bandcamp_link,omitempty"`   // Optional link to Bandcamp
-	SoundCloudLink string   `json:"soundcloud_link,omitempty"` // Optional link to SoundCloud
+	Image          []string `json:"image,omitempty"`
+	DiscogsLink    string   `json:"discogs_link"`
+	BandcampLink   string   `json:"bandcamp_link,omitempty"`
+	SoundCloudLink string   `json:"soundcloud_link,omitempty"`
 	Description    string   `json:"description"`
 }
 
@@ -80,20 +78,17 @@ type Releases struct {
 	Items []Release `json:"releases"`
 }
 
-// LivePerformance represents live performances
 type LivePerformance struct {
 	Title      string  `json:"title"`
 	Date       string  `json:"date"`
-	EventLink  *string `json:"event_link,omitempty"`  // Optional link to event details
-	ListenLink *string `json:"listen_link,omitempty"` // Optional link to listen to the performance
+	EventLink  *string `json:"event_link,omitempty"`
+	ListenLink *string `json:"listen_link,omitempty"`
 }
 
 type LivePerformances struct {
 	Items []LivePerformance `json:"performances"`
 }
 
-// WebsiteProjects, represents engineering projects
-// reusing ProjectEntry, from CV struct
 type WebsiteProjects struct {
 	Items []WebsiteProjectEntry `json:"projects"`
 }
@@ -103,7 +98,6 @@ type WebsiteProjectEntry struct {
 	Category string `json:"category"`
 }
 
-// Global Variables for Projects & Errors cached at startup
 var (
 	websiteProjects      []WebsiteProjectEntry
 	websiteProjectsError error
@@ -115,39 +109,20 @@ var (
 	liveErr              error
 )
 
-// Struct for landing page content
+// Profile struct for landing page content
 type Profile struct {
 	ImageURL string `json:"imageUrl"`
 	Title    string `json:"title"`
 	Details  string `json:"details"`
 }
 
-// Your actual data (replace with the correct path to your image)
 var ioaiaaii = Profile{
 	ImageURL: "/assets/images/landing/profile.jpg",
 	Title:    "Ioannis Savvaidis",
-	Details:  "As a Site Reliability Engineer with over ten years of experience, I specialize in building robust, scalable digital infrastructure. Currently advancing my expertise through a master’s program in Quantum Computing, my research focuses on the convergence of mathematics, computational theory, and music—particularly investigating how quantum principles can innovate sound synthesis and musical composition. Bridging technology and artistry, I am dedicated to leveraging interdisciplinary approaches to drive innovation, enhance problem-solving, and expand the frontiers of both engineering and creative expression.",
+	Details:  "As a Site Reliability Engineer with over ten years of experience, I specialize in building robust, scalable digital infrastructure...",
 }
 
-// ServeStatic handles serving frontend files and routes
-func ServeStatic(w http.ResponseWriter, r *http.Request) {
-	path := filepath.Join("./public", r.URL.Path)
-	_, err := os.Stat(path)
-
-	// If the file doesn't exist or is a directory, serve index.html for frontend routing
-	if os.IsNotExist(err) || r.URL.Path == "/" || strings.HasPrefix(r.URL.Path, "/works") || strings.HasPrefix(r.URL.Path, "/releases") || strings.HasPrefix(r.URL.Path, "/info") || strings.HasPrefix(r.URL.Path, "/concerts") {
-		http.ServeFile(w, r, "./public/index.html")
-	} else {
-		// Otherwise, serve the actual static file (CSS, JS)
-		http.ServeFile(w, r, path)
-	}
-}
-
-func serveIoaiaaiiContent(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(ioaiaaii)
-}
-
+// Load functions for different datasets
 func loadReleases(filePath string) ([]Release, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
@@ -160,16 +135,6 @@ func loadReleases(filePath string) ([]Release, error) {
 	}
 
 	return releases.Items, nil
-}
-
-func serveReleasesContent(w http.ResponseWriter, r *http.Request) {
-	if releaseErr != nil {
-		http.Error(w, releaseErr.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(releases)
 }
 
 func loadLive(filePath string) ([]LivePerformance, error) {
@@ -186,23 +151,11 @@ func loadLive(filePath string) ([]LivePerformance, error) {
 	return performances.Items, nil
 }
 
-func serveLiveContent(w http.ResponseWriter, r *http.Request) {
-	if liveErr != nil {
-		http.Error(w, liveErr.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(livePerformances)
-}
-
 func loadWebsiteProjects(filePath string) ([]WebsiteProjectEntry, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read JSON file: %w", err)
 	}
-	// Debug data
-	// fmt.Println("JSON Content:", string(data))
 
 	var projects WebsiteProjects
 	if err := json.Unmarshal(data, &projects); err != nil {
@@ -210,17 +163,6 @@ func loadWebsiteProjects(filePath string) ([]WebsiteProjectEntry, error) {
 	}
 
 	return projects.Items, nil
-}
-
-// ServeProjectsContent is the HTTP handler for the /api/projects endpoint
-func serveProjectsContent(w http.ResponseWriter, r *http.Request) {
-	if websiteProjectsError != nil {
-		http.Error(w, websiteProjectsError.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(websiteProjects)
 }
 
 func loadInfo(filePath string) (Resume, error) {
@@ -237,33 +179,53 @@ func loadInfo(filePath string) (Resume, error) {
 	return resume, nil
 }
 
-func serveInfoContent(w http.ResponseWriter, r *http.Request) {
-	if infoResumeError != nil {
-		http.Error(w, websiteProjectsError.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(infoResume)
-}
-
+// Main Fiber setup and routes
 func main() {
+	// Initialize Fiber app
+	app := fiber.New()
 
+	// Load data at startup
 	websiteProjects, websiteProjectsError = loadWebsiteProjects("../../website/data/projects.json")
 	infoResume, infoResumeError = loadInfo("../../website/data/info.json")
 	releases, releaseErr = loadReleases("../../website/data/releases.json")
-	// Load live performances once at startup
 	livePerformances, liveErr = loadLive("../../website/data/live.json")
 
-	http.HandleFunc("/api/ioaiaaii", serveIoaiaaiiContent)
-	http.HandleFunc("/api/info", serveInfoContent)
-	http.HandleFunc("/api/projects", serveProjectsContent)
-	http.HandleFunc("/api/releases", serveReleasesContent)
-	http.HandleFunc("/api/live", serveLiveContent)
+	// Serve static files
+	app.Static("/", "./public")
 
-	// Serve static files and frontend routes
-	http.HandleFunc("/", ServeStatic)
+	// API routes
+	app.Get("/api/ioaiaaii", func(c *fiber.Ctx) error {
+		return c.JSON(ioaiaaii)
+	})
 
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	app.Get("/api/info", func(c *fiber.Ctx) error {
+		if infoResumeError != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(infoResumeError.Error())
+		}
+		return c.JSON(infoResume)
+	})
+
+	app.Get("/api/projects", func(c *fiber.Ctx) error {
+		if websiteProjectsError != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(websiteProjectsError.Error())
+		}
+		return c.JSON(websiteProjects)
+	})
+
+	app.Get("/api/releases", func(c *fiber.Ctx) error {
+		if releaseErr != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(releaseErr.Error())
+		}
+		return c.JSON(releases)
+	})
+
+	app.Get("/api/live", func(c *fiber.Ctx) error {
+		if liveErr != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(liveErr.Error())
+		}
+		return c.JSON(livePerformances)
+	})
+
+	// Start the server on port 8080
+	log.Fatal(app.Listen(":8080"))
 }
