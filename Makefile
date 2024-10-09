@@ -1,7 +1,7 @@
 # +++ Overrides to Repo Operator
 override OPERATOR_PATH := repo-operator
 override OPENAPI_FILE := api/OpenAPI/openapi.yaml
-override OPENAPI_DOCS_PATH := docs/OpenAPI
+override OPENAPI_DOCS_PATH := docs/api
 
 # +++ Include make files from Repo Operator
 include ${OPERATOR_PATH}/makefiles/base.mk
