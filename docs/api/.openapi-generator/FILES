@@ -2,9 +2,9 @@ Apis/DefaultApi.md
 Models/EducationEntry.md
 Models/ExperienceEntry.md
 Models/LivePerformance.md
-Models/Profile.md
 Models/ProjectEntry.md
 Models/Release.md
 Models/Resume.md
-Models/WebsiteProjectEntry.md
+Models/SkillCategory.md
+Models/WebsiteProject.md
 README.md

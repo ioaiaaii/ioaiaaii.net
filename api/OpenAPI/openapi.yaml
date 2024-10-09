@@ -1,85 +1,77 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
-  title: IOAIAAII.NET API
+  title: ioaiaaii.net API
+  description: This is the API for managing profile-related content such as resumes, releases, live performances, and website projects.
   version: 1.0.0
-  description: BFF API provides information about projects, releases, live performances, and personal bio.
 servers:
   - url: http://localhost:8080
-    description: Local development server
+    description: Development Server
 
 paths:
-  /api/ioaiaaii:
-    get:
-      summary: Get Profile Information
-      description: Returns personal profile information.
-      responses:
-        '200':
-          description: Profile information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Profile'
-
   /api/info:
     get:
       summary: Get Resume Information
-      description: Returns resume details.
+      description: Retrieve the profile resume data.
       responses:
         '200':
-          description: Resume information
+          description: Resume data retrieved successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resume'
-
-  /api/projects:
-    get:
-      summary: Get Project Information
-      description: Returns information on projects.
-      responses:
-        '200':
-          description: Projects information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WebsiteProjectEntry'
+        '500':
+          description: Internal Server Error
 
   /api/releases:
     get:
-      summary: Get Release Information
-      description: Returns information on musical releases.
+      summary: Get Releases
+      description: Retrieve all music releases.
       responses:
         '200':
-          description: Releases information
+          description: Releases retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Release'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Release'
+        '500':
+          description: Internal Server Error
 
   /api/live:
     get:
-      summary: Get Live Performance Information
-      description: Returns information on live performances.
+      summary: Get Live Performances
+      description: Retrieve all live performances.
       responses:
         '200':
-          description: Live performances information
+          description: Live performances retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LivePerformance'
+                type: array
+                items:
+                  $ref: '#/components/schemas/LivePerformance'
+        '500':
+          description: Internal Server Error
+
+  /api/projects:
+    get:
+      summary: Get Website Projects
+      description: Retrieve all website-related projects.
+      responses:
+        '200':
+          description: Website projects retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebsiteProject'
+        '500':
+          description: Internal Server Error
 
 components:
   schemas:
-    Profile:
-      type: object
-      properties:
-        imageUrl:
-          type: string
-        title:
-          type: string
-        details:
-          type: string
-
     Resume:
       type: object
       properties:
@@ -111,6 +103,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProjectEntry'
+        skillGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillCategory'
+        references:
+          type: array
+          items:
+            type: string
+
+    Release:
+      type: object
+      properties:
+        title:
+          type: string
+        artist:
+          type: string
+        releaseDate:
+          type: string
+        label:
+          type: string
+        discogsLink:
+          type: string
+        bandcampLink:
+          type: string
+        soundCloudLink:
+          type: string
+        description:
+          type: string
+
+    LivePerformance:
+      type: object
+      properties:
+        title:
+          type: string
+        date:
+          type: string
+        eventLink:
+          type: string
+        listenLink:
+          type: string
+
+    WebsiteProject:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
 
     ExperienceEntry:
       type: object
@@ -154,40 +196,12 @@ components:
         link:
           type: string
 
-    WebsiteProjectEntry:
+    SkillCategory:
       type: object
       properties:
         category:
           type: string
-        projectEntry:
-          $ref: '#/components/schemas/ProjectEntry'
-
-    Release:
-      type: object
-      properties:
-        title:
-          type: string
-        artist:
-          type: string
-        releaseDate:
-          type: string
-        label:
-          type: string
-        discogsLink:
-          type: string
-        bandcampLink:
-          type: string
-        soundCloudLink:
-          type: string
-
-    LivePerformance:
-      type: object
-      properties:
-        title:
-          type: string
-        date:
-          type: string
-        eventLink:
-          type: string
-        listenLink:
-          type: string
+        skills:
+          type: array
+          items:
+            type: string

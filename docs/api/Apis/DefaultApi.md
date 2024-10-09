@@ -5,10 +5,9 @@ All URIs are relative to *http://localhost:8080*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**apiInfoGet**](DefaultApi.md#apiInfoGet) | **GET** /api/info | Get Resume Information |
-| [**apiIoaiaaiiGet**](DefaultApi.md#apiIoaiaaiiGet) | **GET** /api/ioaiaaii | Get Profile Information |
-| [**apiLiveGet**](DefaultApi.md#apiLiveGet) | **GET** /api/live | Get Live Performance Information |
-| [**apiProjectsGet**](DefaultApi.md#apiProjectsGet) | **GET** /api/projects | Get Project Information |
-| [**apiReleasesGet**](DefaultApi.md#apiReleasesGet) | **GET** /api/releases | Get Release Information |
+| [**apiLiveGet**](DefaultApi.md#apiLiveGet) | **GET** /api/live | Get Live Performances |
+| [**apiProjectsGet**](DefaultApi.md#apiProjectsGet) | **GET** /api/projects | Get Website Projects |
+| [**apiReleasesGet**](DefaultApi.md#apiReleasesGet) | **GET** /api/releases | Get Releases |
 
 
 <a name="apiInfoGet"></a>
@@ -17,7 +16,7 @@ All URIs are relative to *http://localhost:8080*
 
 Get Resume Information
 
-    Returns resume details.
+    Retrieve the profile resume data.
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -35,44 +34,20 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="apiIoaiaaiiGet"></a>
-# **apiIoaiaaiiGet**
-> Profile apiIoaiaaiiGet()
-
-Get Profile Information
-
-    Returns personal profile information.
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Profile**](../Models/Profile.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
 <a name="apiLiveGet"></a>
 # **apiLiveGet**
-> LivePerformance apiLiveGet()
+> List apiLiveGet()
 
-Get Live Performance Information
+Get Live Performances
 
-    Returns information on live performances.
+    Retrieve all live performances.
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**LivePerformance**](../Models/LivePerformance.md)
+[**List**](../Models/LivePerformance.md)
 
 ### Authorization
 
@@ -85,18 +60,18 @@ No authorization required
 
 <a name="apiProjectsGet"></a>
 # **apiProjectsGet**
-> WebsiteProjectEntry apiProjectsGet()
+> List apiProjectsGet()
 
-Get Project Information
+Get Website Projects
 
-    Returns information on projects.
+    Retrieve all website-related projects.
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**WebsiteProjectEntry**](../Models/WebsiteProjectEntry.md)
+[**List**](../Models/WebsiteProject.md)
 
 ### Authorization
 
@@ -109,18 +84,18 @@ No authorization required
 
 <a name="apiReleasesGet"></a>
 # **apiReleasesGet**
-> Release apiReleasesGet()
+> List apiReleasesGet()
 
-Get Release Information
+Get Releases
 
-    Returns information on musical releases.
+    Retrieve all music releases.
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**Release**](../Models/Release.md)
+[**List**](../Models/Release.md)
 
 ### Authorization
 

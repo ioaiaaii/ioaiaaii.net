@@ -1,4 +1,4 @@
-# Documentation for IOAIAAII.NET API
+# Documentation for ioaiaaii.net API
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
@@ -8,10 +8,9 @@ All URIs are relative to *http://localhost:8080*
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
 | *DefaultApi* | [**apiInfoGet**](Apis/DefaultApi.md#apiinfoget) | **GET** /api/info | Get Resume Information |
-*DefaultApi* | [**apiIoaiaaiiGet**](Apis/DefaultApi.md#apiioaiaaiiget) | **GET** /api/ioaiaaii | Get Profile Information |
-*DefaultApi* | [**apiLiveGet**](Apis/DefaultApi.md#apiliveget) | **GET** /api/live | Get Live Performance Information |
-*DefaultApi* | [**apiProjectsGet**](Apis/DefaultApi.md#apiprojectsget) | **GET** /api/projects | Get Project Information |
-*DefaultApi* | [**apiReleasesGet**](Apis/DefaultApi.md#apireleasesget) | **GET** /api/releases | Get Release Information |
+*DefaultApi* | [**apiLiveGet**](Apis/DefaultApi.md#apiliveget) | **GET** /api/live | Get Live Performances |
+*DefaultApi* | [**apiProjectsGet**](Apis/DefaultApi.md#apiprojectsget) | **GET** /api/projects | Get Website Projects |
+*DefaultApi* | [**apiReleasesGet**](Apis/DefaultApi.md#apireleasesget) | **GET** /api/releases | Get Releases |
 
 
 <a name="documentation-for-models"></a>
@@ -20,11 +19,11 @@ All URIs are relative to *http://localhost:8080*
  - [EducationEntry](./Models/EducationEntry.md)
  - [ExperienceEntry](./Models/ExperienceEntry.md)
  - [LivePerformance](./Models/LivePerformance.md)
- - [Profile](./Models/Profile.md)
  - [ProjectEntry](./Models/ProjectEntry.md)
  - [Release](./Models/Release.md)
  - [Resume](./Models/Resume.md)
- - [WebsiteProjectEntry](./Models/WebsiteProjectEntry.md)
+ - [SkillCategory](./Models/SkillCategory.md)
+ - [WebsiteProject](./Models/WebsiteProject.md)
 
 
 <a name="documentation-for-authorization"></a>
