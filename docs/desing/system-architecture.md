@@ -24,22 +24,7 @@ The system `ioaiaaii.net` is designed to handle and serve profile-related conten
 
 This project follows **Clean Architecture** to ensure the separation of concerns between different layers. Each layer has specific responsibilities, making the system modular and easy to extend or modify.
 
-```d2
-Frontend -> API: "API Requests (/api/*)"
-
-API: {
-  label: "API"
-
-  WebServer -> Interfaces: "Route to Handlers"
-  Interfaces -> UseCases: "Routing to UseCases"
-  UseCases -> Repositories: "Fetch Data from Repository"
-  Repositories -> DataSource: "Load Data"
-Entities -> Repositories: "Data Encoding to Entities"
-  WebServer <- Interfaces: "Return Response (Entities)"
-}
-
-API -> Frontend: "Response (JSON)"
-```
+![flow](diagram.svg)
 
 ## Component Breakdown
 
@@ -123,3 +108,72 @@ The backend is structured using **Clean Architecture** to decouple different con
 ## Conclusion
 
 The `ioaiaaii.net` project is designed to be highly modular, maintainable, and scalable. By using **Clean Architecture**, we ensure that different parts of the system are decoupled and easily testable. The use of **Fiber** for the API and **Vite** for the frontend ensures a smooth development process, and the architecture is ready to evolve with future needs, such as moving to a database or scaling into microservices.
+
+
+# ioaiaaii.net Project Architecture
+
+This document explains the structure and architecture of the **ioaiaaii.net** project, which follows **Clean Architecture** principles to ensure separation of concerns, maintainability, and scalability.
+
+## Project Structure Overview
+
+### `cmd/`
+This folder contains the **entry points** for the application.
+
+- **`ioaiaaii.net/`**: The main entry point for the entire application (HTTP and gRPC servers). The `main.go` file initializes the **Fiber** HTTP server and **gRPC** server.
+
+---
+
+### `internal/`
+This is the **core** of the project. It contains different layers adhering to **Clean Architecture** principles.
+
+#### 1. **`infrastructure/`**
+The **infrastructure layer** contains framework- and system-specific code. This includes the web server setup, gRPC server setup, and repository implementations for interacting with external systems (e.g., file storage, databases).
+
+- **`http/`**: Contains the **HTTP server setup** using **Fiber** in `httpserver.go`.
+- **`grpc/`**: Contains the **gRPC server setup** in `grpcserver.go` and the related **protobuf** files for defining gRPC services.
+- **`storage/`**: Contains concrete implementations of repository interfaces, such as `json_repository.go`, which is responsible for **JSON file-based storage**.
+
+#### 2. **`interfaces/`**
+The **interface adapters layer** manages the communication between external clients and the business logic. It contains the **handlers** for different transports (HTTP, gRPC) and **repository interfaces** for data access.
+
+- **`http/`**: Contains HTTP route handlers (e.g., `content_handler.go`) that map incoming API requests to the appropriate **use cases**.
+- **`grpc/`**: Contains gRPC handlers (e.g., `content_grpc.go`) that handle gRPC requests and map them to **use cases**.
+- **`storage/`**: Contains the **repository interfaces**, such as `ResumeRepository`, `ReleaseRepository`, and others, that define how the business logic (use cases) interacts with the **storage layer**. These are the **abstract data access** points for the use cases.
+
+#### 3. **`usecases/`**
+The **application layer** contains the **business logic** of the application. It defines the **use cases** (e.g., `content_usecase.go`) that interact with the repository interfaces to fetch and process data.
+
+This layer **orchestrates the flow of data** between the entities and the storage/repository layer. It’s **independent** of frameworks, HTTP, or gRPC.
+
+#### 4. **`entities/`**
+The **domain layer** defines the **core business models** (e.g., `Resume`, `Release`, `LivePerformance`). These entities represent the core data structures in the system and encapsulate the business rules. They are used throughout the **use cases** and **repository interfaces**.
+
+---
+
+### `website/`
+This directory contains the **frontend code** of the application, built with **Vite**. It includes source code and build configurations for the client-side interface.
+
+---
+
+### `docs/`
+The **docs** directory contains important documentation for the project, including:
+
+- **`adr/`**: Architectural decision records (ADRs) that document important architectural choices.
+- **`design/`**: Contains system design documents, such as the **system-architecture.md** file, which explains the overall architecture of the project.
+
+---
+
+## Key Concepts
+
+### Clean Architecture Layers:
+- **Entities**: Core business objects and rules (e.g., `Resume`, `Release`).
+- **Use Cases**: Business logic that dictates how entities interact and data is processed.
+- **Interfaces**: Defines how external clients (HTTP, gRPC) interact with the use cases. Repository interfaces abstract data access.
+- **Infrastructure**: Concrete implementations of external systems (e.g., file storage, database) and server setup (HTTP, gRPC).
+
+---
+
+## Future Scalability
+The architecture is designed to be modular and scalable. New transport layers (e.g., WebSockets, GraphQL) or storage mechanisms (e.g., databases) can be added without modifying the core business logic.
+
+Feel free to explore each layer and make necessary adjustments as the project evolves!
