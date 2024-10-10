@@ -13,8 +13,5 @@ func SetupHTTPServer(contentHandler *httpcontroller.ContentHandler) *fiber.App {
 	// Register the routes by calling the function from the HTTP controller layer
 	httpcontroller.RegisterRoutes(app, contentHandler)
 
-	// Serve static files for the frontend (if applicable)
-	app.Static("/", "./website/dist")
-
 	return app
 }
