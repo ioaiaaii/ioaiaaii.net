@@ -1,16 +1,12 @@
 Frontend -> API: "API Requests (/api/*)"
-Frontend -> API: "gRPC Requests (/grpc/*)"
-
 API: {
-    label: "API Layer"
+  label: "API"
 
-    WebServer -> Interfaces: "Interfaces (HTTP, gRPC, Storage)"
-    Interfaces -> UseCases: "Use Cases (Business Logic)"
-    UseCases -> Storage: "Storage Layer (Repository Implementations)"
-    Storage -> DataSource: File System (JSON)"
-
-    WebServer <- Interfaces: "Return Response"
+  WebServer -> UseCases: "Call Use Cases"
+  UseCases -> Repositories: "Fetch Data from Repository"
+  Repositories -> DataSource: "Load Data from Files"
+  
+  WebServer <- UseCases: "Return Processed Data"  
 }
 
-API -> Frontend: "Response (JSON / gRPC Response)"
-
+API -> Frontend: "Response (JSON)"

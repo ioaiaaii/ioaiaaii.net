@@ -4,19 +4,19 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**apiInfoGet**](DefaultApi.md#apiInfoGet) | **GET** /api/info | Get Resume Information |
-| [**apiLiveGet**](DefaultApi.md#apiLiveGet) | **GET** /api/live | Get Live Performances |
-| [**apiProjectsGet**](DefaultApi.md#apiProjectsGet) | **GET** /api/projects | Get Website Projects |
-| [**apiReleasesGet**](DefaultApi.md#apiReleasesGet) | **GET** /api/releases | Get Releases |
+| [**apiInfoGet**](DefaultApi.md#apiInfoGet) | **GET** /api/info | Get resume information |
+| [**apiLiveGet**](DefaultApi.md#apiLiveGet) | **GET** /api/live | Get live performances |
+| [**apiProjectsGet**](DefaultApi.md#apiProjectsGet) | **GET** /api/projects | Get projects |
+| [**apiReleasesGet**](DefaultApi.md#apiReleasesGet) | **GET** /api/releases | Get releases |
 
 
 <a name="apiInfoGet"></a>
 # **apiInfoGet**
 > Resume apiInfoGet()
 
-Get Resume Information
+Get resume information
 
-    Retrieve the profile resume data.
+    Returns resume data including personal information, experience, and education.
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -38,9 +38,9 @@ No authorization required
 # **apiLiveGet**
 > List apiLiveGet()
 
-Get Live Performances
+Get live performances
 
-    Retrieve all live performances.
+    Returns a list of live performances.
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -62,16 +62,16 @@ No authorization required
 # **apiProjectsGet**
 > List apiProjectsGet()
 
-Get Website Projects
+Get projects
 
-    Retrieve all website-related projects.
+    Returns a list of engineering or other website projects.
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**List**](../Models/WebsiteProject.md)
+[**List**](../Models/WebsiteProjectEntry.md)
 
 ### Authorization
 
@@ -86,9 +86,9 @@ No authorization required
 # **apiReleasesGet**
 > List apiReleasesGet()
 
-Get Releases
+Get releases
 
-    Retrieve all music releases.
+    Returns a list of releases (e.g., albums or content created by the artist).
 
 ### Parameters
 This endpoint does not need any parameter.

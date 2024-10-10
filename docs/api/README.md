@@ -7,10 +7,10 @@ All URIs are relative to *http://localhost:8080*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *DefaultApi* | [**apiInfoGet**](Apis/DefaultApi.md#apiinfoget) | **GET** /api/info | Get Resume Information |
-*DefaultApi* | [**apiLiveGet**](Apis/DefaultApi.md#apiliveget) | **GET** /api/live | Get Live Performances |
-*DefaultApi* | [**apiProjectsGet**](Apis/DefaultApi.md#apiprojectsget) | **GET** /api/projects | Get Website Projects |
-*DefaultApi* | [**apiReleasesGet**](Apis/DefaultApi.md#apireleasesget) | **GET** /api/releases | Get Releases |
+| *DefaultApi* | [**apiInfoGet**](Apis/DefaultApi.md#apiinfoget) | **GET** /api/info | Get resume information |
+*DefaultApi* | [**apiLiveGet**](Apis/DefaultApi.md#apiliveget) | **GET** /api/live | Get live performances |
+*DefaultApi* | [**apiProjectsGet**](Apis/DefaultApi.md#apiprojectsget) | **GET** /api/projects | Get projects |
+*DefaultApi* | [**apiReleasesGet**](Apis/DefaultApi.md#apireleasesget) | **GET** /api/releases | Get releases |
 
 
 <a name="documentation-for-models"></a>
@@ -23,7 +23,7 @@ All URIs are relative to *http://localhost:8080*
  - [Release](./Models/Release.md)
  - [Resume](./Models/Resume.md)
  - [SkillCategory](./Models/SkillCategory.md)
- - [WebsiteProject](./Models/WebsiteProject.md)
+ - [WebsiteProjectEntry](./Models/WebsiteProjectEntry.md)
 
 
 <a name="documentation-for-authorization"></a>

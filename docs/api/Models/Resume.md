@@ -3,14 +3,14 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **name** | **String** |  | [optional] [default to null] |
-| **title** | **String** |  | [optional] [default to null] |
-| **email** | **String** |  | [optional] [default to null] |
-| **linkedIn** | **String** |  | [optional] [default to null] |
-| **gitHub** | **String** |  | [optional] [default to null] |
-| **profile** | **String** |  | [optional] [default to null] |
-| **artistBio** | **String** |  | [optional] [default to null] |
-| **engineerBio** | **String** |  | [optional] [default to null] |
+| **name** | **String** | Full name of the individual. | [optional] [default to null] |
+| **title** | **String** | Professional title. | [optional] [default to null] |
+| **email** | **String** | Contact email address. | [optional] [default to null] |
+| **linkedIn** | **String** | LinkedIn profile URL. | [optional] [default to null] |
+| **gitHub** | **String** | GitHub profile URL. | [optional] [default to null] |
+| **profile** | **String** | Short personal or professional profile. | [optional] [default to null] |
+| **artistBio** | **String** | Biography for the artist. | [optional] [default to null] |
+| **engineerBio** | **String** | Biography for the engineer role. | [optional] [default to null] |
 | **experience** | [**List**](ExperienceEntry.md) |  | [optional] [default to null] |
 | **education** | [**List**](EducationEntry.md) |  | [optional] [default to null] |
 | **projects** | [**List**](ProjectEntry.md) |  | [optional] [default to null] |

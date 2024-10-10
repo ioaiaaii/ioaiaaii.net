@@ -4,7 +4,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 | **title** | **String** |  | [optional] [default to null] |
-| **date** | **String** |  | [optional] [default to null] |
+| **date** | **date** |  | [optional] [default to null] |
 | **eventLink** | **String** |  | [optional] [default to null] |
 | **listenLink** | **String** |  | [optional] [default to null] |
 

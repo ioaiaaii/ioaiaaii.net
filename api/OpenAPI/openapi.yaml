@@ -1,34 +1,34 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
   title: ioaiaaii.net API
-  description: This is the API for managing profile-related content such as resumes, releases, live performances, and website projects.
+  description: API for managing content including resumes, releases, live performances, and projects.
   version: 1.0.0
 servers:
   - url: http://localhost:8080
-    description: Development Server
+    description: Local Development Server
 
 paths:
   /api/info:
     get:
-      summary: Get Resume Information
-      description: Retrieve the profile resume data.
+      summary: Get resume information
+      description: Returns resume data including personal information, experience, and education.
       responses:
         '200':
-          description: Resume data retrieved successfully
+          description: A JSON object representing the resume.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resume'
         '500':
-          description: Internal Server Error
+          description: Internal server error.
 
   /api/releases:
     get:
-      summary: Get Releases
-      description: Retrieve all music releases.
+      summary: Get releases
+      description: Returns a list of releases (e.g., albums or content created by the artist).
       responses:
         '200':
-          description: Releases retrieved successfully
+          description: A list of releases in JSON format.
           content:
             application/json:
               schema:
@@ -36,15 +36,15 @@ paths:
                 items:
                   $ref: '#/components/schemas/Release'
         '500':
-          description: Internal Server Error
+          description: Internal server error.
 
   /api/live:
     get:
-      summary: Get Live Performances
-      description: Retrieve all live performances.
+      summary: Get live performances
+      description: Returns a list of live performances.
       responses:
         '200':
-          description: Live performances retrieved successfully
+          description: A list of live performances in JSON format.
           content:
             application/json:
               schema:
@@ -52,23 +52,23 @@ paths:
                 items:
                   $ref: '#/components/schemas/LivePerformance'
         '500':
-          description: Internal Server Error
+          description: Internal server error.
 
   /api/projects:
     get:
-      summary: Get Website Projects
-      description: Retrieve all website-related projects.
+      summary: Get projects
+      description: Returns a list of engineering or other website projects.
       responses:
         '200':
-          description: Website projects retrieved successfully
+          description: A list of projects in JSON format.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/WebsiteProject'
+                  $ref: '#/components/schemas/WebsiteProjectEntry'
         '500':
-          description: Internal Server Error
+          description: Internal server error.
 
 components:
   schemas:
@@ -77,20 +77,28 @@ components:
       properties:
         name:
           type: string
+          description: Full name of the individual.
         title:
           type: string
+          description: Professional title.
         email:
           type: string
+          description: Contact email address.
         linkedIn:
           type: string
+          description: LinkedIn profile URL.
         gitHub:
           type: string
+          description: GitHub profile URL.
         profile:
           type: string
+          description: Short personal or professional profile.
         artistBio:
           type: string
+          description: Biography for the artist.
         engineerBio:
           type: string
+          description: Biography for the engineer role.
         experience:
           type: array
           items:
@@ -121,6 +129,7 @@ components:
           type: string
         releaseDate:
           type: string
+          format: date
         label:
           type: string
         discogsLink:
@@ -139,12 +148,15 @@ components:
           type: string
         date:
           type: string
+          format: date
         eventLink:
           type: string
+          nullable: true
         listenLink:
           type: string
+          nullable: true
 
-    WebsiteProject:
+    WebsiteProjectEntry:
       type: object
       properties:
         title:
@@ -152,6 +164,8 @@ components:
         description:
           type: string
         link:
+          type: string
+        category:
           type: string
 
     ExperienceEntry:
@@ -165,8 +179,10 @@ components:
           type: string
         startDate:
           type: string
+          format: date
         endDate:
           type: string
+          format: date
         description:
           type: array
           items:
@@ -183,8 +199,16 @@ components:
           type: string
         specialization:
           type: string
+          nullable: true
         dissertation:
           type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
 
     ProjectEntry:
       type: object

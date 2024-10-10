@@ -5,7 +5,7 @@
 |------------ | ------------- | ------------- | -------------|
 | **title** | **String** |  | [optional] [default to null] |
 | **artist** | **String** |  | [optional] [default to null] |
-| **releaseDate** | **String** |  | [optional] [default to null] |
+| **releaseDate** | **date** |  | [optional] [default to null] |
 | **label** | **String** |  | [optional] [default to null] |
 | **discogsLink** | **String** |  | [optional] [default to null] |
 | **bandcampLink** | **String** |  | [optional] [default to null] |
