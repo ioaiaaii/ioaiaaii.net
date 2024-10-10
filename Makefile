@@ -1,3 +1,7 @@
+GOPRIVATE=ioaiaaii.net
+GONOSUMDB=ioaiaaii.net
+export
+
 # +++ Overrides to Repo Operator
 override OPERATOR_PATH := repo-operator
 override OPENAPI_FILE := api/OpenAPI/openapi.yaml
@@ -9,6 +13,7 @@ include ${OPERATOR_PATH}/makefiles/openapi.mk
 include ${OPERATOR_PATH}/makefiles/golang.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
+
 
 ## local-dev-run, runs bff and backend locally in dev mode
 .PHONY: local-dev-run
