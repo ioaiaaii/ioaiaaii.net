@@ -15,11 +15,24 @@ include ${OPERATOR_PATH}/makefiles/golang.mk
 # +++ Local configuration starts, hit `make help` to fetch all available targets
 
 
-## local-dev-run, runs bff and backend locally in dev mode
+## local-dev, runs bff and backend locally in dev mode
 .PHONY: local-dev-run
-local-dev-run:
+local-dev:
 	@echo "Starting npm in frontend and Go in bff in parallel..."
 	@(cd website && npm run dev) & \
+	(cd cmd/ioaiaaii.net/ && go run main.go) & \
+	wait
+	@echo "Both processes have finished."
+
+## website-build, builds vite project
+website-build:
+	@cd website && npm run build
+
+## local-preview, runs bff and backend in preview mode (production)
+.PHONY: local-preview
+local-preview: website-build
+	@echo "Starting npm in frontend and Go in bff in parallel..."
+	@(cd website && npm run preview) & \
 	(cd cmd/ioaiaaii.net/ && go run main.go) & \
 	wait
 	@echo "Both processes have finished."
