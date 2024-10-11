@@ -14,10 +14,21 @@ type Config struct {
 	ProjectsFile string
 }
 
-var dataDir = "../../website/data"
+var localDataDir = "../../internal/infrastructure/data/"
 
 // LoadConfig loads the file paths from the specified data directory
 func LoadConfig() (*Config, error) {
+
+	// Default to the environment variable for data directory
+	dataDir := os.Getenv("DATA_DIR")
+	if dataDir == "" {
+		// Fallback if DATA_DIR is not set
+		dataDir = localDataDir
+		fmt.Println("Using default data directory path:", dataDir)
+	} else {
+		fmt.Println("Using data directory from environment:", dataDir)
+	}
+
 	// Ensure the directory exists
 	if _, err := os.Stat(dataDir); os.IsNotExist(err) {
 		return nil, fmt.Errorf("data directory does not exist: %s", dataDir)
