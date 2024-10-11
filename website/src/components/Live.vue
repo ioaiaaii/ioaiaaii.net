@@ -15,15 +15,38 @@
       <div class="absolute inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8">
         <!-- Scrollable container for live performances -->
         <ul class="space-y-6 text-pretty max-h-[70vh] overflow-y-auto">
-          <li v-for="(performance, index) in performances" :key="index" class="live-text">
+          <li
+            v-for="(performance, index) in performances"
+            :key="index"
+            class="live-text"
+          >
             <!-- Title and Date -->
-            <div>{{ performance.date }} / {{ performance.title }}
-              <span v-if="performance.event_link" class="mx-2"> + </span> <!-- Separator if both links exist -->
-              <a v-if="performance.event_link" :href="performance.event_link" target="_blank" rel="noopener noreferrer" class="live-button">
+            <div>
+              {{ performance.date }} / {{ performance.title }}
+              <span
+                v-if="performance.event_link"
+                class="mx-2"
+              > + </span> <!-- Separator if both links exist -->
+              <a
+                v-if="performance.event_link"
+                :href="performance.event_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="live-button"
+              >
                 Info
               </a>
-              <span v-if="performance.listen_link" class="mx-2"> + </span> <!-- Separator if both links exist -->
-              <a v-if="performance.listen_link" :href="performance.listen_link" target="_blank" rel="noopener noreferrer" class="live-button">
+              <span
+                v-if="performance.listen_link"
+                class="mx-2"
+              > + </span> <!-- Separator if both links exist -->
+              <a
+                v-if="performance.listen_link"
+                :href="performance.listen_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="live-button"
+              >
                 Listen
               </a>
             </div>              

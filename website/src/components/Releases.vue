@@ -17,15 +17,19 @@
           :src="hoveredIndex === index && release.image[1] ? release.image[1] : release.image[0]"
           :alt="release.title"
           class="w-full h-auto object-cover aspect-w-16 aspect-h-9"
-        />
+        >
       </div>
   
       <!-- Right Column: Details -->
       <div class="flex flex-col flex-grow p-4 sm:p-6 md:p-8 border-b border-gray-200 border-solid">
         <!-- Title and Description -->
         <div>
-          <h3 class="release-title">{{ release.title }}</h3>
-          <p class="release-text">{{ release.description }}</p>
+          <h3 class="release-title">
+            {{ release.title }}
+          </h3>
+          <p class="release-text">
+            {{ release.description }}
+          </p>
         </div>
                 
         <!-- Links -->

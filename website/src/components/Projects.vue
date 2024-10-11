@@ -4,7 +4,9 @@
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->
       <div class="p-4 sm:p-6 lg:p-8 lg:border-r border-gray-200">
-        <h3 class="project-heading mt-4">///</h3>
+        <h3 class="project-heading mt-4">
+          ///
+        </h3>
         <div>
           <div 
             v-for="(project, index) in classicalProjects" 
@@ -18,14 +20,18 @@
             >
               {{ project.title }}
             </a>
-            <p class="basic-text">{{ project.description }}</p>
+            <p class="basic-text">
+              {{ project.description }}
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Quantum Computing Works Column -->
       <div class="p-4 sm:p-6 lg:p-8">
-        <h2 class="project-heading mt-4">+++</h2>
+        <h2 class="project-heading mt-4">
+          +++
+        </h2>
         <ul>
           <li 
             v-for="(latexDoc, index) in quantumDocuments" 
@@ -39,7 +45,9 @@
             >
               {{ latexDoc.title }}
             </a>
-            <p class="basic-text">{{ latexDoc.description }}</p>
+            <p class="basic-text">
+              {{ latexDoc.description }}
+            </p>
           </li>
         </ul>
       </div>

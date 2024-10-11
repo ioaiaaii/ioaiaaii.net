@@ -9,10 +9,12 @@
   >
     <!-- Top Bar: Menu Toggle, Left & Right Menus, and IOAIAAII Button -->
     <div :class="['flex items-center py-2 px-4', isMenuOpen ? 'justify-start' : 'justify-between']">
-      
       <!-- Menu toggle for mobile view (Option button on the left in mobile view) -->
       <div class="lg:hidden">
-        <button @click="toggleMenu" class="menu-button">
+        <button
+          class="menu-button"
+          @click="toggleMenu"
+        >
           Option
         </button>
       </div>
@@ -22,8 +24,8 @@
       The lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 classes ensure the "IOAIAAII" button is centered on large screens.        -->
       <button 
         v-if="showReturnButton"
-        @click="navigateTo('/')" 
-        :class="['menu-button-home', isMenuOpen ? 'ml-auto' : '', 'lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2']"
+        :class="['menu-button-home', isMenuOpen ? 'ml-auto' : '', 'lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2']" 
+        @click="navigateTo('/')"
       >
         IOAIAAII
       </button>
@@ -33,8 +35,8 @@
         <button
           v-for="(item, index) in leftMenuItems"
           :key="index"
-          @click="navigateTo(item.route)"
           class="menu-button"
+          @click="navigateTo(item.route)"
         >
           {{ item.label }}
         </button>
@@ -45,8 +47,8 @@
         <button
           v-for="(item, index) in rightMenuItems"
           :key="index"
-          @click="navigateTo(item.route)"
           class="menu-button"
+          @click="navigateTo(item.route)"
         >
           {{ item.label }}
         </button>
@@ -62,8 +64,8 @@
         <button
           v-for="(item, index) in allMenuItems"
           :key="index"
-          @click="navigateTo(item.route)"
           class="menu-button w-full text-left"
+          @click="navigateTo(item.route)"
         >
           {{ item.label }}
         </button>
