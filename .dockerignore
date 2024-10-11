@@ -1,0 +1,9 @@
+/repo-operator
+/docs
+*.md
+**/node_modules/
+**/dist
+.git
+/deploy
+/build
+/api
