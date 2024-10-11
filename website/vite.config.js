@@ -2,12 +2,14 @@
 import { fileURLToPath, URL } from 'node:url';  // Allows file system manipulation based on URL paths
 import { defineConfig } from 'vite';  // Helper function to define Vite configuration
 import vue from '@vitejs/plugin-vue';  // Vite plugin to enable support for Vue.js single-file components (SFCs)
+import eslintPlugin from 'vite-plugin-eslint';
 
 // Export Vite configuration
 export default defineConfig({
   // Plugins section: Adds support for Vue SFCs
   plugins: [
     vue(),  // Enables Vue.js SFCs and features like template compilation
+    eslintPlugin(),  // Runs ESLint during Vite's development
   ],
 
   // Module resolution configuration
