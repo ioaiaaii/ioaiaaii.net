@@ -30,12 +30,10 @@ RUN --mount=type=cache,target=/go/pkg/mod \
 #   Build image
 ##    Copy files, document the default port, and run the bin as non-root user
 FROM gcr.io/distroless/static-debian12:nonroot
-LABEL org.opencontainers.image.url="https://github.com/ioaiaaii/ioaiaaii.net"
+LABEL org.opencontainers.image.url="https://github.com/ioaiaaii/ioaiaaii.net/build/api"
 COPY --from=base /etc/passwd /etc/passwd
 COPY --from=base /tmp/ioaiaaii.net /usr/local/bin/ioaiaaii.net
-COPY --from=base /go/src/internal/infrastructure/data /usr/local/app/data
 
-ENV DATA_DIR=/usr/local/app/data
 EXPOSE 8080/tcp
 USER intranet
 ENTRYPOINT ["/usr/local/bin/ioaiaaii.net"]
