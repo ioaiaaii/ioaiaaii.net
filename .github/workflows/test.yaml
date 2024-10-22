@@ -1,7 +1,5 @@
-# Example workflow
-# .github/workflows/example.yml
+name: Build and Deploy to GKE
 
-name: 'example oidc'
 on:
   push:
     branches:
@@ -14,10 +12,21 @@ jobs:
       contents: read
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: 'actions/checkout@v4' # Must come first!
-    - id: 'auth'
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: GCP Auth
       uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'
         workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
+
+    - name: GKE credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+
+    - name: Get Pods
+      run: |-
+        kubectl get pods --all-namespaces
