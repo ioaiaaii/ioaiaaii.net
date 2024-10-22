@@ -26,6 +26,7 @@ jobs:
       with:
         cluster_name: ${{ secrets.GKE_CLUSTER }}
         location: ${{ secrets.GKE_ZONE }}
+        use_internal_ip: true
 
     - name: Get Pods
       run: |-
