@@ -11,6 +11,7 @@ override OPENAPI_DOCS_PATH := docs/api
 include ${OPERATOR_PATH}/makefiles/base.mk
 include ${OPERATOR_PATH}/makefiles/openapi.mk
 include ${OPERATOR_PATH}/makefiles/golang.mk
+include ${OPERATOR_PATH}/makefiles/package.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
 
