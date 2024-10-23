@@ -2,7 +2,6 @@
 FROM node:18-alpine AS build-stage
 WORKDIR /app
 COPY ./website/package.json ./website/package-lock.json ./
-COPY ./configs/nginx.conf ./configs/nginx.conf
 RUN npm install
 COPY ./website .
 RUN npm run build
