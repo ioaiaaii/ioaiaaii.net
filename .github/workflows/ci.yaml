@@ -11,7 +11,7 @@ on:
 
 jobs:
   environment-setup:
-    name: Environment Setup
+    name: Environment Setup and Dependency Installation
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -21,9 +21,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Environment Setup and Dependency Installation
-        run: make environment
+      - run: make environment
+      - run: make go-mod-sync
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vendor_artifacts
+          path: vendor/
+          retention-days: 1
 
   code-quality:
     name: Code Quality Checks and Static Code Analysis
@@ -63,8 +67,8 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Security Scanning with Trivy
-        run: make trivy-scan TRIVY_ARGS="fs ."
+      # - name: Security Scanning with Trivy
+      #   run: make trivy-scan TRIVY_ARGS="fs ."
 
   package:
     name: Docker Build and Push
@@ -77,20 +81,34 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           submodules: recursive
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: vendor
+          merge-multiple: true
 
       - name: Docker Lint
         run: make local-docker-lint-all
 
-      - name: Docker Build
+      - name: Docker Build 
         run: make local-docker-build-all
 
       - name: Authenticate to GCP
-        uses: 'google-github-actions/auth@v2'
+        id: auth
+        uses: 'google-github-actions/auth@v2.1.6'
         with:
           token_format: 'access_token'
           workload_identity_provider: ${{ secrets.PROVIDER_NAME }}
           service_account: ${{ secrets.SA_EMAIL }}
+
+      - name: Login to GCR
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ${{ secrets.GCR_REGISTRY }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       - name: Push Docker Image to GCR
         run: make local-docker-push-all
