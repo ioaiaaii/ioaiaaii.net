@@ -13,7 +13,7 @@ WORKDIR /$GOPATH/src/
 
 # Cache Go modules and build artifacts
 COPY go.mod go.sum ./
-RUN --mount=type=cache,target=/go/pkg/mod go mod download && go mod verify
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
 COPY . .
 
@@ -21,7 +21,7 @@ COPY . .
 # use vendoring for hermetic build
 # disable CGO
 # parse build flags from Makefile
-RUN go env
+
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/go/.cache/go-build \
     go mod verify && \
