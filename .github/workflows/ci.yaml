@@ -6,7 +6,8 @@ on:
       - go.mod
       - '**.go'
       - .github/workflows/ci.yml
-      - 'website/**'     
+      - 'website/**'
+      - 'build/**' 
 
 jobs:
   environment-setup:
