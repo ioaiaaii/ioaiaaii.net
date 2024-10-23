@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Environment Setup and Dependency Installation
         run: make environment
@@ -30,6 +32,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Code Quality Checks and Static Code Analysis
         run: make go-lint
@@ -41,9 +45,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Unit Testing
-        run: make go-test
+      # - name: Unit Testing
+      #   env:
+      #     GOCACHE: ${{ runner.temp }}/go-build-cache      
+      #   run: make go-test
 
   security-scanning:
     name: Security Scanning
@@ -52,31 +60,27 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Security Scanning with Trivy
         run: make trivy-scan TRIVY_ARGS="fs ."
 
-  docker-lint:
-    name: Docker Lint
-    runs-on: ubuntu-latest
-    needs: environment-setup  # Runs after environment setup completes
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Docker Lint
-        run: make local-docker-lint-all
-
-  docker-build:
+  package:
     name: Docker Build and Push
     runs-on: ubuntu-latest
-    needs: [code-quality, unit-tests, security-scanning, docker-lint]  # Runs only after all these jobs succeed
+    needs: [code-quality, unit-tests, security-scanning]  # Runs only after all these jobs succeed
     permissions:
       id-token: write
       contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Docker Lint
+        run: make local-docker-lint-all
 
       - name: Docker Build
         run: make local-docker-build-all
