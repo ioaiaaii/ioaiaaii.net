@@ -121,4 +121,3 @@ The architecture is divided into distinct layers, each with a specific responsib
 The **ioaiaaii.net** project is designed following **Clean Architecture** principles to ensure separation of concerns, modularity, and scalability. By organizing the code into distinct layers (controller, use case, and infrastructure), the system is easy to maintain and extend with new features or transport protocols (like gRPC).
 
 This design also supports the future migration to more scalable and flexible persistence layers, such as databases or cloud storage, while preserving the core business logic.
-
