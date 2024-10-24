@@ -1,0 +1,42 @@
+{{- if and .Values.frontend.metrics.enabled .Values.frontend.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "ioaiaaii.frontend.name" . }}
+  namespace: {{ default (include "common.names.namespace" .) .Values.frontend.metrics.serviceMonitor.namespace | quote }}
+  {{- $labels := include "common.tplvalues.merge" (dict "values" (list .Values.frontend.metrics.serviceMonitor.labels .Values.commonLabels) "context" .) }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" $labels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: frontend
+  {{- if or .Values.frontend.metrics.serviceMonitor.annotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" (dict "values" (list .Values.frontend.metrics.serviceMonitor.annotations .Values.commonAnnotations) "context" .) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  jobLabel: {{ .Values.frontend.metrics.serviceMonitor.jobLabel | quote }}
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 6 }}
+      {{- if .Values.frontend.metrics.serviceMonitor.selector }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.frontend.metrics.serviceMonitor.selector "context" $) | nindent 6 }}
+      {{- end }}
+  endpoints:
+    - port: tcp-metrics
+      path: "/metrics"
+      {{- if .Values.frontend.metrics.serviceMonitor.interval }}
+      interval: {{ .Values.frontend.metrics.serviceMonitor.interval }}
+      {{- end }}
+      {{- if .Values.frontend.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.frontend.metrics.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+      {{- if .Values.frontend.metrics.serviceMonitor.honorLabels }}
+      honorLabels: {{ .Values.frontend.metrics.serviceMonitor.honorLabels }}
+      {{- end }}
+      {{- if .Values.frontend.metrics.serviceMonitor.metricRelabelings }}
+      metricRelabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.frontend.metrics.serviceMonitor.metricRelabelings "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.frontend.metrics.serviceMonitor.relabelings }}
+      relabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.frontend.metrics.serviceMonitor.relabelings "context" $) | nindent 8 }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+    - {{ include "common.names.namespace" . | quote }}
+{{- end }}
