@@ -85,6 +85,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set up Trivy Cache
+        id: trivy-cache
+        uses: actions/cache@v4
+        with:
+          path: trivy/.cache
+          key: trivy-db-${{ runner.os }}
+
       - name: Security Scanning with Trivy
         run: make trivy-scan TRIVY_ARGS="fs --cache-dir trivy/.cache ."
 
