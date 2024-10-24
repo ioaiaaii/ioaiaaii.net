@@ -11,7 +11,7 @@ RUN adduser \
     intranet
 WORKDIR /$GOPATH/src/
 
-# Cache Go modules and build artifacts
+# Cache Go modules and build artifacts test
 COPY go.mod go.sum ./
 RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
