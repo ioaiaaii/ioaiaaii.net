@@ -75,8 +75,22 @@ jobs:
         with:
           submodules: recursive
 
-      # - name: Security Scanning with Trivy
-      #   run: make trivy-scan TRIVY_ARGS="fs ."
+      - name: Set up Trivy Cache
+        id: trivy-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ runner.os }}
+          restore-keys: |
+            trivy-db-${{ runner.os }}-
+
+      # Initialize Trivy Database only if cache is missing
+      - name: Initialize Trivy Database (if needed)
+        if: steps.trivy-cache.outputs.cache-hit != 'true'
+        run: make trivy-scan TRIVY_ARGS="fs --download-db-only --cache-dir ~/.cache/trivy"
+
+      - name: Security Scanning with Trivy
+        run: make trivy-scan TRIVY_ARGS="fs --cache-dir ~/.cache/trivy ."
 
   package:
     name: Docker Build and Push
