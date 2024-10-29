@@ -10,47 +10,9 @@ on:
       - 'build/**' 
 
 jobs:
-  environment-setup:
-    name: Environment Setup and Dependency Installation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - run: make environment
-
-      - name: Cache Go Modules
-        id: go-mod-cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor
-            ~/go/pkg/mod
-          key: go-mod-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            go-mod-${{ runner.os }}-
-
-      - run: make go-mod-sync
-
-      - name: Set up Trivy Cache
-        id: trivy-cache
-        uses: actions/cache@v4
-        with:
-          path: trivy/.cache
-          key: trivy-db-${{ runner.os }}
-
-      # Initialize Trivy Database only if cache is missing
-      - name: Initialize Trivy Database (if needed)
-        if: steps.trivy-cache.outputs.cache-hit != 'true'
-        run: |
-          make trivy-scan TRIVY_ARGS="fs --download-db-only --cache-dir trivy/.cache"
-
   code-quality:
     name: Code Quality Checks and Static Code Analysis
     runs-on: ubuntu-latest
-    needs: environment-setup
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -63,7 +25,6 @@ jobs:
   unit-tests:
     name: Unit Testing
     runs-on: ubuntu-latest
-    needs: environment-setup
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -78,21 +39,35 @@ jobs:
   security-scanning:
     name: Security Scanning
     runs-on: ubuntu-latest
-    needs: environment-setup
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Set up Trivy Cache
+      - id: trivy-db
+        name: Check Trivy DB SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          endpoint='/orgs/aquasecurity/packages/container/trivy-db/versions'
+          headers='Accept: application/vnd.github+json'
+          jqFilter='.[] | select(.metadata.container.tags[] | contains("latest")) | .name | sub("sha256:";"")'
+          sha=$(gh api -H "${headers}" "${endpoint}" | jq --raw-output "${jqFilter}")
+          echo "Trivy DB sha256:${sha}"
+          echo "SHA=${sha}" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Trivy Database
         id: trivy-cache
         uses: actions/cache@v4
         with:
           path: trivy/.cache
-          key: trivy-db-${{ runner.os }}
+          key: trivy-db-${{ runner.os }}-${{ steps.trivy-db.outputs.SHA }}
+          restore-keys: |
+            trivy-db-${{ runner.os }}-
 
       - name: Security Scanning with Trivy
+        if: steps.trivy-cache.outputs.cache-hit != 'true'
         run: make trivy-scan TRIVY_ARGS="fs --cache-dir trivy/.cache ."
 
   package:
@@ -118,6 +93,10 @@ jobs:
           key: go-mod-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             go-mod-${{ runner.os }}-
+
+      - name: Sync Go Modules (if cache is not hit)
+        if: steps.go-mod-cache.outputs.cache-hit != 'true'
+        run: make go-mod-sync
 
       - name: Authenticate to GCP
         id: auth
