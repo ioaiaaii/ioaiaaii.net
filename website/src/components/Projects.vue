@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     fetchProjects() {
-      fetch('/api/projects')
+      fetch('/api/v1/projects')
         .then(response => response.json())
         .then(data => {
           // Categorize projects based on their type

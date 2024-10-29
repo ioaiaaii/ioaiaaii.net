@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     fetchLive() {
-      fetch('/api/live')
+      fetch('/api/v1/live')
         .then((response) => response.json())
         .then((data) => {
           console.log('Fetched data:', data); // Debugging log to confirm data fetching

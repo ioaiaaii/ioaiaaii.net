@@ -76,7 +76,7 @@ export default {
   },
   created() {
     // Fetch releases data on component creation
-    fetch('/api/releases')
+    fetch('/api/v1/releases')
       .then((response) => response.json())
       .then((data) => {
         this.releases = data;

@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     fetchResume() {
-      fetch('/api/info')
+      fetch('/api/v1/info')
         .then((response) => response.json())
         .then((data) => {
           this.resume = data;
