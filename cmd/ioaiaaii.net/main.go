@@ -35,7 +35,6 @@ func main() {
 
 	// 5. Setup and start the HTTP server
 	app := httpserver.SetupHTTPServer(contentHandler)
-
 	// 6. Start the HTTP server
 	log.Fatal(app.Listen(":8080"))
 }
