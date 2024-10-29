@@ -18,7 +18,7 @@ include ${OPERATOR_PATH}/makefiles/security.mk
 
 
 ## local-dev, runs bff and backend locally in dev mode
-.PHONY: local-dev-run
+.PHONY: local-dev
 local-dev:
 	@echo "Starting npm in frontend and Go in bff in parallel..."
 	@(cd website && npm run dev) & \
@@ -39,26 +39,22 @@ local-preview: website-build
 	wait
 	@echo "Both processes have finished."
 
-## local-docker-lint-all, fetching non-local target and linting all project's images
-.PHONY: local-docker-lint-all
-local-docker-lint-all: 
-	make docker-lint DOCKER_IMAGE=api 
-	make docker-lint DOCKER_IMAGE=frontend
+## local-docker-lint, fetching non-local target and linting all project's images
+.PHONY: local-docker-lint
+local-docker-lint: 
+	make docker-lint DOCKER_IMAGE=ioaiaaii 
 
-## local-docker-build-all, fetching non-local target and building all project's images
-.PHONY: local-docker-build-all
-local-docker-build-all: 
-	make docker-image DOCKER_IMAGE=api 
-	make docker-image DOCKER_IMAGE=frontend
+## local-docker-build, fetching non-local target and building all project's images
+.PHONY: local-docker-build
+local-docker-build: 
+	make docker-image DOCKER_IMAGE=ioaiaaii 
 
-## local-docker-push-all, fetching non-local target and building all project's images
-.PHONY: local-docker-push-all
-local-docker-push-all: 
-	make docker-push DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo" DOCKER_IMAGE=api
-	make docker-push DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo"  DOCKER_IMAGE=frontend
+## local-docker-push, fetching non-local target and building all project's images
+.PHONY: local-docker-push
+local-docker-push: 
+	make docker-push DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo" DOCKER_IMAGE=ioaiaaii
 
-## local-docker-run-all, fetching non-local target docker-run and run all images in the backround
-.PHONY: local-docker-run-all
-local-docker-run-all: 
-	make docker-run DOCKER_IMAGE=api
-	make docker-run DOCKER_IMAGE=frontend
+## local-docker-run, fetching non-local target docker-run and run all images in the backround
+.PHONY: local-docker-run
+local-docker-run: 
+	make docker-run DOCKER_IMAGE=ioaiaaii

@@ -127,8 +127,5 @@ jobs:
           workload_identity_provider: ${{ secrets.PROVIDER_NAME }}
           service_account: ${{ secrets.SA_EMAIL }}
 
-      - name: Build and Push API with Kaniko
-        run: make kaniko-docker-image DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo"  DOCKER_IMAGE=api
-
-      - name: Build and Push Frontend with Kaniko
-        run: make kaniko-docker-image DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo"  DOCKER_IMAGE=frontend
+      - name: Build and Push Image with Kaniko
+        run: make kaniko-docker-image DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo"  DOCKER_IMAGE=ioaiaaii
