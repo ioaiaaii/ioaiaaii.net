@@ -1,5 +1,12 @@
 # Multi-stage docker build
 ##    Build base, parse LD_FLAGS, add user and build the service bin to /tmp dir.
+FROM node:18-alpine AS build-ui
+WORKDIR /app
+COPY ./website/package.json ./website/package-lock.json ./
+RUN npm install
+COPY ./website .
+RUN npm run build
+
 FROM golang@sha256:9dd2625a1ff2859b8d8b01d8f7822c0f528942fe56cfe7a1e7c38d3b8d72d679 as base
 ARG LD_FLAGS
 RUN adduser \
@@ -9,13 +16,14 @@ RUN adduser \
     --shell "/sbin/nologin" \
     --no-create-home \
     intranet
-WORKDIR /$GOPATH/src/
+WORKDIR $GOPATH/src/
 
 # Cache Go modules and build artifacts test
 COPY go.mod go.sum ./
 RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
 COPY . .
+COPY --from=build-ui /app/dist $GOPATH/src/website/dist
 
 # reduce layer in one RUN
 # use vendoring for hermetic build

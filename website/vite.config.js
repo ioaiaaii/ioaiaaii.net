@@ -6,6 +6,7 @@ import eslintPlugin from 'vite-plugin-eslint';
 
 // Export Vite configuration
 export default defineConfig({
+  base: '/web/', // Set the base path for all assets
   // Plugins section: Adds support for Vue SFCs
   plugins: [
     vue(),  // Enables Vue.js SFCs and features like template compilation
@@ -19,7 +20,6 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-
   // Development server configuration
   server: {
     // Port to run the development server on. Changed to 3000 for development convenience
@@ -31,7 +31,7 @@ export default defineConfig({
     // Proxy configuration to forward API requests during development
     proxy: {
       // Proxy all requests starting with '/api' to the backend server
-      '/api': {
+      '/api/v1': {
         target: 'http://127.0.0.1:8080',  // Backend API server address (Fiber server in your case)
         changeOrigin: true,  // Adjusts the origin of the host header to match the target URL
         // No rewrite since your API paths already start with '/api'

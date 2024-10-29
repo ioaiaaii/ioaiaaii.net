@@ -11,7 +11,8 @@ func SetupHTTPServer(contentHandler *httpcontroller.ContentHandler) *fiber.App {
 	app := fiber.New()
 
 	// Register the routes by calling the function from the HTTP controller layer
-	httpcontroller.RegisterRoutes(app, contentHandler)
+	httpcontroller.RegisterAPIRoutes(app, contentHandler)
+	httpcontroller.RegisterUIRoutes(app)
 
 	return app
 }

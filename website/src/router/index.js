@@ -4,6 +4,7 @@ import Info from '@/components/Info.vue';
 import Projects from '@/components/Projects.vue';
 import Releases from '@/components/Releases.vue';
 import Live from '@/components/Live.vue';
+import NotFound from '@/components/NotFound.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -11,10 +12,12 @@ const routes = [
   { path: '/projects', name: 'Projects', component: Projects },
   { path: '/releases', name: 'Releases', component: Releases },
   { path: '/live', name: 'Live', component: Live },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
+
 ];
 
 const router = createRouter({
-  history: createWebHistory(), // This is the equivalent of `mode: 'history'` in Vue 2
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

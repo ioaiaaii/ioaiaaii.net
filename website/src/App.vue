@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navigation />
+    <Navigation v-if="$route.name !== 'NotFound'" />
     <router-view />
   </div>
 </template>
