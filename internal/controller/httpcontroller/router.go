@@ -74,3 +74,12 @@ func RegisterUIRoutes(app *fiber.App) {
 		MaxAge:       3600,
 	}))
 }
+
+// RegisterHealthRoutes adds liveness and readiness routes for health checks
+func RegisterHealthRoutes(app *fiber.App, handler *ContentHandler) {
+	// Liveness endpoint: Kubernetes will use this to check if the container is running
+	app.Get("/healthz/liveness", handler.IsAlive)
+
+	// Readiness endpoint: Kubernetes will use this to check if the service is ready
+	app.Get("/healthz/readiness", handler.IsReady)
+}
