@@ -6,14 +6,16 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// ContentHandler handles HTTP requests related to content.
+// ContentHandler handles HTTP requests related to content and health checks.
 type ContentHandler struct {
 	Usecase contentusecase.ContentUsecase
 }
 
 // NewContentHandler initializes a new ContentHandler.
 func NewContentHandler(uc contentusecase.ContentUsecase) *ContentHandler {
-	return &ContentHandler{Usecase: uc}
+	return &ContentHandler{
+		Usecase: uc,
+	}
 }
 
 // GetResume handles the retrieval of resume details.
