@@ -41,7 +41,7 @@ ingress:
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##
-  path: /web(/|$)(.*)
+  path: /
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -52,9 +52,12 @@ ingress:
   ##
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
-    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /web$1  # Route all root requests to /web
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/(.*)$ /web/$1 last;
+      location /api {
+        allow 127.0.0.1;  # Allow internal access
+        deny all;          # Deny all other access
+      }
 
   ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
