@@ -41,7 +41,6 @@ Chart for BFF of IOAIAAII.NET
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.extraHosts | list | `[]` |  |

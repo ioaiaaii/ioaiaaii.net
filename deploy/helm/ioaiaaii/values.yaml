@@ -52,7 +52,6 @@ ingress:
   ##
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
-    nginx.ingress.kubernetes.io/use-regex: "true"
 
   ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
