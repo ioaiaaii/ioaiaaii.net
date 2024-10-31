@@ -52,7 +52,7 @@ Chart for BFF of IOAIAAII.NET
 | ingress.hostname | string | `"ioaiaaii.net"` |  |
 | ingress.ingressClassName | string | `"nginx"` |  |
 | ingress.path | string | `"/web(/|$)(.*)"` |  |
-| ingress.pathType | string | `"Prefix"` |  |
+| ingress.pathType | string | `"ImplementationSpecific"` |  |
 | ingress.secrets | list | `[]` |  |
 | ingress.selfSigned | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"ioaiaaii.net"` |  |
