@@ -52,7 +52,6 @@ ingress:
   ##
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
-    nginx.ingress.kubernetes.io/rewrite-target: $2  # Route all root requests to /web
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^(/web)$ $1/ redirect;

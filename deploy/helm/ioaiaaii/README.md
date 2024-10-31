@@ -42,7 +42,6 @@ Chart for BFF of IOAIAAII.NET
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"rewrite ^(/web)$ $1/ redirect;\n"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
