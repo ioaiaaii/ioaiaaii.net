@@ -1,6 +1,6 @@
 # ioaiaaii
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: feat-webframework-improvements](https://img.shields.io/badge/AppVersion-feat--webframework--improvements-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Chart for BFF of IOAIAAII.NET
 
@@ -41,6 +41,8 @@ Chart for BFF of IOAIAAII.NET
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/web"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.extraHosts | list | `[]` |  |
