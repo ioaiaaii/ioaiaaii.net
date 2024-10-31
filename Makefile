@@ -13,6 +13,7 @@ include ${OPERATOR_PATH}/makefiles/openapi.mk
 include ${OPERATOR_PATH}/makefiles/golang.mk
 include ${OPERATOR_PATH}/makefiles/package.mk
 include ${OPERATOR_PATH}/makefiles/security.mk
+include ${OPERATOR_PATH}/makefiles/helm.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
 
