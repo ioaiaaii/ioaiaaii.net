@@ -41,7 +41,7 @@ Chart for BFF of IOAIAAII.NET
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"# Remove any Authorization headers if needed\nproxy_set_header Authorization \"none\";\n\n# Rewrite root requests to /web internally\nrewrite ^/$ /web/ break;\nrewrite ^/(.*)$ /web/$1 break;\n\n# Optional: Restrict access to API paths\nlocation /api {\n  deny all;\n  return 403;\n}\n"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"proxy_set_header Authorization \"none\";\nrewrite ^/$ /web/ break;\nrewrite ^/(.*)$ /web/$1 break;\n"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
