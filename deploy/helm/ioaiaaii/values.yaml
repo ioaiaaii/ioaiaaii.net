@@ -57,8 +57,8 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /$2    
     nginx.ingress.kubernetes.io/use-regex: "true"
     # add trailing slash to requests of index
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^(/web)$ $1/ permanent;
+    # nginx.ingress.kubernetes.io/configuration-snippet: |
+    #   rewrite ^(/web)$ $1/ permanent;
   ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
   ## You can:
