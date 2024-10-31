@@ -5,5 +5,5 @@
 
 {{/* Name suffixed with api */}}
 {{- define "ioaiaaii.web.name" -}}
-{{- printf "%s-api" (include "common.names.fullname" .) -}}
+{{- printf "%s-web" (include "common.names.fullname" .) -}}
 {{- end -}}
