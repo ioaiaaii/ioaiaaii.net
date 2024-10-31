@@ -41,7 +41,7 @@ Chart for BFF of IOAIAAII.NET
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/web"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
@@ -51,7 +51,7 @@ Chart for BFF of IOAIAAII.NET
 | ingress.extraTls | list | `[]` |  |
 | ingress.hostname | string | `"ioaiaaii.net"` |  |
 | ingress.ingressClassName | string | `"nginx"` |  |
-| ingress.path | string | `"/"` |  |
+| ingress.path | string | `"/web(/|$)(.*)"` |  |
 | ingress.pathType | string | `"Prefix"` |  |
 | ingress.secrets | list | `[]` |  |
 | ingress.selfSigned | bool | `false` |  |
