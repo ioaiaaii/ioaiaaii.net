@@ -41,7 +41,7 @@ Chart for BFF of IOAIAAII.NET
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"# Remove any Authorization headers if needed\nproxy_set_header Authorization \"none\";\n\n# Rewrite root requests to /web internally\nrewrite ^/$ /web/ break;\nrewrite ^/(.*)$ /web/$1 break;\n\n# Optional: Restrict access to API paths\nlocation /api {\n  deny all;\n  return 403;\n}\n"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
@@ -51,7 +51,7 @@ Chart for BFF of IOAIAAII.NET
 | ingress.extraTls | list | `[]` |  |
 | ingress.hostname | string | `"ioaiaaii.net"` |  |
 | ingress.ingressClassName | string | `"nginx"` |  |
-| ingress.path | string | `"/web(/|$)(.*)"` |  |
+| ingress.path | string | `"/"` |  |
 | ingress.pathType | string | `"Prefix"` |  |
 | ingress.secrets | list | `[]` |  |
 | ingress.selfSigned | bool | `false` |  |
