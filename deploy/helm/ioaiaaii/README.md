@@ -1,6 +1,6 @@
 # ioaiaaii
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: feat-webframework-improvements](https://img.shields.io/badge/AppVersion-feat--webframework--improvements-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Chart for BFF of IOAIAAII.NET
 
@@ -40,20 +40,21 @@ Chart for BFF of IOAIAAII.NET
 | global.defaultStorageClass | string | `""` |  |
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
-| ingress.annotations | object | `{}` |  |
+| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
 | ingress.apiVersion | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| ingress.enabled | bool | `true` |  |
 | ingress.extraHosts | list | `[]` |  |
 | ingress.extraPaths | list | `[]` |  |
 | ingress.extraRules | list | `[]` |  |
 | ingress.extraTls | list | `[]` |  |
 | ingress.hostname | string | `"ioaiaaii.net"` |  |
-| ingress.ingressClassName | string | `""` |  |
+| ingress.ingressClassName | string | `"nginx"` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.pathType | string | `"ImplementationSpecific"` |  |
 | ingress.secrets | list | `[]` |  |
 | ingress.selfSigned | bool | `false` |  |
-| ingress.tls | bool | `false` |  |
+| ingress.tls[0].hosts[0] | string | `"ioaiaaii.net"` |  |
+| ingress.tls[0].secretName | string | `"letsencrypt-cluster-cert-ioaiaaii"` |  |
 | kubeVersion | string | `""` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
