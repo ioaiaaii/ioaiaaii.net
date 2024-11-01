@@ -17,7 +17,7 @@ export default {
     // },    
     extend: {
       fontFamily: {
-        sans: ["SF Pro Display", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["Montserrat", "serif"],
       },
       gridAutoColumns: {
         '2fr': 'minmax(0, 2fr)',

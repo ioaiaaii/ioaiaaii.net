@@ -4,7 +4,7 @@
     <div class="base-grid">
       <!-- <div class="grid md:grid-cols-1 lg:grid-cols-2 auto-cols-fr"> -->
       <!-- Left Column: Experience and References -->
-      <div class="p-4 sm:p-6 lg:p-8 lg:border-r border-gray-200 ">
+      <div class="p-4 lg:border-r border-gray-200 ">
         <!-- Experience Section -->
         <section
           v-if="resume.experience.length"
@@ -34,7 +34,7 @@
       </div>
 
       <!-- Right Column: Education, Projects, and Skills -->       
-      <div class="p-4 sm:p-6 lg:p-8">
+      <div class="p-4">
         <!-- Education Section -->
         <section
           v-if="resume.education.length"

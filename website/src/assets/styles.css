@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,24 +16,29 @@
 
   /* Menu */
   .menu-button {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold uppercase text-blue-900 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
+    @apply font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold uppercase text-blue-900 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
   }
   
+    /* Menu button style for /live page */
+  .menu-button-live {
+    @apply font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold uppercase text-white tracking-wide hover:text-blue-500  transition duration-300 ease-in-out;
+  }
+
   .menu-button-home {
     @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold uppercase text-blue-900 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out animate-pulse;
   }
 
   /* Text */
   .info-title {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-left sm:text-left md:text-left lg:text-center tracking-wider;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-left sm:text-left md:text-left lg:text-center tracking-widest;
   }
 
   .info-subtitle {
-    @apply text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-2xl font-bold text-left sm:text-left md:text-left lg:text-center tracking-widest;
+    @apply text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-2xl font-semibold text-left sm:text-left md:text-left lg:text-center;
   }
 
   .info-heading {
-    @apply mt-4 text-lg sm:text-xl md:text-2xl font-semibold uppercase tracking-wider;
+    @apply mt-4 text-lg sm:text-xl md:text-2xl font-semibold uppercase tracking-wide;
   }
 
   .heading-lg {
@@ -64,30 +70,30 @@
   }
 
   .project-heading {
-    @apply text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide text-slate-200;
+    @apply text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-normal text-slate-200;
   }
 
   .basic-text {
-    @apply text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed text-pretty tracking-wide;
+    @apply text-lg sm:text-xl lg:text-2xl text-gray-800 leading-relaxed text-pretty font-normal;
   }
 
   .release-title {
-    @apply text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide uppercase;
+    @apply text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-widest uppercase;
   }
 
   .release-text {
-    @apply tracking-wider text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed text-balance;
+    @apply tracking-wide text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed text-balance;
   }
 
   .release-button {
-    @apply font-bold text-base sm:text-base md:text-xl lg:text-2xl text-blue-800 tracking-widest hover:text-blue-500 transition duration-300 uppercase;
+    @apply font-bold text-base sm:text-base md:text-xl lg:text-2xl text-green-800 tracking-widest hover:text-green-200 transition duration-300 uppercase;
   }
 
   .live-text {
-    @apply text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-white tracking-wider;
+    @apply text-lg sm:text-lg md:text-xl lg:text-3xl xl:text-4xl font-semibold uppercase text-white tracking-wider;
   }
 
   .live-button {
-    @apply font-bold text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl  text-blue-500 tracking-widest hover:text-white transition duration-300 uppercase;
+    @apply text-lg sm:text-lg md:text-xl lg:text-3xl xl:text-4xl font-semibold uppercase text-green-800 tracking-widest hover:text-white transition duration-300 uppercase;
   }
 }

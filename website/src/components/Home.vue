@@ -1,8 +1,8 @@
 <template>
-  <!-- Main container with flex settings for full height and column stacking -->
-  <div class="base-container mx-auto ">
+  <!-- Main container with flex column for full height and sticky footer -->
+  <div class="base-container flex flex-col min-h-screen mx-auto">
     <!-- Name and Profile Information -->
-    <div class="p-4 sm:p-6 lg:p-8 mt-4">
+    <div class="p-4 mt-4">
       <h1 class="info-title">
         {{ resume.name }}
       </h1>
@@ -12,7 +12,7 @@
     </div>     
 
     <!-- Two-column Grid for Engineer and Composer Sections -->
-    <div class="base-grid p-4 sm:p-6 lg:p-8 grow gap-2 md:gap-4">
+    <div class="base-grid p-4 grow gap-2 md:gap-4">
       <!-- Engineer Column -->
       <div>
         <h2 class="info-heading">
@@ -33,14 +33,15 @@
       </div>      
     </div>
 
-    <!-- Responsive Image -->
+    <!-- Responsive Image (Non-growing) -->
     <img
-      class="h-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto object-contain"
+      class="h-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto object-contain flex-none"
       src="/assets/images/home/profile.png"
       alt="Home Image"
     >
-    <!-- Footer Section -->
-    <footer class="w-full p-4 mt-auto border-t border-gray-200 sticky top-full">
+    
+    <!-- Footer Section (Sticky to Bottom) -->
+    <footer class="w-full p-4 mt-auto border-t border-gray-500">
       <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-center gap-4 text-left">
         <!-- Contact Section -->
         <div>
@@ -52,7 +53,7 @@
               :href="'mailto:' + resume.email"
               target="_blank"
               class="hover:underline"
-            > {{ resume.email }}</a> <br>
+            >{{ resume.email }}</a> <br>
           </p>
         </div>
         <!-- Profiles Section -->
