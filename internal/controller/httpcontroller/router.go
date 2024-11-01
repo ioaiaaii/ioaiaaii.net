@@ -66,7 +66,7 @@ func RegisterUIRoutes(app *fiber.App) {
 		log.Fatal("Failed to load embedded UI files: ", err)
 	}
 
-	ui := app.Group("/web")
+	ui := app.Group("/")
 	ui.Use("/", filesystem.New(filesystem.Config{
 		Root:         http.FS(embedAdmin),
 		Index:        "index.html",

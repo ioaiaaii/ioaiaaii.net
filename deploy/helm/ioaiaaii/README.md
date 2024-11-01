@@ -1,6 +1,6 @@
 # ioaiaaii
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: feat-webframework-improvements](https://img.shields.io/badge/AppVersion-feat--webframework--improvements-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Chart for BFF of IOAIAAII.NET
 
@@ -27,7 +27,6 @@ Chart for BFF of IOAIAAII.NET
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| clusterDomain | string | `"cluster.local"` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
 | diagnosticMode.args[0] | string | `"infinity"` |  |
@@ -35,26 +34,21 @@ Chart for BFF of IOAIAAII.NET
 | diagnosticMode.enabled | bool | `false` |  |
 | extraDeploy | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| global.compatibility.omitEmptySeLinuxOptions | bool | `false` |  |
-| global.compatibility.openshift.adaptSecurityContext | string | `"auto"` |  |
-| global.defaultStorageClass | string | `""` |  |
-| global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `"europe-west3-docker.pkg.dev/micro-infra"` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.apiVersion | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-cluster-issuer"` |  |
+| ingress.enabled | bool | `true` |  |
 | ingress.extraHosts | list | `[]` |  |
 | ingress.extraPaths | list | `[]` |  |
 | ingress.extraRules | list | `[]` |  |
 | ingress.extraTls | list | `[]` |  |
 | ingress.hostname | string | `"ioaiaaii.net"` |  |
-| ingress.ingressClassName | string | `""` |  |
+| ingress.ingressClassName | string | `"nginx"` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.pathType | string | `"ImplementationSpecific"` |  |
 | ingress.secrets | list | `[]` |  |
 | ingress.selfSigned | bool | `false` |  |
-| ingress.tls | bool | `false` |  |
-| kubeVersion | string | `""` |  |
+| ingress.tls[0].hosts[0] | string | `"ioaiaaii.net"` |  |
+| ingress.tls[0].secretName | string | `"letsencrypt-cluster-cert-ioaiaaii"` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | networkPolicy.addExternalClientAccess | bool | `true` |  |
@@ -86,18 +80,13 @@ Chart for BFF of IOAIAAII.NET
 | web.containerSecurityContext.runAsUser | int | `1001` |  |
 | web.containerSecurityContext.seLinuxOptions | object | `{}` |  |
 | web.containerSecurityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
-| web.customLivenessProbe | object | `{}` |  |
-| web.customReadinessProbe | object | `{}` |  |
-| web.customStartupProbe | object | `{}` |  |
 | web.deploymentAnnotations | object | `{}` |  |
 | web.existingConfigmap | string | `nil` |  |
-| web.extraEnvVars | list | `[]` |  |
 | web.hostAliases | list | `[]` |  |
 | web.image.debug | bool | `false` |  |
 | web.image.pullPolicy | string | `"IfNotPresent"` |  |
 | web.image.repository | string | `"micro-repo/ioaiaaii"` |  |
 | web.image.tag | string | `nil` |  |
-| web.lifecycleHooks | object | `{}` |  |
 | web.livenessProbe.enabled | bool | `true` |  |
 | web.livenessProbe.failureThreshold | int | `6` |  |
 | web.livenessProbe.httpGet.path | string | `"/healthz/liveness"` |  |
@@ -106,18 +95,18 @@ Chart for BFF of IOAIAAII.NET
 | web.livenessProbe.periodSeconds | int | `20` |  |
 | web.livenessProbe.successThreshold | int | `1` |  |
 | web.livenessProbe.timeoutSeconds | int | `5` |  |
-| web.metrics.enabled | bool | `false` |  |
-| web.metrics.serviceMonitor.annotations | object | `{}` |  |
-| web.metrics.serviceMonitor.enabled | bool | `false` |  |
-| web.metrics.serviceMonitor.honorLabels | bool | `false` |  |
-| web.metrics.serviceMonitor.interval | string | `""` |  |
-| web.metrics.serviceMonitor.jobLabel | string | `""` |  |
-| web.metrics.serviceMonitor.labels | object | `{}` |  |
-| web.metrics.serviceMonitor.metricRelabelings | list | `[]` |  |
-| web.metrics.serviceMonitor.namespace | string | `""` |  |
-| web.metrics.serviceMonitor.relabelings | list | `[]` |  |
-| web.metrics.serviceMonitor.scrapeTimeout | string | `""` |  |
-| web.metrics.serviceMonitor.selector | object | `{}` |  |
+| web.metrics.enabled | bool | `false` | Enable the export of Prometheus metrics |
+| web.metrics.serviceMonitor.annotations | object | `{}` | Additional custom annotations for the ServiceMonitor |
+| web.metrics.serviceMonitor.enabled | bool | `false` | if `true`, creates a Prometheus Operator ServiceMonitor (also requires `metrics.enabled` to be `true`) |
+| web.metrics.serviceMonitor.honorLabels | bool | `false` | honorLabels chooses the metric's labels on collisions with target labels |
+| web.metrics.serviceMonitor.interval | string | `""` | Interval at which metrics should be scraped. # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint |
+| web.metrics.serviceMonitor.jobLabel | string | `""` | The name of the label on the target service to use as the job name in Prometheus |
+| web.metrics.serviceMonitor.labels | object | `{}` | Extra labels for the ServiceMonitor |
+| web.metrics.serviceMonitor.metricRelabelings | list | `[]` | Specify additional relabeling of metrics |
+| web.metrics.serviceMonitor.namespace | string | `""` | Namespace in which Prometheus is running |
+| web.metrics.serviceMonitor.relabelings | list | `[]` | Specify general relabeling |
+| web.metrics.serviceMonitor.scrapeTimeout | string | `""` | Timeout after which the scrape is ended # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint |
+| web.metrics.serviceMonitor.selector | object | `{}` | Prometheus instance selector labels # ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration |
 | web.nodeAffinityPreset | object | `{}` |  |
 | web.nodeSelector | object | `{}` |  |
 | web.pdb.create | bool | `false` |  |
@@ -145,21 +134,10 @@ Chart for BFF of IOAIAAII.NET
 | web.replicaCount | int | `1` |  |
 | web.resources | object | `{}` |  |
 | web.resourcesPreset | string | `"nano"` |  |
-| web.service.annotations | object | `{}` |  |
-| web.service.clusterIP | string | `""` |  |
-| web.service.externalTrafficPolicy | string | `"Cluster"` |  |
-| web.service.extraPorts | list | `[]` |  |
-| web.service.loadBalancerIP | string | `""` |  |
-| web.service.loadBalancerSourceRanges | list | `[]` |  |
-| web.service.nodePorts.http | string | `""` |  |
-| web.service.nodePorts.https | string | `""` |  |
 | web.service.ports.http | int | `80` |  |
 | web.service.ports.https | int | `443` |  |
-| web.service.sessionAffinity | string | `"None"` |  |
-| web.service.sessionAffinityConfig | object | `{}` |  |
 | web.service.type | string | `"ClusterIP"` |  |
 | web.startupProbe.enabled | bool | `false` |  |
-| web.terminationGracePeriodSeconds | string | `""` |  |
 | web.tolerations | list | `[]` |  |
 | web.topologySpreadConstraints | list | `[]` |  |
 | web.updateStrategy.type | string | `"RollingUpdate"` |  |

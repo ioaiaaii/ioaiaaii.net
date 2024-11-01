@@ -6,7 +6,7 @@ import eslintPlugin from 'vite-plugin-eslint';
 
 // Export Vite configuration
 export default defineConfig({
-  base: '/web/', // Set the base path for all assets
+  // base: '/web/', // Set the base path for all assets
   // Plugins section: Adds support for Vue SFCs
   plugins: [
     vue(),  // Enables Vue.js SFCs and features like template compilation
