@@ -4,7 +4,7 @@
   <div
     :class="[
       'fixed top-0 left-0 w-full z-50 bg-white',
-      isLivePage ? 'bg-opacity-0' : 'bg-opacity-100 border-b border-slate-400'
+      isLivePage ? 'bg-opacity-0' : 'bg-opacity-100 border-b border-slate-600'
     ]"
   >
     <!-- Top Bar: Menu Toggle, Left & Right Menus, and IOAIAAII Button -->
@@ -12,7 +12,7 @@
       <!-- Menu toggle for mobile view (Option button on the left in mobile view) -->
       <div class="lg:hidden">
         <button
-          class="menu-button"
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
           @click="toggleMenu"
         >
           Option
@@ -35,7 +35,7 @@
         <button
           v-for="(item, index) in leftMenuItems"
           :key="index"
-          class="menu-button"
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
           @click="navigateTo(item.route)"
         >
           {{ item.label }}
@@ -47,7 +47,7 @@
         <button
           v-for="(item, index) in rightMenuItems"
           :key="index"
-          class="menu-button"
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
           @click="navigateTo(item.route)"
         >
           {{ item.label }}
@@ -58,13 +58,13 @@
     <!-- Mobile menu (visible when menu is toggled open) -->
     <div 
       v-if="isMenuOpen" 
-      class="flex flex-col shadow-md lg:hidden bg-slate-200"
+      class="flex flex-col lg:hidden backdrop-blur-sm"
     >
       <div class="px-4 py-2">
         <button
           v-for="(item, index) in allMenuItems"
           :key="index"
-          class="menu-button w-full text-left"
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button', 'w-full text-left']"
           @click="navigateTo(item.route)"
         >
           {{ item.label }}

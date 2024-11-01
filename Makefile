@@ -28,6 +28,10 @@ local-dev:
 	@echo "Both processes have finished."
 
 ## website-build, builds vite project
+website-lint:
+	@cd website && npm run lint:fix
+
+## website-build, builds vite project
 website-build:
 	@cd website && npm run build
 

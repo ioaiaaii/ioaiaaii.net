@@ -3,7 +3,7 @@
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->
-      <div class="p-4 sm:p-6 lg:p-8 lg:border-r border-gray-200">
+      <div class="p-4 lg:border-r border-gray-200">
         <h3 class="project-heading mt-4">
           ///
         </h3>
@@ -11,7 +11,7 @@
           <div 
             v-for="(project, index) in classicalProjects" 
             :key="index" 
-            class="p-6"
+            class="mb-6"
           >
             <a 
               :href="project.link" 
@@ -28,15 +28,15 @@
       </div>
 
       <!-- Quantum Computing Works Column -->
-      <div class="p-4 sm:p-6 lg:p-8">
+      <div class="p-4">
         <h2 class="project-heading mt-4">
           +++
         </h2>
         <ul>
           <li 
             v-for="(latexDoc, index) in quantumDocuments" 
-            :key="index" 
-            class="p-6"
+            :key="index"
+            class="mb-6"
           >
             <a 
               :href="latexDoc.link" 
