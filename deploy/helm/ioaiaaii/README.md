@@ -63,7 +63,7 @@ Chart for BFF of IOAIAAII.NET
 | web.affinity | object | `{}` |  |
 | web.args | list | `[]` |  |
 | web.automountServiceAccountToken | bool | `false` |  |
-| web.autoscaling.hpa.enabled | bool | `false` |  |
+| web.autoscaling.hpa.enabled | bool | `true` |  |
 | web.autoscaling.hpa.maxReplicas | int | `4` |  |
 | web.autoscaling.hpa.minReplicas | int | `1` |  |
 | web.autoscaling.hpa.targetCPU | int | `70` |  |
