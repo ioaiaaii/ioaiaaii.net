@@ -7,30 +7,28 @@
         loading="lazy"
         alt="Profile Image"
         :class="[
-          'absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 delay-200',
+          'absolute inset-0 w-full h-full object-cover',
           isImageLoaded ? 'opacity-100' : 'opacity-0'
         ]"
         sizes="100vw"
         @load="handleImageLoad"
-      > 
+      >
     </div>
 
     <!-- Text Overlay for Live Performances with top margin to start after the menu bar -->
     <div
-      :class="[
-        'relative h-full flex items-start justify-center mt-10 p-4 sm:p-6 md:p-6 transition-opacity',
-        isImageLoaded ? 'opacity-100' : 'opacity-0'
-      ]"
+      v-if="isImageLoaded"
+      class="relative h-full flex items-start justify-left mt-12 p-4"
     >
       <!-- Scrollable container for live performances with fixed max height -->
-      <ul class="space-y-2 text-pretty max-h-[75vh] overflow-y-auto">
+      <ul class="space-y-4 max-h-[85vh] overflow-y-auto">
         <li
           v-for="(performance, index) in performances"
           :key="index"
           class="live-text"
         >
           <div>
-            {{ performance.date }} / {{ performance.title }}
+            {{ performance.date }} : {{ performance.title }}
             <span
               v-if="performance.event_link"
               class="mx-2"
@@ -57,7 +55,7 @@
             >
               Listen
             </a>
-          </div>              
+          </div>
         </li>
       </ul>
     </div>

@@ -1,7 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
 
 @layer components {
 
@@ -90,10 +94,10 @@
   }
 
   .live-text {
-    @apply text-lg sm:text-lg md:text-xl lg:text-3xl xl:text-4xl font-semibold uppercase text-white tracking-wider;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl  font-semibold uppercase text-white tracking-wide;
   }
 
   .live-button {
-    @apply text-lg sm:text-lg md:text-xl lg:text-3xl xl:text-4xl font-semibold uppercase text-green-800 tracking-widest hover:text-white transition duration-300 uppercase;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-semibold uppercase text-green-800 tracking-wide hover:text-white transition duration-300 uppercase;
   }
 }

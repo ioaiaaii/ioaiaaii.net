@@ -15,18 +15,12 @@
     <div class="base-grid p-4 grow gap-2 md:gap-4">
       <!-- Engineer Column -->
       <div>
-        <h2 class="info-heading">
-          Engineer
-        </h2>
         <p class="basic-text mr-2">
           {{ resume.engineerBio }}
         </p>
       </div>
       <!-- Composer Column -->
       <div>
-        <h2 class="info-heading mt-4 text-xl sm:text-2xl font-semibold">
-          Composer
-        </h2>
         <p class="basic-text mr-2">
           {{ resume.artistBio }}
         </p>
