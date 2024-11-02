@@ -1,27 +1,15 @@
 <template>
-  <div class="relative w-full h-screen overflow-hidden">
-    <!-- Image Section as Background Cover -->
-    <div class="absolute inset-0 w-full h-full">
-      <img
-        src="/assets/images/live/studio_2024.jpg"
-        loading="lazy"
-        alt="Profile Image"
-        :class="[
-          'absolute inset-0 w-full h-full object-cover',
-          isImageLoaded ? 'opacity-100' : 'opacity-0'
-        ]"
-        sizes="100vw"
-        @load="handleImageLoad"
-      >
-    </div>
+  <div
+    class="relative w-full h-screen overflow-hidden bg-cover bg-center"
+    style="background-image: url('/assets/images/live/studio_2024.jpg');"
+  >
+    <!-- Spacer Div to Push Content Down -->
+    <div class="h-16 md:h-20 lg:h-24" />
 
-    <!-- Text Overlay for Live Performances with top margin to start after the menu bar -->
-    <div
-      v-if="isImageLoaded"
-      class="relative h-full flex items-start justify-left mt-12 p-4"
-    >
-      <!-- Scrollable container for live performances with fixed max height -->
-      <ul class="space-y-4 max-h-[85vh] overflow-y-auto">
+    <!-- Text Overlay for Live Performances -->
+    <div class="relative h-full flex flex-col items-start justify-start p-4">
+      <!-- Scrollable container with hidden scrollbar -->
+      <ul class="space-y-4 overflow-y-auto max-h-[75vh] w-full scrollbar-hide">
         <li
           v-for="(performance, index) in performances"
           :key="index"
@@ -67,7 +55,7 @@ export default {
   data() {
     return {
       performances: [], // Holds the fetched performances
-      isImageLoaded: false, // Tracks if the image has fully loaded
+      showScrollIndicator: true, // Controls visibility of scroll indicator
     };
   },
   created() {
@@ -83,9 +71,30 @@ export default {
         })
         .catch((error) => console.error('Error fetching live performances:', error));
     },
-    handleImageLoad() {
-      this.isImageLoaded = true; // Set to true when image is fully loaded
+    handleScroll() {
+      const scrollContainer = this.$refs.scrollContainer;
+      // Hide the scroll indicator after the user scrolls down slightly
+      if (scrollContainer.scrollTop > 10) {
+        this.showScrollIndicator = false;
+      } else {
+        this.showScrollIndicator = true;
+      }
     },
   },
 };
 </script>
+
+<style scoped>
+/* Optional: Additional styles for positioning and appearance */
+.bg-cover {
+  background-size: cover;
+}
+.bg-center {
+  background-position: center;
+}
+
+/* For smooth scrolling inside the list */
+ul {
+  scrollbar-width: thin;
+}
+</style>

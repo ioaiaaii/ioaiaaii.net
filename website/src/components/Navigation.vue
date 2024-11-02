@@ -1,75 +1,73 @@
 <template>
   <!-- Main Navigation Container -->
-  <!-- Conditional opacity -->
   <div
     :class="[
       'fixed top-0 left-0 w-full z-50 bg-white',
       isLivePage ? 'bg-opacity-0' : 'bg-opacity-100 border-b border-slate-600'
     ]"
   >
-    <!-- Top Bar: Menu Toggle, Left & Right Menus, and IOAIAAII Button -->
-    <div :class="['flex items-center py-2 px-4', isMenuOpen ? 'justify-start' : 'justify-between']">
-      <!-- Menu toggle for mobile view (Option button on the left in mobile view) -->
-      <div class="lg:hidden">
-        <button
-          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
-          @click="toggleMenu"
-        >
-          Option
-        </button>
-      </div>
-
-      <!-- Conditionally Centered IOAIAAII button (centered in large screens) -->
-      <!-- The conditional ml-auto is applied only when isMenuOpen is true.
-      The lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 classes ensure the "IOAIAAII" button is centered on large screens.        -->
+    <!-- Top Bar: Left Conditional Text, Right Menu, and Option Button for Mobile -->
+    <div class="flex items-center py-2 px-4 justify-between relative">
+      <!-- Left-side: IOANNIS SAVVAIDIS on the homepage, IOAIAAII on other pages -->
       <button 
-        v-if="showReturnButton"
-        :class="['menu-button-home', isMenuOpen ? 'ml-auto' : '', 'lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2']" 
+        v-if="isHomePage"
+        class="menu-button"
+      >
+        IOANNIS SAVVAIDIS
+      </button>
+      <button 
+        v-else
+        class="menu-button"
         @click="navigateTo('/')"
       >
         IOAIAAII
       </button>
 
-      <!-- Left-aligned menu items (visible on larger screens) -->
-      <div class="hidden lg:flex space-x-4 lg:space-x-16">
-        <button
-          v-for="(item, index) in leftMenuItems"
-          :key="index"
-          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
-          @click="navigateTo(item.route)"
-        >
-          {{ item.label }}
-        </button>
-      </div>
-
-      <!-- Right-aligned menu items (visible on larger screens) -->
-      <div class="hidden lg:flex space-x-4 lg:space-x-16">
-        <button
-          v-for="(item, index) in rightMenuItems"
-          :key="index"
-          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
-          @click="navigateTo(item.route)"
-        >
-          {{ item.label }}
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile menu (visible when menu is toggled open) -->
-    <div 
-      v-if="isMenuOpen" 
-      class="flex flex-col lg:hidden backdrop-blur-sm"
-    >
-      <div class="px-4 py-2">
+      <!-- Right-aligned menu items for large screens -->
+      <div class="hidden lg:flex items-center space-x-4 lg:space-x-16 ml-auto">
         <button
           v-for="(item, index) in allMenuItems"
           :key="index"
-          :class="[isLivePage ? 'menu-button-live' : 'menu-button', 'w-full text-left']"
+          :class="[
+            isActiveRoute(item.route) ? 'underline' : '',
+            isLivePage ? 'menu-button-live' : 'menu-button'
+          ]"
           @click="navigateTo(item.route)"
         >
           {{ item.label }}
         </button>
       </div>
+
+      <!-- Menu toggle button for small screens -->
+      <div class="lg:hidden ml-auto">
+        <button
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button-home']"
+          @click="toggleMenu"
+        >
+          {{ isMenuOpen ? 'X ⋮⋮⋮' : '⋮⋮⋮' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-screen Mobile Menu Overlay (visible when menu is toggled open) -->
+  <div 
+    v-if="isMenuOpen" 
+    class="fixed inset-0 bg-white flex flex-col items-center z-40 pt-10 md:pt-12 lg:pt-16"
+  >
+    <!-- Menu Items (Centered) -->
+    <div class="items-center w-full">
+      <button        
+        v-for="(item, index) in allMenuItems"
+        :key="index"
+        :class="[
+          'w-full text-left p-4 py-2 border-t border-gray-700 menu-button',
+          isActiveRoute(item.route) ? 'underline font-semibold' : ''
+        ]"
+        @click="navigateTo(item.route)"
+      >
+        {{ item.label }}        
+      </button>
     </div>
   </div>
 </template>
@@ -78,11 +76,9 @@
 export default {
   data() {
     return {
-      leftMenuItems: [
+      allMenuItems: [
         { label: 'Info', route: '/info' },
         { label: 'Projects', route: '/projects' },
-      ],
-      rightMenuItems: [
         { label: 'Releases', route: '/releases' },
         { label: 'Live', route: '/live' },
       ],
@@ -90,29 +86,32 @@ export default {
     };
   },
   computed: {
-    showReturnButton() {
-      // Show IOAIAAII button only if not on landing page
-      return this.$route.path !== '/';
+    isHomePage() {
+      return this.$route.path === '/';
     },
     isLivePage() {
-    // Check if the current route is /live
-    return this.$route.path === '/live';
+      return this.$route.path === '/live';
     },
-    allMenuItems() {
-      // Concatenate left and right menu items for mobile view
-      return [...this.leftMenuItems, ...this.rightMenuItems];
-    },    
   },
   methods: {
     navigateTo(route) {
       this.$router.push(route);
-      // Close the menu on navigation
       this.isMenuOpen = false;
     },
     toggleMenu() {
-      // Toggle the mobile menu open/close
       this.isMenuOpen = !this.isMenuOpen;
+    },
+    isActiveRoute(route) {
+      return this.$route.path === route;
     },
   },
 };
 </script>
+
+<style>
+/* Ensure no overflow when menu is open */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+</style>
