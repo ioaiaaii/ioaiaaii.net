@@ -142,15 +142,14 @@ web:
   topologySpreadConstraints: []
 
   pdb:
-    create: false
-    minAvailable: 2
+    create: true
     maxUnavailable: 1
 
   autoscaling:
     hpa:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 2
+      maxReplicas: 6
       targetCPU: 70
       targetMemory: 70
 

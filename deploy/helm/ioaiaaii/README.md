@@ -64,8 +64,8 @@ Chart for BFF of IOAIAAII.NET
 | web.args | list | `[]` |  |
 | web.automountServiceAccountToken | bool | `false` |  |
 | web.autoscaling.hpa.enabled | bool | `true` |  |
-| web.autoscaling.hpa.maxReplicas | int | `4` |  |
-| web.autoscaling.hpa.minReplicas | int | `1` |  |
+| web.autoscaling.hpa.maxReplicas | int | `6` |  |
+| web.autoscaling.hpa.minReplicas | int | `2` |  |
 | web.autoscaling.hpa.targetCPU | int | `70` |  |
 | web.autoscaling.hpa.targetMemory | int | `70` |  |
 | web.command | list | `[]` |  |
@@ -109,9 +109,8 @@ Chart for BFF of IOAIAAII.NET
 | web.metrics.serviceMonitor.selector | object | `{}` | Prometheus instance selector labels # ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration |
 | web.nodeAffinityPreset | object | `{}` |  |
 | web.nodeSelector | object | `{}` |  |
-| web.pdb.create | bool | `false` |  |
+| web.pdb.create | bool | `true` |  |
 | web.pdb.maxUnavailable | int | `1` |  |
-| web.pdb.minAvailable | int | `2` |  |
 | web.podAffinityPreset | string | `""` |  |
 | web.podAnnotations | object | `{}` |  |
 | web.podAntiAffinityPreset | string | `"soft"` |  |
