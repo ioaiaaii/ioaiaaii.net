@@ -1,37 +1,33 @@
 <template>
   <div id="app">
-    <Navigation v-if="$route.name !== 'NotFound'" />
-    <router-view />
+    <header v-if="$route.name !== 'NotFound'">
+      <Navigation />
+    </header>
+
+    <main>
+      <RouterView :key="$route.fullPath" />
+    </main>
+
+    <footer v-if="$route.name !== 'NotFound' && $route.path !== '/live' && $route.path !== '/contact'">
+      <AppFooter />
+    </footer>
   </div>
-  <!-- Footer (Visible on all pages except NotFound) -->
-  <footer
-    v-if="$route.name !== 'NotFound'"
-    class="w-full p-4 border-t border-gray-500 mt-auto"
-  >
-    <div class="flex justify-between items-center">
-      <!-- CONTACT Button that navigates to the Contact page -->
-      <router-link
-        to="/contact"
-        class="text-xs md:text-sm tracking-widest font-semibold text-gray-600 uppercase hover:underline"
-      >
-        Contact
-      </router-link>
-      
-      <!-- COPYRIGHT Text, aligned to the far right -->
-      <div class="text-right text-xs md:text-sm uppercase text-gray-600">
-        © 2024 Ioannis Savvaidis
-      </div>
-    </div>
-  </footer>  
 </template>
 
 <script>
 import Navigation from './components/Navigation.vue';
+import AppFooter from './components/AppFooter.vue'; // Updated import
 
 export default {
   components: {
     Navigation,
+    AppFooter,
   },
+  methods: {
+    goToContact() {
+      this.$router.push('/contact')
+    },
+  }, 
 };
 </script>
 

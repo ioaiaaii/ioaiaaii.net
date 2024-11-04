@@ -1,15 +1,12 @@
 <!-- src/views/Contact.vue -->
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center bg-white p-6">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">
-      CONTACT
-    </h1>
     <div class="flex flex-col items-center space-y-2">
       <a
         :href="resume.linkedIn"
         target="_blank"
         class="menu-button  hover:underline"
-      >LinkedIn</a>
+      > LinkedIn</a>
       <a
         :href="resume.gitHub"
         target="_blank"

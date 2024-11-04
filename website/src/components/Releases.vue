@@ -1,53 +1,34 @@
 <template>
-  <div class="base-container pt-10 lg:pt-14 xl:pt-14">
+  <div class="base-container pt-10 lg:pt-12 xl:pt-12">
     <!-- Grid Layout for Release Cards -->
     <div
-      v-for="(release, index) in releases"
+      v-for="release in releases"
       :key="release.title"
-      class="base-grid "
+      class="base-grid"
     >
-      <!-- Left Column: Image -->
-      <div 
-        class="relative w-full overflow-hidden"
-        @mouseover="hoveredIndex = index"
-        @mouseleave="hoveredIndex = null"
-      >
+      <!-- Image -->
+      <div class="relative w-full overflow-hidden">
         <img
           v-if="release.image && release.image.length"
-          :src="hoveredIndex === index && release.image[1] ? release.image[1] : release.image[0]"
+          :src="release.image[0]"
           :alt="release.title"
           class="w-full h-auto object-cover aspect-w-16 aspect-h-9"
           loading="lazy"
         >
       </div>
   
-      <!-- Right Column: Details -->
+      <!-- Details -->
       <div class="flex flex-col flex-grow p-4 border-b border-gray-200 border-solid">
-        <!-- Title and Description -->
-        <div>
-          <h3 class="release-title">
-            {{ release.title }}
-          </h3>
-          <p class="release-text">
-            {{ release.description }}
-          </p>
-        </div>
-                
+        <h3 class="mt-2 release-title">
+          {{ release.artist }} - {{ release.title }}
+        </h3>
+        <p class="release-subtitle">
+          {{ release.label }}, {{ release.releaseDate }}
+        </p>
+        
         <!-- Links -->
-        <div class="mt-center pt-4">
+        <div class="mt-4">
           <div class="flex space-x-4">
-            <!-- Discogs Link -->
-            <span v-if="release.discogs_link">
-              <a
-                :href="release.discogs_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="release-button"
-                aria-label="Discogs link for {{ release.title }}"
-              >
-                Discogs
-              </a>
-            </span>
             <!-- Bandcamp Link -->
             <span v-if="release.bandcamp_link">
               <a
@@ -57,9 +38,20 @@
                 class="release-button"
                 aria-label="Bandcamp link for {{ release.title }}"
               >
-                Bandcamp
+                LISTEN
               </a>
             </span>
+            <!-- <span v-if="release.discogs_link">
+              <a
+                :href="release.discogs_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="release-button"
+                aria-label="Discogs link for {{ release.title }}"
+              >
+                INFO
+              </a>
+            </span>             -->
           </div>
         </div>
       </div>
@@ -71,8 +63,7 @@
 export default {
   data() {
     return {
-      releases: [],
-      hoveredIndex: null, // Track which release is being hovered
+      releases: [], // Initialize releases array
     };
   },
   created() {
@@ -80,9 +71,13 @@ export default {
     fetch('/api/v1/releases')
       .then((response) => response.json())
       .then((data) => {
-        this.releases = data;
+        this.releases = data; // Directly assign the data
       })
       .catch((error) => console.error('Error fetching releases:', error));
   },
 };
 </script>
+
+<style scoped>
+/* You can add any additional styles here */
+</style>

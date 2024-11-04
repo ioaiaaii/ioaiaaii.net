@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <!-- Full-screen Mobile Menu Overlay (visible when menu is toggled open) -->
+  <!-- Full-screen Mobile Menu Overlay (visible when menu is toggled open) pt-10 md:pt-12 lg:pt-16-->
   <div 
     v-if="isMenuOpen" 
     class="fixed inset-0 bg-white flex flex-col items-center z-40 pt-10 md:pt-12 lg:pt-16"
@@ -62,7 +62,7 @@
         :key="index"
         :class="[
           'w-full text-left p-4 py-2 border-t border-gray-700 menu-button',
-          isActiveRoute(item.route) ? 'underline font-semibold' : ''
+          isActiveRoute(item.route) ? 'underline' : ''
         ]"
         @click="navigateTo(item.route)"
       >
@@ -81,6 +81,7 @@ export default {
         { label: 'Projects', route: '/projects' },
         { label: 'Releases', route: '/releases' },
         { label: 'Live', route: '/live' },
+        { label: 'Contact', route: '/contact' },        
       ],
       isMenuOpen: false,
     };

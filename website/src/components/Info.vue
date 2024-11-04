@@ -1,41 +1,18 @@
 <template>
   <div class="base-container">
-    <!-- Responsive Grid Layout for Info Sections -->
-    <div class="base-grid">
-      <!-- <div class="grid md:grid-cols-1 lg:grid-cols-2 auto-cols-fr"> -->
-      <!-- Left Column: Experience and References -->
-      <div class="p-4 lg:border-r border-gray-200 ">
-        <!-- Experience Section -->
+    <div class="base-grid mt-2">
+      <div class="p-4 lg:border-r border-gray-200">       
         <section
-          v-if="resume.experience.length"
-          class="mt-4"
+          v-if="resume.profile.length"
+          class="mt-2"
         >
           <h3 class="resume-heading">
-            Experience
+            Computer Engineer Profile
           </h3>
-          <ul class="list-inside space-y-2">
-            <li
-              v-for="(exp, index) in resume.experience"
-              :key="index"
-              class="resume-text"
-            >
-              <strong>[{{ exp.endDate }} - {{ exp.startDate }}] {{ exp.role }}, {{ exp.company }}</strong>, {{ exp.location }}
-              <ul class="list-disc list-inside ml-1 space-y-1">
-                <li
-                  v-for="(desc, i) in exp.description"
-                  :key="i"
-                >
-                  {{ desc }}
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <p class="resume-text">
+            {{ resume.profile }} 
+          </p>
         </section>
-      </div>
-
-      <!-- Right Column: Education, Projects, and Skills -->       
-      <div class="p-4">
-        <!-- Education Section -->
         <section
           v-if="resume.education.length"
           class="mt-4"
@@ -49,59 +26,61 @@
               :key="index"
               class="resume-text"
             >
-              <strong>[{{ edu.endDate }}-{{ edu.startDate }}]</strong> {{ edu.degree }}, {{ edu.institution }}, {{ edu.location }}
+              <strong>
+                <span class="date" style="font-style: italic;">{{ edu.startDate }} - {{ edu.endDate }}</span><br>
+                {{ edu.degree }}, {{ edu.institution }}, {{ edu.location }}
+              </strong>
+              <div class="resume-text">
+                <span class="specialization">{{ edu.specialization }}</span><br>
+                <span class="dissertation">{{ edu.dissertation }}</span>
+              </div>
             </li>
           </ul>
         </section>
-
-        <!-- Projects Section -->
-        <!-- <section v-if="resume.projects.length" class="mt-8">
-          <h3 class="resume-heading">Projects</h3>
-          <ul class="list-inside space-y-4">
-            <li v-for="(proj, index) in resume.projects" :key="index" class="resume-text">
-              <strong>{{ proj.title }}</strong> <br>
-              {{ proj.description }}
-            </li>
-          </ul>
-        </section> -->
-
-        <!-- Skills Section -->
+        <!-- Experience Section -->
         <section
-          v-if="resume.skillGroups.length"
-          class="mt-8"
+          v-if="resume.experience.length"
+          class="mt-4"
         >
           <h3 class="resume-heading">
-            Skills
+            Professional Experience
           </h3>
-          <!-- Flex container to align items responsively -->
-          <div class="flex flex-wrap -mx-2">
-            <div
-              v-for="(skillGroup, index) in resume.skillGroups"
+          <ul class="list-inside space-y-2">
+            <li
+              v-for="(exp, index) in resume.experience"
               :key="index"
-              class="resume-text w-full md:w-1/2 px-2 mb-4"
+              class="resume-text"
             >
-              <strong>{{ skillGroup.category }}</strong>
-              <ul class="list-inside ml-1 space-y-1 list-disc">
+              <strong>
+                <span class="date" style="font-style: italic;">{{ exp.startDate }} - {{ exp.endDate }},</span>
+                {{ exp.role }}, {{ exp.company }}, {{ exp.location }}
+              </strong>
+              <ul class="list-disc list-inside ml-1 space-y-1">
                 <li
-                  v-for="(skill, i) in skillGroup.skills"
+                  v-for="(desc, i) in exp.description"
                   :key="i"
                 >
-                  {{ skill }}
+                  {{ desc }}
                 </li>
               </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- References Section -->
-        <section class="mt-8">
+            </li>
+          </ul>
+        </section>        
+      </div>
+      
+      <!-- Right Column: Education, Projects, and Skills -->       
+      <div class="p-4">     
+        <section
+          v-if="resume.profile.length"
+          class="mt-2"
+        >
           <h3 class="resume-heading">
-            References
+            Composer Profile
           </h3>
           <p class="resume-text">
-            References for all experience and education are available upon request.
+            {{ resume.profile }} 
           </p>
-        </section>
+        </section>           
       </div>
     </div>
   </div>
