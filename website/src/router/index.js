@@ -8,7 +8,11 @@ import NotFound from '@/components/NotFound.vue'
 import Contact from '@/components/Contact.vue'
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
+  { 
+    path: '/', 
+    name: 'Home', 
+    component: Home    
+  },
   { path: '/info', name: 'Info', component: Info },
   { path: '/projects', name: 'Projects', component: Projects },
   { path: '/releases', name: 'Releases', component: Releases },
@@ -20,10 +24,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    // Always scroll to the top of the page on navigation
-    return { top: 0 };
-  },  
+  scrollBehavior() {
+    return { top: 0, behavior: 'smooth' };
+  } 
 });
 
 export default router;

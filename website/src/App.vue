@@ -1,35 +1,40 @@
 <template>
   <div id="app">
-    <header v-if="$route.name !== 'NotFound'">
+    <header v-if="showHeader">
       <Navigation />
     </header>
 
     <main>
-      <RouterView :key="$route.fullPath" />
+      <router-view :key="$route.fullPath" />
     </main>
 
-    <footer v-if="$route.name !== 'NotFound' && $route.path !== '/live' && $route.path !== '/contact'">
+    <footer v-if="showFooter">
       <AppFooter />
     </footer>
   </div>
 </template>
 
 <script>
-import Navigation from './components/Navigation.vue';
-import AppFooter from './components/AppFooter.vue'; // Updated import
+import Navigation from '@/components/Navigation.vue';
+import AppFooter from '@/components/AppFooter.vue';
 
 export default {
   components: {
     Navigation,
     AppFooter,
   },
-  methods: {
-    goToContact() {
-      this.$router.push('/contact')
+  computed: {
+    showHeader() {
+      return this.$route.name !== 'NotFound';
     },
-  }, 
+    showFooter() {
+      // Exclude routes where the footer shouldn't display
+      return this.$route.name !== 'NotFound' && !['/live', '/contact'].includes(this.$route.path);
+    },
+  },
 };
 </script>
+
 
 <style>
 /* Import global styles */

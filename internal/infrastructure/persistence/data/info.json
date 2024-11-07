@@ -4,9 +4,17 @@
     "email": "johnsavvaidis@gmail.com",
     "linkedIn": "https://www.linkedin.com/in/ioannissavvaidis/",
     "github": "https://github.com/ioaiaaii",
-    "profile": "Computer Engineer and Composer dedicated to building sustainable, reliable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures with a focus on observability and performance while advocating for a respectful culture.",
-    "artistBio": "Composer drawing on quantum and distributed computing principles to interpret relativistic reality and explore warped soundscapes driven by physical and abstract motion dynamics. Performs live, is a member of UNIX SYSTEMS, and has collaborated with record labels including Anopolis, June, Lower Parts, and Phormix.",
-    "engineerBio": "Infrastructure Engineer with over a decade of experience in Site Reliability Engineering, focusing on building sustainable systems by cultivating a respectful culture and embracing a multidisciplinary approach to problem-solving. Currently, pursuing a Master's in Quantum Computing, exploring advanced computational methods.",
+    "profile": "Computer Engineer and Composer dedicated to building sustainable, reliable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures, focusing on observability and performance while advocating for a respectful culture.",
+    "artistBio": "Composer drawing on quantum and distributed computing principles to interpret relativistic reality and explore soundscapes driven by warped motion dynamics. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Member of UNIX SYSTEMS group. Performs live with synthesizers under an improvisational approach.",
+    "engineerBio": "Computer Engineer dedicated to building sustainable and reliable systems. Experienced in Site Reliability Engineering, managing large-scale production infrastructures, focusing on observability and performance while advocating for a respectful culture. Currently, pursuing a Master's in Quantum Computing, exploring advanced computational methods.",
+    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, with linear algebra shaping musical interactions as multidimensional spaces. Currently focused on 'Superluminal Motion', inspired by theoretical faster-than-light phenomena, where spacetime intersects across past, present, and future states, creating an emotionally warped drive.",
+    "selectedWorks": [
+      "\"Diataxis\" (June Records, 2019)",
+      "\"Superluminal\" Motion (Unreleased, 2021-2024)",
+      "\"Δέσμη Φωτός\" (Unreleased, 2021-2024)",
+      "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou (Athens Epidaurus Festival, 2021), Short Composition",
+      "\"Stone Age\" by Joshua Olsthoorn (Film, 2022), Film Scoring"
+    ],
     "experience": [
       {
         "role": "Senior SRE",

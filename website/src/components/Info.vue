@@ -10,7 +10,7 @@
             Computer Engineer Profile
           </h3>
           <p class="resume-text">
-            {{ resume.profile }} 
+            {{ resume.engineerBio }} 
           </p>
         </section>
         <section
@@ -27,7 +27,10 @@
               class="resume-text"
             >
               <strong>
-                <span class="date" style="font-style: italic;">{{ edu.startDate }} - {{ edu.endDate }}</span><br>
+                <span
+                  class="date"
+                  style="font-style: italic;"
+                >{{ edu.startDate }} - {{ edu.endDate }}</span><br>
                 {{ edu.degree }}, {{ edu.institution }}, {{ edu.location }}
               </strong>
               <div class="resume-text">
@@ -52,7 +55,10 @@
               class="resume-text"
             >
               <strong>
-                <span class="date" style="font-style: italic;">{{ exp.startDate }} - {{ exp.endDate }},</span>
+                <span
+                  class="date"
+                  style="font-style: italic;"
+                >{{ exp.startDate }} - {{ exp.endDate }},</span>
                 {{ exp.role }}, {{ exp.company }}, {{ exp.location }}
               </strong>
               <ul class="list-disc list-inside ml-1 space-y-1">
@@ -78,9 +84,38 @@
             Composer Profile
           </h3>
           <p class="resume-text">
-            {{ resume.profile }} 
+            {{ resume.artistBio }} 
           </p>
-        </section>           
+        </section>          
+        <section
+          v-if="resume.profile.length"
+          class="mt-2"
+        >
+          <h3 class="resume-heading">
+            Artistic Approach
+          </h3>
+          <p class="resume-text">
+            {{ resume.artisticApproach }} 
+          </p>
+        </section> 
+        <!-- Experience Section -->
+        <section
+          v-if="resume.experience.length"
+          class="mt-4"
+        >
+          <h3 class="resume-heading">
+            Selected Discography / Collaborations
+          </h3>
+          <ul class="list-disc list-inside ml-1 space-y-1">
+            <li
+              v-for="(index) in resume.selectedWorks"
+              :key="index"
+              class="resume-text"
+            >
+              {{ index }}
+            </li>
+          </ul>
+        </section>        
       </div>
     </div>
   </div>

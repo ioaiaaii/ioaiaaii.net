@@ -1,10 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&subset=greek&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf");
+  src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
 }
 
 @layer components {
@@ -119,7 +121,7 @@
   }
 
   .release-text {
-    @apply tracking-wide text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed text-balance;
+    @apply basic-text text-balance;
   }
 
   .release-button {

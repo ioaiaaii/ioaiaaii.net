@@ -91,7 +91,7 @@ export default {
       return this.$route.path === '/';
     },
     isLivePage() {
-      return this.$route.path === '/live';
+      return this.$route.path === '/live' || this.$route.path === '/releases';
     },
   },
   methods: {
