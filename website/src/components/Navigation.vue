@@ -11,7 +11,7 @@
       <!-- Left-side: IOANNIS SAVVAIDIS on the homepage, IOAIAAII on other pages -->
       <button 
         v-if="isHomePage"
-        class="menu-button"
+        class="menu-button-home"
       >
         IOANNIS SAVVAIDIS
       </button>
@@ -41,7 +41,7 @@
       <!-- Menu toggle button for small screens -->
       <div class="lg:hidden ml-auto">
         <button
-          :class="[isLivePage ? 'menu-button-live' : 'menu-button-home']"
+          :class="[isLivePage ? 'menu-button-live' : 'menu-button']"
           @click="toggleMenu"
         >
           {{ isMenuOpen ? 'X ⋮⋮⋮' : '⋮⋮⋮' }}

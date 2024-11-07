@@ -36,7 +36,7 @@
   }
 
   .menu-button-home {
-    @apply menu-button-base text-blue-700 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
+    @apply menu-button-base text-blue-700 tracking-wide;
   }
 
 
