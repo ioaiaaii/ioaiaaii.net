@@ -16,30 +16,30 @@ include ${OPERATOR_PATH}/makefiles/security.mk
 include ${OPERATOR_PATH}/makefiles/helm.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
-
+WEBSITE_PATH=web
 
 ## local-dev, runs bff and backend locally in dev mode
 .PHONY: local-dev
 local-dev:
 	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd website && npm run dev) & \
+	@(cd ${WEBSITE_PATH} && npm run dev) & \
 	(cd cmd/ioaiaaii.net/ && go run main.go) & \
 	wait
 	@echo "Both processes have finished."
 
 ## website-build, builds vite project
 website-lint:
-	@cd website && npm run lint:fix
+	@cd ${WEBSITE_PATH} && npm run lint
 
 ## website-build, builds vite project
 website-build:
-	@cd website && npm run build
+	@cd ${WEBSITE_PATH} && npm run build
 
 ## local-preview, runs bff and backend in preview mode (production)
 .PHONY: local-preview
 local-preview: website-build
 	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd website && npm run preview) & \
+	@(cd ${WEBSITE_PATH} && npm run preview) & \
 	(cd cmd/ioaiaaii.net/ && go run main.go) & \
 	wait
 	@echo "Both processes have finished."
