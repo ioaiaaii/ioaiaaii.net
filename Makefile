@@ -17,6 +17,10 @@ include ${OPERATOR_PATH}/makefiles/helm.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
 WEBSITE_PATH=web
+# Path to your CI directory
+CONVENTIONAL_CHANGELOG = build/changelog
+
+
 
 ## local-dev, runs bff and backend locally in dev mode
 .PHONY: local-dev
@@ -63,3 +67,11 @@ local-docker-push:
 .PHONY: local-docker-run
 local-docker-run: 
 	make docker-run DOCKER_IMAGE=ioaiaaii
+
+
+conventional-commit-lint:
+	@docker run --rm -v $$PWD:/app --workdir /app commitlint/commitlint:19.4.1 --config $(CONVENTIONAL_CHANGELOG)/.commitlintrc.yml --from=origin/master --to HEAD --verbose
+
+# Generate Conventional Changelog
+conventional-changelog: conventional-commit-lint
+	@docker run -it -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/config.yml -o CHANGELOG.md $(git describe --tags $(git rev-list --tags --max-count=1))
