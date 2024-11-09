@@ -1,12 +1,21 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### 🐛 Bug Fixes
+- **release:** fetch submodules on checkout
+
+
+<a name="v1.0.2"></a>
+## [v1.0.2] - 2024-11-09
 ### 👷 Continuous Integration
 - make target for release
 - add release workflow
 
 ### 🛠️ Chores
 - **changelog:** improve text
+
+### Pull Requests
+- Merge pull request [#21](https://github.com/ioaiaaii/ioaiaaii.net/issues/21) from ioaiaaii/feat/website-improvements
 
 
 <a name="v1.0.1"></a>
@@ -122,5 +131,6 @@
 - Merge pull request [#8](https://github.com/ioaiaaii/ioaiaaii.net/issues/8) from ioaiaaii/chore/repo-operator
 
 
-[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.2...HEAD
+[v1.0.2]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.1...v1.0.2
 [v1.0.1]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.0...v1.0.1
