@@ -10,6 +10,7 @@
 ### 👷 Continuous Integration
 - make target for release
 - add release workflow
+- **release:** improve release notes
 
 ### 🛠️ Chores
 - **changelog:** improve text
