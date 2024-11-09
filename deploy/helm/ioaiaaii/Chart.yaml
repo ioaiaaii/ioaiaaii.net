@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 type: application
 apiVersion: v2
-appVersion: 1.0.0
+appVersion: v1.1.0
 dependencies:
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts
@@ -19,4 +19,4 @@ name: ioaiaaii
 sources:
   - https://github.com/ioaiaaii/ioaiaaii.net/tree/master/deploy
   - https://github.com/ioaiaaii/ioaiaaii.net/tree/master/build/package
-version: 0.1.0
+version: 1.0.0
