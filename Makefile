@@ -68,10 +68,13 @@ local-docker-push:
 local-docker-run: 
 	make docker-run DOCKER_IMAGE=ioaiaaii
 
-
 conventional-commit-lint:
 	@docker run --rm -v $$PWD:/app --workdir /app commitlint/commitlint:19.4.1 --config $(CONVENTIONAL_CHANGELOG)/.commitlintrc.yml --from=origin/master --to HEAD --verbose
 
 # Generate Conventional Changelog
 conventional-changelog: conventional-commit-lint
 	@docker run -it -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/config.yml -o CHANGELOG.md $(git describe --tags $(git rev-list --tags --max-count=1))
+
+# Optional target: create a GitHub release with the changelog
+conventional-changelog-release:
+	@docker run -it -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/config.yml ${TAG}
