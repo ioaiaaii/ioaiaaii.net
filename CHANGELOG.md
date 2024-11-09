@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### 👷 Continuous Integration
+- create resuable workflow for packaging
+
+
+<a name="v1.0.2"></a>
+## [v1.0.2] - 2024-11-09
 ### 🐛 Bug Fixes
 - ci
 - **makefile:** disable iteractive and tty run
@@ -14,6 +20,14 @@
 
 ### 🛠️ Chores
 - **changelog:** improve text
+
+### Pull Requests
+- Merge pull request [#26](https://github.com/ioaiaaii/ioaiaaii.net/issues/26) from ioaiaaii/fix/release-action
+- Merge pull request [#25](https://github.com/ioaiaaii/ioaiaaii.net/issues/25) from ioaiaaii/fix/release-action
+- Merge pull request [#24](https://github.com/ioaiaaii/ioaiaaii.net/issues/24) from ioaiaaii/fix/release-action
+- Merge pull request [#23](https://github.com/ioaiaaii/ioaiaaii.net/issues/23) from ioaiaaii/fix/release-action
+- Merge pull request [#22](https://github.com/ioaiaaii/ioaiaaii.net/issues/22) from ioaiaaii/fix/release-action
+- Merge pull request [#21](https://github.com/ioaiaaii/ioaiaaii.net/issues/21) from ioaiaaii/feat/website-improvements
 
 
 <a name="v1.0.1"></a>
@@ -129,5 +143,6 @@
 - Merge pull request [#8](https://github.com/ioaiaaii/ioaiaaii.net/issues/8) from ioaiaaii/chore/repo-operator
 
 
-[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.2...HEAD
+[v1.0.2]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.1...v1.0.2
 [v1.0.1]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.0...v1.0.1
