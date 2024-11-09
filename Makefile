@@ -16,30 +16,34 @@ include ${OPERATOR_PATH}/makefiles/security.mk
 include ${OPERATOR_PATH}/makefiles/helm.mk
 
 # +++ Local configuration starts, hit `make help` to fetch all available targets
+WEBSITE_PATH=web
+# Path to your CI directory
+CONVENTIONAL_CHANGELOG = build/changelog
+
 
 
 ## local-dev, runs bff and backend locally in dev mode
 .PHONY: local-dev
 local-dev:
 	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd website && npm run dev) & \
+	@(cd ${WEBSITE_PATH} && npm run dev) & \
 	(cd cmd/ioaiaaii.net/ && go run main.go) & \
 	wait
 	@echo "Both processes have finished."
 
 ## website-build, builds vite project
 website-lint:
-	@cd website && npm run lint:fix
+	@cd ${WEBSITE_PATH} && npm run lint
 
 ## website-build, builds vite project
 website-build:
-	@cd website && npm run build
+	@cd ${WEBSITE_PATH} && npm run build
 
 ## local-preview, runs bff and backend in preview mode (production)
 .PHONY: local-preview
 local-preview: website-build
 	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd website && npm run preview) & \
+	@(cd ${WEBSITE_PATH} && npm run preview) & \
 	(cd cmd/ioaiaaii.net/ && go run main.go) & \
 	wait
 	@echo "Both processes have finished."
@@ -63,3 +67,11 @@ local-docker-push:
 .PHONY: local-docker-run
 local-docker-run: 
 	make docker-run DOCKER_IMAGE=ioaiaaii
+
+
+conventional-commit-lint:
+	@docker run --rm -v $$PWD:/app --workdir /app commitlint/commitlint:19.4.1 --config $(CONVENTIONAL_CHANGELOG)/.commitlintrc.yml --from=origin/master --to HEAD --verbose
+
+# Generate Conventional Changelog
+conventional-changelog: conventional-commit-lint
+	@docker run -it -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/config.yml -o CHANGELOG.md $(git describe --tags $(git rev-list --tags --max-count=1))

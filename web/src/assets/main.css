@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&subset=greek&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
+
+@layer components {
+
+  /* View */
+  .base-container {
+    @apply pt-6 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-10 min-h-screen;
+  }
+
+  .base-grid {
+    @apply grid md:grid-cols-1 lg:grid-cols-2 auto-cols-fr mb-auto h-full gap-0;
+  }
+
+  
+  /* Menu */
+  .menu-button-base {
+    @apply text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl uppercase font-bold;
+  }
+
+  .menu-button {
+    @apply menu-button-base text-blue-700 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
+  }
+  
+    /* Menu button style for /live page */
+  .menu-button-live {
+    @apply menu-button-base text-white tracking-wide hover:text-blue-500  transition duration-300 ease-in-out;
+  }
+
+  .menu-button-home {
+    @apply menu-button-base text-blue-700 tracking-wide;
+  }
+
+
+
+  .home-heading {
+    @apply menu-button-base tracking-wider text-gray-800;
+  }
+
+  .home-subheading {
+    @apply text-xs sm:text-sm md:text-lg lg:text-lg xl:text-xl 2xl:text-xl tracking-widest font-bold uppercase text-red-800;
+  }  
+
+
+
+  /* Basic Text Generators */
+  .basic-text {
+    @apply text-sm sm:text-base lg:text-base xl:text-base text-gray-700 text-pretty font-medium tracking-normal;
+  }
+
+  .basic-heading {
+    @apply text-base sm:text-base md:text-lg lg:text-xl xl:text-xl text-gray-800 font-bold uppercase;    
+  }
+
+
+
+  .info-title {
+    @apply text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-bold text-left sm:text-left md:text-left lg:text-center tracking-widest;
+  }
+
+  .info-subtitle {
+    @apply text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-2xl font-semibold text-left sm:text-left md:text-left lg:text-center;
+  }
+
+  .info-heading {
+    @apply mt-4 text-lg sm:text-xl md:text-2xl font-semibold uppercase tracking-wide;
+  }
+
+  .heading-lg {
+    @apply text-4xl font-extrabold text-gray-800 tracking-tight;
+  }
+
+
+
+  .resume-heading {
+    @apply basic-heading;
+  }
+
+  .resume-text {
+    @apply basic-text;
+  }
+
+  .heading-md {
+    @apply text-2xl font-semibold text-gray-800;
+  }
+
+  .heading-sm {
+    @apply text-lg font-medium text-gray-600;
+  }
+
+
+
+  .project-category {
+    @apply menu-button-base text-red-800 tracking-wide;
+  }
+  
+  .project-button-pulse {
+    @apply basic-heading underline uppercase tracking-wide hover:text-blue-500 transition;
+  }
+
+  .project-text {
+    @apply basic-text;
+  }
+
+
+
+  .release-title {
+    @apply text-gray-900 text-sm sm:text-lg md:text-xl lg:text-xl xl:text-xl font-bold tracking-wide uppercase;
+  }
+
+  .release-subtitle {
+    @apply text-gray-800 text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg font-semibold tracking-wide italic uppercase;
+  }
+
+  .release-text {
+    @apply basic-text text-balance;
+  }
+
+  .release-button {
+    @apply font-semibold text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg  text-gray-900 tracking-wide hover:text-green-700 transition duration-300 uppercase underline;
+  }
+
+  .live-text {
+    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold uppercase text-white ;
+  }
+
+  .live-button {
+    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold text-white hover:text-green-700 transition duration-300 uppercase underline;
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .footer {
+    @apply w-full p-4 border-t border-gray-500 flex flex-col sm:flex-row justify-end ;
+  }
+  
+  .footer-link {
+    @apply text-xs md:text-sm tracking-widest font-semibold text-gray-600 uppercase hover:underline;
+  }
+  
+  .footer-text {
+    @apply text-right text-xs md:text-sm uppercase text-gray-600;
+  }
+}

@@ -31,6 +31,12 @@ type Resume struct {
 	// example: Composer drawing on quantum and distributed computing principles.
 	ArtistBio string `json:"artistBio"`
 
+	// ArtistStatement for artistic background
+	ArtisticApproach string `json:"artisticApproach"`
+
+	// SelectedWorks for artistic background
+	SelectedWorks []string `json:"selectedWorks"`
+
 	// Bio for engineering background
 	// example: Infrastructure Engineer with a focus on scalable systems.
 	EngineerBio string `json:"engineerBio"`

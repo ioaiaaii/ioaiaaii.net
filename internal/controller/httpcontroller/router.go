@@ -7,7 +7,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
-	"ioaiaaii.net/website"
+	"ioaiaaii.net/web"
 )
 
 // RegisterAPIRoutes sets up the HTTP API routes for the application.
@@ -61,7 +61,7 @@ func RegisterAPIRoutes(app *fiber.App, handler *ContentHandler) {
 
 // RegisterUIRoutes serves the frontend UI and handles SPA routing.
 func RegisterUIRoutes(app *fiber.App) {
-	embedAdmin, err := fs.Sub(website.EmbedUI(), "dist")
+	embedAdmin, err := fs.Sub(web.EmbedUI(), "dist")
 	if err != nil {
 		log.Fatal("Failed to load embedded UI files: ", err)
 	}
