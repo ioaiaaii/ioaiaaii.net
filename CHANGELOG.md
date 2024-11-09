@@ -2,11 +2,14 @@
 ## [Unreleased]
 
 ### 🐛 Bug Fixes
-- **release:** fetch submodules on checkout
+- **makefile:** disable iteractive and tty run
 
 
 <a name="v1.0.2"></a>
 ## [v1.0.2] - 2024-11-09
+### 🐛 Bug Fixes
+- **release:** fetch submodules on checkout
+
 ### 👷 Continuous Integration
 - make target for release
 - add release workflow
@@ -15,6 +18,7 @@
 - **changelog:** improve text
 
 ### Pull Requests
+- Merge pull request [#22](https://github.com/ioaiaaii/ioaiaaii.net/issues/22) from ioaiaaii/fix/release-action
 - Merge pull request [#21](https://github.com/ioaiaaii/ioaiaaii.net/issues/21) from ioaiaaii/feat/website-improvements
 
 
