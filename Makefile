@@ -77,4 +77,5 @@ conventional-changelog: conventional-commit-lint
 
 # Optional target: create a GitHub release with the changelog
 conventional-changelog-release:
+	@echo "Creating Changelog for ${TAG}"
 	@docker run -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/config.yml ${TAG}
