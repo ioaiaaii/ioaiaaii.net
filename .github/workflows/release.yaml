@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # Trigger on tags starting with 'v'
 
 permissions:
   contents: write
@@ -19,20 +19,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch the entire history for accurate tagging
+          fetch-depth: 0  # Fetch the entire history
           submodules: true  # Fetch all submodules
+
       - name: Run Makefile Target and Capture Output
         id: generate_changelog
+        env:
+          TAG: ${{ github.ref_name }}  # Set the tag for the Makefile
         run: |
-          changelog=$(make conventional-changelog-release)
+          # Run the Makefile target with the specified TAG and capture output
+          changelog=$(make conventional-changelog-release TAG=$TAG)
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           echo "$changelog" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const tag = process.env.GITHUB_REF_NAME;
             const changelog = process.env.CHANGELOG;
@@ -45,5 +51,3 @@ jobs:
               draft: false,
               prerelease: false
             });
-        env:
-          CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
