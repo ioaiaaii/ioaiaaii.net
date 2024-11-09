@@ -15,11 +15,16 @@ options:
         - ci
         - build
   commit_groups:
-    # title_maps:
-    #   feat: Features
-    #   fix: Bug Fixes
-    #   perf: Performance Improvements
-    #   refactor: Code Refactoring
+    title_maps:
+      feat: "✨ Features"
+      fix: "🐛 Bug Fixes"
+      perf: "⚡ Performance Improvements"
+      refactor: "♻️ Code Refactoring"
+      docs: "📚 Documentation"
+      chore: "🛠️ Chores"
+      build: "📦 Build System"
+      ci: "👷 Continuous Integration"
+
   header:
     pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
     pattern_maps:
