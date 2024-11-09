@@ -10,6 +10,7 @@ permissions:
   pull-requests: write
   actions: write
   packages: write
+  id-token: write
 
 jobs:
   release:
@@ -51,3 +52,10 @@ jobs:
               draft: false,
               prerelease: false
             });
+
+  package:
+    name: Package and Push Docker Image
+    uses: ./.github/workflows/package.yaml
+    secrets:
+      provider_name: ${{ secrets.PROVIDER_NAME }}
+      service_account_email: ${{ secrets.SA_EMAIL }}

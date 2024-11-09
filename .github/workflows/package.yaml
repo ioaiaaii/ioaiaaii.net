@@ -1,0 +1,49 @@
+name: Package
+
+on:
+  workflow_call:
+    secrets:
+      provider_name:
+        required: true
+        description: "The GCP Workload Identity Provider name"
+      service_account_email:
+        required: true
+        description: "The GCP Service Account email"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache Go Modules
+        id: go-mod-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor
+            ~/go/pkg/mod
+          key: go-mod-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-mod-${{ runner.os }}-
+
+      - name: Sync Go Modules (if cache is not hit)
+        if: steps.go-mod-cache.outputs.cache-hit != 'true'
+        run: make go-mod-sync
+
+      - name: Authenticate to GCP
+        id: auth
+        uses: 'google-github-actions/auth@v2.1.6'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ secrets.provider_name }}
+          service_account: ${{ secrets.service_account_email }}
+
+      - name: Build and Push Image with Kaniko
+        run: make kaniko-docker-image DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo" DOCKER_IMAGE=ioaiaaii
