@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"ioaiaaii.net/internal/entity"
-	"ioaiaaii.net/internal/infrastructure/persistence/data"
+	"ioaiaaii.net/website/data"
 )
 
 // FileContent handles reading embedded files and parsing them into structs

@@ -6,10 +6,10 @@ import (
 
 	"ioaiaaii.net/internal/controller/httpcontroller"
 	"ioaiaaii.net/internal/infrastructure/cache"
-	"ioaiaaii.net/internal/infrastructure/persistence/data"
 	"ioaiaaii.net/internal/infrastructure/persistence/storage"
 	"ioaiaaii.net/internal/infrastructure/transport/httpserver"
 	"ioaiaaii.net/internal/usecase/content"
+	"ioaiaaii.net/website/data"
 )
 
 func main() {
