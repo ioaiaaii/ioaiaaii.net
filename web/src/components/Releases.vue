@@ -6,16 +6,19 @@
       :key="release.title"
       class="base-grid"
     >
-      <!-- Image Carousel with Larger Navigation Buttons -->
+      <!-- Image Carousel with Slider Effect -->
       <div class="relative w-full overflow-hidden">
-        <img
-          v-if="release.image && release.image.length"
-          :src="release.image[release.currentImageIndex]"
-          :alt="release.title"
-          class="w-full object-cover aspect-square lg:h-screen"
-          loading="lazy"
-        />
-        
+        <div class="flex transition-transform duration-500 ease-in-out"
+             :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }">
+          <img
+            v-for="(imgSrc, imgIndex) in release.image"
+            :key="imgIndex"
+            :src="imgSrc"
+            class="w-full object-cover aspect-square lg:h-screen"
+            loading="lazy"
+          />
+        </div>
+
         <!-- Navigation Controls -->
         <button
           v-if="release.image && release.image.length > 1"
@@ -108,5 +111,5 @@ export default {
 </script>
 
 <style scoped>
-/* No custom styles required */
+/* No additional custom styles required, as Tailwind classes handle the transition */
 </style>

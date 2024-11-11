@@ -28,7 +28,7 @@
     <!-- Background Image Container with Full Height -->
     <div
       class="flex-grow bg-center bg-cover"
-      style="background-image: url('/assets/images/home/profile.png');"
+      style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/home/profile.png');"
     />
   </div>
 </template>
