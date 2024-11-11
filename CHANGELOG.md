@@ -1,37 +1,25 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
-### 👷 Continuous Integration
-- create resuable workflow for packaging
+### ♻️ Code Refactoring
+- move website data to website dir
 
+### ⚡ Performance Improvements
+- switch to newer lighter images
+- **deploy:** probes fine-tuning
+- **iac:** manage gcs decentralised
 
-<a name="v1.0.2"></a>
-## [v1.0.2] - 2024-11-09
 ### 🐛 Bug Fixes
-- ci
-- **makefile:** disable iteractive and tty run
-- **release:** parse tag correctly
-- **release:** fetch submodules on checkout
-
-### 👷 Continuous Integration
-- make target for release
-- add release workflow
-- **release:** improve release notes
+- **data:** minor text correction
 
 ### 🛠️ Chores
-- **changelog:** improve text
-
-### Pull Requests
-- Merge pull request [#26](https://github.com/ioaiaaii/ioaiaaii.net/issues/26) from ioaiaaii/fix/release-action
-- Merge pull request [#25](https://github.com/ioaiaaii/ioaiaaii.net/issues/25) from ioaiaaii/fix/release-action
-- Merge pull request [#24](https://github.com/ioaiaaii/ioaiaaii.net/issues/24) from ioaiaaii/fix/release-action
-- Merge pull request [#23](https://github.com/ioaiaaii/ioaiaaii.net/issues/23) from ioaiaaii/fix/release-action
-- Merge pull request [#22](https://github.com/ioaiaaii/ioaiaaii.net/issues/22) from ioaiaaii/fix/release-action
-- Merge pull request [#21](https://github.com/ioaiaaii/ioaiaaii.net/issues/21) from ioaiaaii/feat/website-improvements
+- **deploy:** bump chart version
+- **website:** migrate images from upstream
+- **website:** deprecate embed
 
 
-<a name="v1.0.1"></a>
-## [v1.0.1] - 2024-11-09
+<a name="v1.1.0"></a>
+## [v1.1.0] - 2024-11-09
 ### ♻️ Code Refactoring
 - **web:** migrate to web dir from website
 
@@ -44,18 +32,33 @@
 - **web:** artist info addition
 
 ### 🐛 Bug Fixes
+- ci
 - **build:** web path in dockerfile
+- **makefile:** disable iteractive and tty run
+- **release:** parse tag correctly
+- **release:** fetch submodules on checkout
 - **web:** homepage homebutton color fix
 
 ### 👷 Continuous Integration
+- create resuable workflow for packaging
+- make target for release
+- add release workflow
 - enable conventional commits and changelog
 - remove trivy scanner from build depts
 - **golint:** Move under build, imrove caching
+- **release:** improve release notes
 
 ### 🛠️ Chores
-- **data:** update live json
+- **changelog:** improve text
 - **data:** update live
+- **data:** update live json
 - **deploy:** enable hpa
+- **deploy:** bump chart
+- **release:** print only tag name
+- **repo-operator:** bump
+- **repo-operator:** bump
+- **repo-operator:** bump
+- **repo-operator:** bump
 - **repo-operator:** bump
 - **web:** footer and ftyling improvements
 - **web:** bolder desing
@@ -63,6 +66,15 @@
 - **website:** Minor Improvements
 
 ### Pull Requests
+- Merge pull request [#29](https://github.com/ioaiaaii/ioaiaaii.net/issues/29) from ioaiaaii/chore/repo-operator-bump
+- Merge pull request [#28](https://github.com/ioaiaaii/ioaiaaii.net/issues/28) from ioaiaaii/chore/repo-operator-bump
+- Merge pull request [#27](https://github.com/ioaiaaii/ioaiaaii.net/issues/27) from ioaiaaii/feat/build-tag
+- Merge pull request [#26](https://github.com/ioaiaaii/ioaiaaii.net/issues/26) from ioaiaaii/fix/release-action
+- Merge pull request [#25](https://github.com/ioaiaaii/ioaiaaii.net/issues/25) from ioaiaaii/fix/release-action
+- Merge pull request [#24](https://github.com/ioaiaaii/ioaiaaii.net/issues/24) from ioaiaaii/fix/release-action
+- Merge pull request [#23](https://github.com/ioaiaaii/ioaiaaii.net/issues/23) from ioaiaaii/fix/release-action
+- Merge pull request [#22](https://github.com/ioaiaaii/ioaiaaii.net/issues/22) from ioaiaaii/fix/release-action
+- Merge pull request [#21](https://github.com/ioaiaaii/ioaiaaii.net/issues/21) from ioaiaaii/feat/website-improvements
 - Merge pull request [#20](https://github.com/ioaiaaii/ioaiaaii.net/issues/20) from ioaiaaii/feat/website-improvements
 - Merge pull request [#19](https://github.com/ioaiaaii/ioaiaaii.net/issues/19) from ioaiaaii/feat/website-improvements
 - Merge pull request [#18](https://github.com/ioaiaaii/ioaiaaii.net/issues/18) from ioaiaaii/feat/k8s-native
@@ -143,6 +155,5 @@
 - Merge pull request [#8](https://github.com/ioaiaaii/ioaiaaii.net/issues/8) from ioaiaaii/chore/repo-operator
 
 
-[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.2...HEAD
-[v1.0.2]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.1...v1.0.2
-[v1.0.1]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.0...v1.0.1
+[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.0...HEAD
+[v1.1.0]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.0...v1.1.0
