@@ -1,0 +1,143 @@
+{
+    "name": "IOANNIS SAVVAIDIS",
+    "title": "Computer Engineer and Composer",
+    "email": "johnsavvaidis@gmail.com",
+    "linkedIn": "https://www.linkedin.com/in/ioannissavvaidis/",
+    "github": "https://github.com/ioaiaaii",
+    "profile": "Computer Engineer and Composer dedicated to building sustainable, reliable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures, focusing on observability and performance while advocating for a respectful culture.",
+    "artistBio": "Composer drawing on quantum and distributed computing principles to interpret relativistic reality and explore soundscapes driven by warped motion dynamics. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Member of UNIX SYSTEMS group. Performs live with synthesizers under an improvisational approach.",
+    "engineerBio": "Computer Engineer dedicated to building sustainable and reliable systems. Experienced in Site Reliability Engineering, managing large-scale production infrastructures, focusing on observability and performance while advocating for a respectful culture. Currently, pursuing a Master's in Quantum Computing, exploring advanced computational methods.",
+    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, with linear algebra shaping musical interactions as multidimensional spaces. Currently focused on 'Superluminal Motion', inspired by theoretical faster-than-light phenomena, where spacetime intersects across past, present, and future states, creating an emotionally warped drive.",
+    "selectedWorks": [
+      "\"Diataxis\" (June Records, 2019)",
+      "\"Superluminal\" Motion (Unreleased, 2021-2024)",
+      "\"Δέσμη Φωτός\" (Unreleased, 2021-2024)",
+      "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou (Athens Epidaurus Festival, 2021), Short Composition",
+      "\"Stone Age\" by Joshua Olsthoorn (Film, 2022), Film Scoring"
+    ],
+    "experience": [
+      {
+        "role": "Senior SRE",
+        "company": "TileDB",
+        "location": "Remote",
+        "startDate": "Jan 2023",
+        "endDate": "Mar 2024",
+        "description": [
+          "Introduced pre-commit hooks, advocated for conventional commits and promoted SRE culture",
+          "Acted as primary contact for production troubleshooting, created RFCs and RCAs for performance and configuration issues",
+          "Enhanced cluster autoscaler strategies for spot instance reliability, enabled multi-zonal clustering, and migrated all workloads for multi-zonal HA",
+          "Automated, documented and led Kubernetes upgrades (1.21 to 1.26) on self-managed node groups",
+          "Streamlined the monitoring deployment process and introduced product and cluster dashboards and alerts",
+          "Leveraged monitoring insights to reorganize infrastructure with dedicated node groups for workloads, optimizing node sizes and tolerations to improve reliability and cost efficiency",
+          "Initiated a long-term SRE roadmap advocating for cultural and engineering improvements across platform reliability, observability, release engineering and SLIs/SLOs"
+        ]
+      },
+      {
+        "role": "Senior SRE",
+        "company": "Sitecore",
+        "location": "Remote",
+        "startDate": "May 2022",
+        "endDate": "Dec 2022",
+        "description": [
+          "Introduced SRE principles to support product adaptation, presenting the SRE discipline to directors and stakeholders"
+        ]
+      },
+      {
+        "role": "Senior SRE",
+        "company": "Beat",
+        "location": "ATH",
+        "startDate": "Apr 2019",
+        "endDate": "Apr 2022",
+        "description": [
+          "Managed observability and release engineering, establising centralized metrics ,tracing and CI/CD systems with SLIs/SLOs",
+          "Led migration from Docker and Chartmuseum to Harbor OCI Registry",
+          "Developed CLI to deploy Prometheus and Grafana manifests with GitOps",
+          "Led SSO provisioning for AWS with OneLogin",
+          "Contributed to a Go-based orchestration tool for microservices CI/CD, enabling Kubernetes sandbox environments",
+          "Reduced noisy alerts and optimized infrastructure costs"
+        ]
+      },
+      {
+        "role": "Systems Engineer",
+        "company": "Upstream",
+        "location": "ATH",
+        "startDate": "Sep 2014",
+        "endDate": "Mar 2019",
+        "description": [
+          "Managed physical, virtual, and container infrastructure, including web    servers, reverse proxies, DNS, OS templates, and monitoring",
+          "Streamlined cost reporting and data center management, improving operational efficiency",
+          "Initiated and automated VM provisioning, decommissioning, and networking to reduce manual workload",
+          "Led the migration of production traffic from Apache to NGINX farms"
+        ]
+      },
+      {
+        "role": "Systems Engineer",
+        "company": "UOM",
+        "location": "SKG",
+        "startDate": "Aug 2013",
+        "endDate": "Jan 2014",
+        "description": [
+          "Designed the University’s IaaS Community Cloud"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc in Quantum Computing and Quantum Technologies",
+        "institution": "Democritus University of Thrace",
+        "location": "Remote",
+        "startDate": "Oct 2023",
+        "endDate": "Present",
+        "specialization": "Specialization in Linear Algebra, Quantum Systems and Algorithms",
+        "dissertation": "Thesis topic on Interface between Quantum and Classical Computers"        
+      },
+      {
+        "degree": "BSc in Applied Informatics",
+        "institution": "University of Macedonia",
+        "location": "SKG",
+        "startDate": "Sep 2006",
+        "endDate": "Feb 2013",
+        "specialization": "Specialization in OOP, OS, Networks, and Distributed Systems",
+        "dissertation": "Dissertation on Cloud Computing with OpenStack"
+      }
+    ],
+    "projects": [
+      {
+        "title": "micro-infra",
+        "description": "Lightweight GCP Infrastructure, featuring self-managed observability and essential services stack.",
+        "link": "GitHub Link"
+      },
+      {
+        "title": "repo-operator",
+        "description": "Modular repository management tool for hermetic builds.",
+        "link": "GitHub Link"
+      },
+      {
+        "title": "ioaiaaii.net",
+        "description": "BFF with Go and Vue.js, hosted at micro-infra, powered by repo-operator.",
+        "link": "GitHub Link"
+      }
+    ],
+    "skillGroups": [
+      {
+        "category": "Infrastructure",
+        "skills": ["VMware", "AWS", "GCP"]
+      },
+      {
+        "category": "IAC / GitOps",
+        "skills": ["Terragrunt", "Argo", "GitHub"]
+      },
+      {
+        "category": "Observability",
+        "skills": ["Prometheus", "Thanos", "Grafana", "Tempo", "Loki", "Pyroscope","OTEL", "OpenSearch", "On-Call"]
+      },
+      {
+        "category": "Services",
+        "skills": ["NGINX", "BIND","Cert Manager", "Cluster Autoscaler", "Harbor"]
+      },
+      {
+        "category": "Programming",
+        "skills": ["Bash", "Golang", "Python"]
+      }
+    ]
+  }

@@ -2,7 +2,7 @@
   <div
     class="relative w-full overflow-hidden bg-cover bg-center"
     :style="{ height: 'calc(var(--vh) * 100)' }"
-    style="background-image: url('/assets/images/live/studio_2024.jpg');"
+    style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.jpg');"
   >
     <div class="min-h-12 h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 max-h-40"></div>
 

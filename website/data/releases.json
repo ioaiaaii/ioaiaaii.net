@@ -1,0 +1,57 @@
+{
+  "releases": [
+    {
+      "title": "Diataxis",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2019-05-20",
+      "label": "JUNE",
+      "image": [
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/back_lohalo_90_1500_v1.jpg"
+      ],
+      "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
+      "bandcamp_link": "https://bandcamp.com/diataxis",
+      "description": "Inspired by \"Αναπαράσταση Δυνάμεων\" (1990), a painting by Anastasios Savvaidis, Diataxis interprets the artwork through principles of Optical Networks. Each composition is shaped by accompanying texts, creating layers of connection. Pressed on 12\" vinyl, the record includes an A3 poster featuring the original painting."
+    },
+    {
+      "title": "DEC/PDC",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2020-01-10",
+      "label": "JUNE",
+      "image": [
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/front_90_1500_v1.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/back_90_1500_v1.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/record_90_1500_v1.jpg"
+      ],
+      "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
+      "bandcamp_link": "https://bandcamp.com/dec",
+      "description": "Two live-recorded pieces interpreting distributed computing principles, with layered fragments that merge and dissipate. Pressed on limited edition, transparent Lathe Cut 7\" vinyl."
+    },
+    {
+      "title": "NSA Trusted Networks",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2018-12-15",
+      "label": "Lower Parts",
+      "image": [
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/nsa/front_90_1500_v1.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/nsa/inner_a_90_1500_v1.jpg"
+      ],
+      "discogs_link": "https://www.discogs.com/release/9283679-Ioannis-Savvaidis-NSA-Trusted-Networks",
+      "bandcamp_link": "https://lowerparts.bandcamp.com/album/nsa-trusted-networks-2",
+      "description": "Debut album, inspired by early computer networks and live-recorded with 90's Yamaha synthesizers. Pressed on 12\" vinyl with an included A3 poster designed by Layer Based Human Activities design studio."
+    },
+    {
+      "title": "Telepresence",
+      "artist": "Ioannis Savvaidis & Skynet75",
+      "releaseDate": "2021-12-3",
+      "label": "Anopolis Records",
+      "image": [
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/front_1200_v1.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/cassete_1500_90_v1.jpg"
+      ],
+      "discogs_link": "https://www.discogs.com/release/22471810-Ioannis-Savvaidis-Skynet-75-Telepresence",
+      "bandcamp_link": "https://anopolis.bandcamp.com/album/ioannis-savvaidis-skynet75-telepresence",
+      "description": "Recorded live at DimDJ's Studio in Thessaloniki. Released on cassette."
+    }
+  ]
+}
