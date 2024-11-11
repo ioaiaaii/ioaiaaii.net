@@ -23,7 +23,7 @@
         "startDate": "Jan 2023",
         "endDate": "Mar 2024",
         "description": [
-          "Introduced pre-commit hooks, advocated for conventional commits and and promoted SRE culture",
+          "Introduced pre-commit hooks, advocated for conventional commits and promoted SRE culture",
           "Acted as primary contact for production troubleshooting, created RFCs and RCAs for performance and configuration issues",
           "Enhanced cluster autoscaler strategies for spot instance reliability, enabled multi-zonal clustering, and migrated all workloads for multi-zonal HA",
           "Automated, documented and led Kubernetes upgrades (1.21 to 1.26) on self-managed node groups",
