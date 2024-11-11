@@ -6,8 +6,8 @@
       "releaseDate": "2019-05-20",
       "label": "JUNE",
       "image": [
-        "/assets/images/releases/diataxis/front.jpg",
-        "/assets/images/releases/diataxis/back.jpg"
+        "/assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg",
+        "/assets/images/releases/diataxis/back_lohalo_90_1500_v1.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
       "bandcamp_link": "https://bandcamp.com/diataxis",
@@ -18,7 +18,9 @@
       "releaseDate": "2020-01-10",
       "label": "JUNE",
       "image": [
-        "/assets/images/releases/dec-pdc/dec-front.jpg"
+        "/assets/images/releases/dec-pdc/front_90_1500_v1.jpg",
+        "/assets/images/releases/dec-pdc/back_90_1500_v1.jpg",
+        "/assets/images/releases/dec-pdc/record_90_1500_v1.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
       "bandcamp_link": "https://bandcamp.com/dec",      
@@ -30,7 +32,8 @@
       "releaseDate": "2018-12-15",
       "label": "Lower Parts",
       "image": [
-        "/assets/images/releases/nsa/nsa_test.jpg"
+        "/assets/images/releases/nsa/front_90_1500_v1.jpg",
+        "/assets/images/releases/nsa/inner_a_90_1500_v1.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/9283679-Ioannis-Savvaidis-NSA-Trusted-Networks",
       "bandcamp_link": "https://lowerparts.bandcamp.com/album/nsa-trusted-networks-2",
@@ -42,8 +45,8 @@
       "releaseDate": "2021-12-3",
       "label": "Anopolis Records",
       "image": [
-        "/assets/images/releases/telepresence/front.jpg",
-        "/assets/images/releases/telepresence/back.jpg"
+        "/assets/images/releases/telepresence/front_1200_v1.jpg",
+        "/assets/images/releases/telepresence/cassete_1500_90_v1.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/22471810-Ioannis-Savvaidis-Skynet-75-Telepresence",
       "bandcamp_link": "https://anopolis.bandcamp.com/album/ioannis-savvaidis-skynet75-telepresence",
