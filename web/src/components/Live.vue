@@ -1,9 +1,17 @@
 <template>
   <div
-    class="relative w-full overflow-hidden bg-cover bg-center"
-    :style="{ height: 'calc(var(--vh) * 100)' }"
-    style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.jpg');"
+    class="relative w-full overflow-hidden bg-cover bg-center transition-opacity duration-700"
+    :class="{ 'opacity-0': !backgroundLoaded, 'opacity-100': backgroundLoaded }"
+    :style="backgroundLoaded ? { backgroundImage: `url(${backgroundUrl})`, height: 'calc(var(--vh) * 100)' } : {}"
   >
+    <!-- Hidden image to trigger loading -->
+    <img
+      :src="backgroundUrl"
+      @load="backgroundLoaded = true"
+      class="hidden"
+      alt="Background"
+    />
+
     <div class="min-h-12 h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 max-h-40"></div>
 
     <div class="relative h-full flex flex-col items-start justify-start p-4">
@@ -45,19 +53,19 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
     return {
-      performances: [], // Holds the fetched performances
+      performances: [],
+      backgroundUrl: 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.jpg',
+      backgroundLoaded: false, // Track if background image has loaded
     };
   },
   created() {
     this.fetchLive();
   },
   mounted() {
-    // Set the viewport height variable for mobile Safari
     const setViewportHeight = () => {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     };
@@ -69,7 +77,6 @@ export default {
       fetch('/api/v1/live')
         .then((response) => response.json())
         .then((data) => {
-          console.log('Fetched data:', data); // Debugging log to confirm data fetching
           this.performances = data;
         })
         .catch((error) => console.error('Error fetching live performances:', error));
@@ -77,7 +84,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

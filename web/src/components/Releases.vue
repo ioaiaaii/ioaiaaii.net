@@ -10,13 +10,15 @@
       <div class="relative w-full overflow-hidden">
         <div class="flex transition-transform duration-500 ease-in-out"
              :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }">
-          <img
-            v-for="(imgSrc, imgIndex) in release.image"
-            :key="imgIndex"
-            :src="imgSrc"
-            class="w-full object-cover aspect-square lg:h-screen"
-            loading="lazy"
-          />
+        <img
+          v-for="(imgSrc, imgIndex) in release.image"
+          :key="imgIndex"
+          :src="imgSrc"
+          :class="{ 'opacity-0': !release.imagesLoaded[imgIndex], 'opacity-100 transition-opacity duration-700': release.imagesLoaded[imgIndex] }"
+          @load="release.imagesLoaded.splice(imgIndex, 1, true)"
+          class="w-full object-cover aspect-square lg:h-screen"
+          loading="lazy"          
+        />
         </div>
 
         <!-- Navigation Controls -->
@@ -26,7 +28,7 @@
           class="absolute top-1/2 left-2 transform -translate-y-1/2 text-4xl lg:text-5xl text-gray-400 hover:scale-110 focus:outline-none animate-pulse"
           aria-label="Previous image"
         >
-          <
+          &#9664; <!-- Unicode for left arrow (◀) -->
         </button>
         <button
           v-if="release.image && release.image.length > 1"
@@ -34,7 +36,7 @@
           class="absolute top-1/2 right-2 transform -translate-y-1/2 text-4xl lg:text-5xl text-gray-400 hover:scale-110 focus:outline-none animate-pulse"
           aria-label="Next image"
         >
-          >
+          &#9654; <!-- Unicode for right arrow (▶) -->
         </button>
       </div>
   
@@ -78,14 +80,13 @@ export default {
     };
   },
   created() {
-    // Fetch releases data on component creation
     fetch('/api/v1/releases')
       .then((response) => response.json())
       .then((data) => {
-        // Initialize each release with a currentImageIndex
         this.releases = data.map(release => ({
           ...release,
-          currentImageIndex: 0, // Start with the first image
+          currentImageIndex: 0,
+          imagesLoaded: Array(release.image.length).fill(false), // Track load state for each image
         }));
       })
       .catch((error) => console.error('Error fetching releases:', error));
@@ -111,5 +112,4 @@ export default {
 </script>
 
 <style scoped>
-/* No additional custom styles required, as Tailwind classes handle the transition */
 </style>
