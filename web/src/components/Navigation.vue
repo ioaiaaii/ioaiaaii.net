@@ -3,7 +3,7 @@
   <div
     :class="[
       'fixed top-0 left-0 w-full z-50 bg-white',
-      isLivePage ? 'bg-opacity-0' : 'bg-opacity-100 border-b border-slate-600'
+      isLivePage ? 'bg-opacity-0' : 'bg-opacity-100 border-b border-gray-700'
     ]"
   >
     <!-- Top Bar: Left Conditional Text, Right Menu, and Option Button for Mobile -->
@@ -91,7 +91,7 @@ export default {
       return this.$route.path === '/';
     },
     isLivePage() {
-      return this.$route.path === '/live' || this.$route.path === '/releases';
+      return this.$route.path === '/live' || this.$route.path === '/releases' || this.$route.path === '/contact';
     },
   },
   methods: {

@@ -16,50 +16,56 @@ locals {
       predefined_acl = "publicRead"
     },
     dec_pdc_back = {
-      name         = "assets/images/releases/dec-pdc/back_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/back_90_1500_v1.jpg"
+      name         = "assets/images/releases/dec-pdc/back_v2.jpg"
+      source       = "${local.base_path}/assets/images/releases/dec-pdc/back_v2.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     dec_pdc_front = {
-      name         = "assets/images/releases/dec-pdc/front_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/front_90_1500_v1.jpg"
+      name         = "assets/images/releases/dec-pdc/front_v2.jpg"
+      source       = "${local.base_path}/assets/images/releases/dec-pdc/front_v2.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     dec_pdc_record = {
-      name         = "assets/images/releases/dec-pdc/record_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/record_90_1500_v1.jpg"
+      name         = "assets/images/releases/dec-pdc/render.jpg"
+      source       = "${local.base_path}/assets/images/releases/dec-pdc/render.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     nsa_front = {
-      name         = "assets/images/releases/nsa/front_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/nsa/front_90_1500_v1.jpg"
+      name         = "assets/images/releases/nsa/front_v2.jpg"
+      source       = "${local.base_path}/assets/images/releases/nsa/front_v2.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     nsa_inner = {
-      name         = "assets/images/releases/nsa/inner_a_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/nsa/inner_a_90_1500_v1.jpg"
+      name         = "assets/images/releases/nsa/render.jpg"
+      source       = "${local.base_path}/assets/images/releases/nsa/render.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     diataxis_front = {
-      name         = "assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg"
+      name         = "assets/images/releases/diataxis/front_v2.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/front_v2.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     diataxis_back = {
-      name         = "assets/images/releases/diataxis/back_lohalo_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/back_lohalo_90_1500_v1.jpg"
+      name         = "assets/images/releases/diataxis/back_v2.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/back_v2.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
-    diataxis_s = {
-      name         = "assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/front_lohalo_90_1500_v1.jpg"
+    diataxis_render_a = {
+      name         = "assets/images/releases/diataxis/render_a.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/render_a.jpg"
+      cache_control = "public, max-age=2592000"
+      content_type = "image/jpeg"
+    },
+    diataxis_render_b = {
+      name         = "assets/images/releases/diataxis/render_b.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/render_b.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },

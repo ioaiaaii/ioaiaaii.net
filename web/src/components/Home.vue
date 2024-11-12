@@ -14,17 +14,6 @@
       </div>
     </div>
 
-    <!-- Sitemap placed at the right of the screen -->
-    <div class="home-subheading absolute left-2 bottom-8 px-2">
-      <ul class="list-inside justify-center">
-        <li>├─ <span>/info</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CV ⊕ Resume</li>
-        <li>├─ <span>/projects</span> &nbsp;&nbsp;&nbsp;Classical ⊕ Quantum</li>
-        <li>├─ <span>/releases</span> &nbsp;&nbsp;&nbsp;Music Catalog</li>
-        <li>├─ <span>/live</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performances</li>
-        <li>└─ <span>/contact</span> &nbsp;&nbsp;&nbsp;&nbsp; Details</li>
-      </ul>
-    </div>
-
     <!-- Background Image Container with Full Height -->
     <div
       class="flex-grow bg-center bg-cover"
