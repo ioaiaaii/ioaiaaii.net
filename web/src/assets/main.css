@@ -29,7 +29,11 @@
   .menu-button {
     @apply menu-button-base text-blue-700 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
   }
-  
+
+  .contact-button {
+    @apply menu-button-base text-red-900;
+  }
+
     /* Menu button style for /live page */
   .menu-button-live {
     @apply menu-button-base text-white tracking-wide hover:text-blue-500  transition duration-300 ease-in-out;
@@ -42,13 +46,12 @@
 
 
   .home-heading {
-    @apply menu-button-base tracking-wider text-gray-800;
+    @apply menu-button-base tracking-wider text-red-900;
   }
 
   .home-subheading {
-    @apply text-xs sm:text-sm md:text-lg lg:text-lg xl:text-xl 2xl:text-xl tracking-widest font-bold uppercase text-red-800;
+    @apply text-xs sm:text-sm md:text-lg lg:text-lg tracking-widest font-bold uppercase text-red-900;
   }  
-
 
 
   /* Basic Text Generators */

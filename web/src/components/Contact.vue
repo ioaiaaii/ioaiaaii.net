@@ -1,27 +1,27 @@
-<!-- src/views/Contact.vue -->
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center bg-white p-6">
-    <div class="flex flex-col items-center space-y-2">
+  <div class="min-h-screen bg-ioai-300 p-4 flex flex-col relative items-center justify-center">
+    <!-- Links centered vertically and horizontally -->
+    <div class="flex flex-col text-left">
       <a
         :href="resume.linkedIn"
         target="_blank"
-        class="menu-button  hover:underline"
-      > LinkedIn</a>
+        class="contact-button"
+      >├ LinkedIn</a>
       <a
         :href="resume.gitHub"
         target="_blank"
-        class="menu-button hover:underline"
-      >GitHub</a>
+        class="contact-button"
+      >├ GitHub</a>
       <a
         href="https://soundcloud.com/ioannis_savvaidis"
         target="_blank"
-        class="menu-button hover:underline"
-      >SoundCloud</a>
+        class="contact-button"
+      >├ SoundCloud</a>
       <a
         :href="'mailto:' + resume.email"
-        class="menu-button hover:underline lowercase"
+        class="contact-button lowercase"
       >
-        {{ resume.email }}
+      └ {{ resume.email }}
       </a>      
     </div>
   </div>

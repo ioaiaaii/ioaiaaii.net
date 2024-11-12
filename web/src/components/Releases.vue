@@ -1,5 +1,5 @@
 <template>
-  <div class="base-container p-0">
+  <div class="base-container p-0 bg-ioai-300">
     <!-- Grid Layout for Release Cards -->
     <div
       v-for="(release, releaseIndex) in releases"
@@ -8,17 +8,19 @@
     >
       <!-- Image Carousel with Slider Effect -->
       <div class="relative w-full overflow-hidden">
-        <div class="flex transition-transform duration-500 ease-in-out"
-             :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }">
-        <img
-          v-for="(imgSrc, imgIndex) in release.image"
-          :key="imgIndex"
-          :src="imgSrc"
-          :class="{ 'opacity-0': !release.imagesLoaded[imgIndex], 'opacity-100 transition-opacity duration-700': release.imagesLoaded[imgIndex] }"
-          @load="release.imagesLoaded.splice(imgIndex, 1, true)"
-          class="w-full object-cover aspect-square lg:h-screen"
-          loading="lazy"          
-        />
+        <div
+          class="flex transition-all duration-[800ms] ease-[cubic-bezier(0.25, 0.8, 0.25, 1)]"
+          :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
+        >
+          <img
+            v-for="(imgSrc, imgIndex) in release.image"
+            :key="imgIndex"
+            :src="imgSrc"
+            :class="{ 'opacity-0': !release.imagesLoaded[imgIndex], 'opacity-100 transition-opacity duration-700': release.imagesLoaded[imgIndex] }"
+            @load="release.imagesLoaded.splice(imgIndex, 1, true)"
+            class="w-full aspect-square object-cover lg:min-h-screen"
+            loading="lazy"          
+          />
         </div>
 
         <!-- Navigation Controls -->
@@ -41,7 +43,7 @@
       </div>
   
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-gray-200 border-solid justify-center bg-gray-400">
+      <div class="flex flex-col flex-grow p-4 border-b border-gray-200 border-solid justify-center bg-ioai-300">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>
@@ -71,6 +73,7 @@
     </div>    
   </div>
 </template>
+
 
 <script>
 export default {
