@@ -1,12 +1,15 @@
 <template>
-  <div class="base-container">
+  <div class="base-container bg-ioai-300">
     <div class="base-grid mt-2">
-      <div class="p-4 lg:border-r-ioai-300">       
+      <div class="p-4 lg:border-r border-ioai-100">       
         <section
           v-if="resume.profile.length"
           class="mt-2"
         >
-          <h3 class="resume-heading">
+          <h3 class="project-category">
+            ///
+          </h3>        
+          <h3 class="resume-heading mt-4">
             Computer Engineer Profile
           </h3>
           <p class="resume-text">
@@ -15,12 +18,12 @@
         </section>
         <section
           v-if="resume.education.length"
-          class="mt-4"
+          class="mt-6"
         >
           <h3 class="resume-heading">
             Education
           </h3>
-          <ul class="list-inside space-y-2">
+          <ul class="list-inside space-y-4">
             <li
               v-for="(edu, index) in resume.education"
               :key="index"
@@ -43,12 +46,12 @@
         <!-- Experience Section -->
         <section
           v-if="resume.experience.length"
-          class="mt-4"
+          class="mt-6"
         >
           <h3 class="resume-heading">
             Professional Experience
           </h3>
-          <ul class="list-inside space-y-2">
+          <ul class="list-inside space-y-4">
             <li
               v-for="(exp, index) in resume.experience"
               :key="index"
@@ -61,7 +64,7 @@
                 >{{ exp.startDate }} - {{ exp.endDate }},</span>
                 {{ exp.role }}, {{ exp.company }}, {{ exp.location }}
               </strong>
-              <ul class="list-disc list-inside ml-1 space-y-1">
+              <ul class="list-disc list-outside pl-4 space-y-1">
                 <li
                   v-for="(desc, i) in exp.description"
                   :key="i"
@@ -73,14 +76,17 @@
           </ul>
         </section>        
       </div>
-      
+
       <!-- Right Column: Education, Projects, and Skills -->       
       <div class="p-4">     
         <section
           v-if="resume.profile.length"
           class="mt-2"
         >
-          <h3 class="resume-heading">
+          <h3 class="project-category">
+            ⊕⊕⊕
+          </h3>        
+          <h3 class="resume-heading mt-4">
             Composer Profile
           </h3>
           <p class="resume-text">
@@ -89,7 +95,7 @@
         </section>          
         <section
           v-if="resume.profile.length"
-          class="mt-2"
+          class="mt-6"
         >
           <h3 class="resume-heading">
             Artistic Approach
@@ -101,12 +107,12 @@
         <!-- Experience Section -->
         <section
           v-if="resume.experience.length"
-          class="mt-4"
+          class="mt-6"
         >
           <h3 class="resume-heading">
             Selected Discography / Collaborations
           </h3>
-          <ul class="list-disc list-inside ml-1 space-y-1">
+          <ul class="list-disc list-outside pl-4 space-y-1">
             <li
               v-for="(index) in resume.selectedWorks"
               :key="index"
@@ -155,3 +161,7 @@ export default {
   },
 };
 </script>
+
+<style>
+
+</style>

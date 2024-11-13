@@ -7,19 +7,19 @@
       class="base-grid"
     >
       <!-- Image Carousel with Slider Effect -->
-      <div class="relative w-full overflow-hidden">
+      <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-100">
         <div
-          class="flex transition-all duration-[800ms] ease-[cubic-bezier(0.25, 0.8, 0.25, 1)]"
+          class="flex ease-in-out transition-transform duration-700"
           :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
         >
           <img
             v-for="(imgSrc, imgIndex) in release.image"
             :key="imgIndex"
             :src="imgSrc"
-            :class="{ 'opacity-0': !release.imagesLoaded[imgIndex], 'opacity-100 transition-opacity duration-700': release.imagesLoaded[imgIndex] }"
             @load="release.imagesLoaded.splice(imgIndex, 1, true)"
-            class="w-full aspect-square object-cover lg:min-h-screen"
-            loading="lazy"          
+            class="w-full aspect-square object-contain opacity-0 transition-opacity duration-700 md:h-screen"
+            :class="{ 'opacity-100': release.imagesLoaded[imgIndex] }"
+            loading="lazy"
           />
         </div>
 
@@ -40,10 +40,24 @@
         >
           &#9654; <!-- Unicode for right arrow (▶) -->
         </button>
+
+        <!-- Indicator Dots -->
+        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          <span
+            v-for="(imgSrc, imgIndex) in release.image"
+            :key="imgIndex"
+            @click="setImage(releaseIndex, imgIndex)"
+            :class="{
+              'w-2 h-2 rounded-full cursor-pointer transition-all duration-300': true,
+              'bg-ioai-600': release.currentImageIndex === imgIndex,
+              'bg-ioai-200': release.currentImageIndex !== imgIndex
+            }"
+          ></span>
+        </div>
       </div>
-  
+
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-gray-200 border-solid justify-center bg-ioai-300">
+      <div class="flex flex-col flex-grow p-4 border-b border-ioai-100 border-solid justify-center bg-ioai-300">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>
@@ -52,7 +66,7 @@
         </p>
         <p class="release-text mt-4">
           {{ release.description }}
-        </p>        
+        </p>
         <div class="mt-4">
           <div class="flex space-x-4">
             <!-- Bandcamp Link -->
@@ -70,10 +84,9 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -86,7 +99,7 @@ export default {
     fetch('/api/v1/releases')
       .then((response) => response.json())
       .then((data) => {
-        this.releases = data.map(release => ({
+        this.releases = data.map((release) => ({
           ...release,
           currentImageIndex: 0,
           imagesLoaded: Array(release.image.length).fill(false), // Track load state for each image
@@ -98,21 +111,30 @@ export default {
     nextImage(releaseIndex) {
       const release = this.releases[releaseIndex];
       if (release.image && release.image.length > 1) {
-        // Go to the next image, or wrap around to the first one
         release.currentImageIndex = (release.currentImageIndex + 1) % release.image.length;
       }
     },
     prevImage(releaseIndex) {
       const release = this.releases[releaseIndex];
       if (release.image && release.image.length > 1) {
-        // Go to the previous image, or wrap around to the last one
         release.currentImageIndex =
           (release.currentImageIndex - 1 + release.image.length) % release.image.length;
       }
+    },
+    setImage(releaseIndex, imgIndex) {
+      this.releases[releaseIndex].currentImageIndex = imgIndex;
     },
   },
 };
 </script>
 
 <style scoped>
+/* Styling for indicator dots */
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 </style>

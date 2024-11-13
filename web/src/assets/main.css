@@ -31,12 +31,12 @@
   }
 
   .contact-button {
-    @apply menu-button-base text-red-900;
+    @apply menu-button-base text-blue-700 ;
   }
 
     /* Menu button style for /live page */
   .menu-button-live {
-    @apply menu-button-base text-white tracking-wide hover:text-blue-500  transition duration-300 ease-in-out;
+    @apply menu-button-base text-blue-700 tracking-wide hover:text-white  transition duration-300 ease-in-out;
   }
 
   .menu-button-home {
@@ -56,7 +56,7 @@
 
   /* Basic Text Generators */
   .basic-text {
-    @apply text-sm sm:text-base lg:text-base xl:text-base text-gray-700 text-pretty font-medium tracking-normal;
+    @apply text-sm sm:text-base md:text-lg text-gray-700 text-balance font-medium;
   }
 
   .basic-heading {

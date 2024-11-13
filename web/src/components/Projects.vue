@@ -1,9 +1,9 @@
 <template>
-  <div class="base-container">
+  <div class="base-container bg-ioai-300">
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->
-      <div class="p-4 lg:border-r border-ioai-300">
+      <div class="p-4 lg:border-r border-ioai-100">
         <h3 class="project-category mt-4">
           ///
         </h3>

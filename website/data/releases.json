@@ -8,8 +8,7 @@
       "image": [
         "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/render_a.jpg",
         "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/render_b.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/front_v2.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/back_v2.jpg"
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/poster.jpg"        
       ],
       "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
       "bandcamp_link": "https://bandcamp.com/diataxis",
@@ -22,8 +21,7 @@
       "label": "JUNE",
       "image": [
         "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/render.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/front_v2.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/back_v2.jpg"
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/front_v2.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
       "bandcamp_link": "https://bandcamp.com/dec",
@@ -49,7 +47,8 @@
       "label": "Anopolis Records",
       "image": [
         "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/front_1200_v1.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/cassete_1500_90_v1.jpg"
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/render_a.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/telepresence/dim_studio.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/22471810-Ioannis-Savvaidis-Skynet-75-Telepresence",
       "bandcamp_link": "https://anopolis.bandcamp.com/album/ioannis-savvaidis-skynet75-telepresence",
