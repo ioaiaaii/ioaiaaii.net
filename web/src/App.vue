@@ -10,18 +10,15 @@ const showHeader = computed(() => route.name !== 'NotFound');
 
 const showFooter = computed(() => {
   // Exclude routes where the footer shouldn't display
-  return route.name !== 'NotFound' && !['/live', '/contact'].includes(route.path);
+  return route.name !== 'NotFound' && !['/live', '/contact', '/'].includes(route.path);
 });
+
+
 
 </script>
 <template>
-
-  <nav v-if="showHeader">
-    <Navigation />
-  </nav>
-
+  <Navigation />
   <RouterView :key="$route.fullPath" />
-
   <footer v-if="showFooter">
     <AppFooter />
   </footer>
