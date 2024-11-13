@@ -15,12 +15,6 @@ locals {
       content_type = "image/png"
       predefined_acl = "publicRead"
     },
-    dec_pdc_back = {
-      name         = "assets/images/releases/dec-pdc/back_v2.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/back_v2.jpg"
-      cache_control = "public, max-age=2592000"
-      content_type = "image/jpeg"
-    },
     dec_pdc_front = {
       name         = "assets/images/releases/dec-pdc/front_v2.jpg"
       source       = "${local.base_path}/assets/images/releases/dec-pdc/front_v2.jpg"
@@ -45,18 +39,6 @@ locals {
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
-    diataxis_front = {
-      name         = "assets/images/releases/diataxis/front_v2.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/front_v2.jpg"
-      cache_control = "public, max-age=2592000"
-      content_type = "image/jpeg"
-    },
-    diataxis_back = {
-      name         = "assets/images/releases/diataxis/back_v2.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/back_v2.jpg"
-      cache_control = "public, max-age=2592000"
-      content_type = "image/jpeg"
-    },
     diataxis_render_a = {
       name         = "assets/images/releases/diataxis/render_a.jpg"
       source       = "${local.base_path}/assets/images/releases/diataxis/render_a.jpg"
@@ -69,6 +51,12 @@ locals {
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
+    diataxis_render_poster = {
+      name         = "assets/images/releases/diataxis/poster.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/poster.jpg"
+      cache_control = "public, max-age=2592000"
+      content_type = "image/jpeg"
+    },    
     telepresence_front = {
       name         = "assets/images/releases/telepresence/front_1200_v1.jpg"
       source       = "${local.base_path}/assets/images/releases/telepresence/front_1200_v1.jpg"
@@ -76,11 +64,17 @@ locals {
       content_type = "image/jpeg"
     },
     telepresence_cassete = {
-      name         = "assets/images/releases/telepresence/cassete_1500_90_v1.jpg"
-      source       = "${local.base_path}/assets/images/releases/telepresence/cassete_1500_90_v1.jpg"
+      name         = "assets/images/releases/telepresence/render_a.jpg"
+      source       = "${local.base_path}/assets/images/releases/telepresence/render_a.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
+    telepresence_studio = {
+      name         = "assets/images/releases/telepresence/dim_studio.jpg"
+      source       = "${local.base_path}/assets/images/releases/telepresence/dim_studio.jpg"
+      cache_control = "public, max-age=2592000"
+      content_type = "image/jpeg"
+    },    
     live_studio = {
       name         = "assets/images/live/studio_2024_3000_v1.jpg"
       source       = "${local.base_path}/assets/images/live/studio_2024_3000_v1.jpg"
