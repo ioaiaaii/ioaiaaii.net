@@ -6,12 +6,12 @@
       "releaseDate": "2019-05-20",
       "label": "JUNE",
       "image": [
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/render_a.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/render_b.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/poster.jpg"        
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/mockup_a_v2.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/mockup_b_v2.jpg",        
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/diataxis/poster.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
-      "bandcamp_link": "https://bandcamp.com/diataxis",
+      "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/diataxis",
       "description": "Inspired by \"Αναπαράσταση Δυνάμεων\" (1990), a painting by Anastasios Savvaidis, Diataxis interprets the artwork through principles of Optical Networks. Each composition is shaped by accompanying texts, creating layers of connection. Pressed on 12\" vinyl, the record includes an A3 poster featuring the original painting."
     },
     {
@@ -21,10 +21,11 @@
       "label": "JUNE",
       "image": [
         "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/render.jpg",
-        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/front_v2.jpg"
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/Mockup.jpg",
+        "https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/releases/dec-pdc/front_v3.jpg"
       ],
       "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
-      "bandcamp_link": "https://bandcamp.com/dec",
+      "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/dec-pdc",
       "description": "Two live-recorded pieces interpreting distributed computing principles, with layered fragments that merge and dissipate. Pressed on limited edition, transparent Lathe Cut 7\" vinyl."
     },
     {
