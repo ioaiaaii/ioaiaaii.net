@@ -22,7 +22,7 @@ locals {
       content_type = "image/jpeg"
     },
     dec_pdc_record = {
-      name         = "assets/images/releases/dec-pdc/render.jpg"
+      name         = "assets/images/releases/dec-pdc/Mockup.jpg"
       source       = "${local.base_path}/assets/images/releases/dec-pdc/Mockup.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
