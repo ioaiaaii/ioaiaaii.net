@@ -8,11 +8,6 @@
         class="contact-button"
       >├ LinkedIn</a>
       <a
-        :href="resume.gitHub"
-        target="_blank"
-        class="contact-button"
-      >├ GitHub</a>
-      <a
         href="https://soundcloud.com/ioannis_savvaidis"
         target="_blank"
         class="contact-button"
