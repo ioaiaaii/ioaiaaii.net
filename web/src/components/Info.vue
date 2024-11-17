@@ -8,9 +8,6 @@
         >
           <h3 class="project-category">
             ///
-          </h3>        
-          <h3 class="resume-heading mt-4">
-            Computer Engineer Profile
           </h3>
           <p class="resume-text">
             {{ resume.engineerBio }} 
@@ -85,9 +82,6 @@
         >
           <h3 class="project-category">
             ⊕⊕⊕
-          </h3>        
-          <h3 class="resume-heading mt-4">
-            Composer Profile
           </h3>
           <p class="resume-text">
             {{ resume.artistBio }} 
