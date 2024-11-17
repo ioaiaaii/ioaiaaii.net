@@ -9,10 +9,10 @@ locals {
       content_type = "image/png"
     },
     profile = {
-      name         = "assets/images/home/profile.png"
-      source       = "${local.base_path}/assets/images/home/profile.png"
+      name         = "assets/images/home/profile.webp"
+      source       = "${local.base_path}/assets/images/home/profile.webp"
       cache_control = "public, max-age=2592000"
-      content_type = "image/png"
+      content_type = "image/webp"
       predefined_acl = "publicRead"
     },
     dec_pdc_front = {
@@ -76,10 +76,10 @@ locals {
       content_type = "image/jpeg"
     },    
     live_studio = {
-      name         = "assets/images/live/studio_2024_3000_v1.jpg"
-      source       = "${local.base_path}/assets/images/live/studio_2024_3000_v1.jpg"
+      name         = "assets/images/live/studio_2024_3000_v1.webp"
+      source       = "${local.base_path}/assets/images/live/studio_2024_3000_v1.webp"
       cache_control = "public, max-age=2592000"
-      content_type = "image/jpeg"
+      content_type = "image/webp"
     },
     montserrat_font = {
       name         = "assets/fonts/Montserrat-VariableFont_wght.ttf"
