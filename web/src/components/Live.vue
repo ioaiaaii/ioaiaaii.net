@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       performances: [],
-      backgroundUrl: 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.jpg',
+      backgroundUrl: 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.webp',
       backgroundLoaded: false, // Track if background image has loaded
     };
   },
