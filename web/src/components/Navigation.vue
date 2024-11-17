@@ -8,7 +8,8 @@
       'bg-white border-b border-gray-700': isMenuOpen,
       'bg-white bg-opacity-0': isLivePage && !isMenuOpen,
       'bg-ioai-300': isInfo && !isMenuOpen,
-      'bg-white bg-opacity-100 border-b border-ioai-700': !isMenuOpen && !isLivePage && !isInfo
+      'bg-white bg-opacity-0': isHomePage && !isMenuOpen,
+      'bg-white bg-opacity-100 border-b border-ioai-700': !isMenuOpen && !isLivePage && !isInfo && !isHomePage
     }"
   >
     <!-- Top Bar: Left Conditional Text, Right Menu, and Option Button for Mobile -->
