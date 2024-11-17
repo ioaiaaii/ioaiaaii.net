@@ -6,9 +6,8 @@
   >
     <!-- Text Overlay Container with Flex Layout -->
     <div class="absolute inset-0 flex flex-col p-4 lg:mt-2">
-      <!-- Title Section -->
       <div class="home-heading w-full lg:w-1/2 text-left">
-        <h1 class="mt-10">
+        <h1 class="mt-8">
           {{ resume.title }}
         </h1>
       </div>
@@ -17,7 +16,7 @@
     <!-- Background Image Container with Full Height -->
     <div
       class="flex-grow bg-center bg-cover"
-      style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/home/profile.png');"
+      style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/home/profile.webp');"
     />
   </div>
 </template>
