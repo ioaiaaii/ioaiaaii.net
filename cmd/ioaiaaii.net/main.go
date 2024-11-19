@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"sync"
 	"time"
 
 	"ioaiaaii.net/internal/controller/httpcontroller"
@@ -34,7 +35,13 @@ func main() {
 	contentHandler := httpcontroller.NewContentHandler(contentUsecase)
 
 	// 5. Setup and start the HTTP server
-	app := httpserver.SetupHTTPServer(contentHandler)
-	// 6. Start the HTTP server
-	log.Fatal(app.Listen(":8080"))
+	// Start the server in a separate goroutine
+	var wg sync.WaitGroup
+
+	httpserver.StartHTTPServer(contentHandler, &wg, 60*time.Second)
+
+	// Wait for all cleanup tasks
+	wg.Wait()
+	log.Println("Application shut down gracefully.")
+
 }
