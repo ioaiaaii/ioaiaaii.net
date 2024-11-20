@@ -4,7 +4,7 @@
     <div
       v-for="(release, releaseIndex) in releases"
       :key="release.title"
-      class="base-grid"
+      class="base-grid min-h-screen"
     >
       <!-- Image Carousel with Slider Effect -->
       <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-100">
@@ -17,7 +17,7 @@
             :key="imgIndex"
             :src="imgSrc"
             @load="release.imagesLoaded.splice(imgIndex, 1, true)"
-            class="w-full aspect-square object-contain opacity-0 transition-opacity duration-700 md:min-h-screen"
+            class="aspect-square object-contain opacity-0 transition-opacity duration-700 md:min-h-screen"
             :class="{ 'opacity-100': release.imagesLoaded[imgIndex] }"
             loading="lazy"
           />
