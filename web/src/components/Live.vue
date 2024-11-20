@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full overflow-hidden bg-cover bg-center transition-opacity duration-700"
+    class="relative w-full overflow-hidden bg-cover bg-center transition-opacity duration-300"
     :class="{ 'opacity-40': !backgroundLoaded, 'opacity-100': backgroundLoaded }"
     :style="backgroundLoaded ? { backgroundImage: `url(${backgroundUrl})`, height: 'calc(var(--vh) * 100)' } : {}"
   >

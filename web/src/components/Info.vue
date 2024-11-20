@@ -1,5 +1,5 @@
 <template>
-  <div class="base-container bg-ioai-300">
+  <div class="base-container">
     <div class="base-grid mt-2">
       <div class="p-4 lg:border-r border-ioai-100">       
         <section

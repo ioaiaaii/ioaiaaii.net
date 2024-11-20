@@ -56,7 +56,7 @@
 
   /* Basic Text Generators */
   .basic-text {
-    @apply text-sm sm:text-base md:text-lg text-gray-700 text-balance font-medium;
+    @apply text-sm sm:text-sm md:text-base text-gray-950 text-balance font-normal;
   }
 
   .basic-heading {
@@ -102,7 +102,7 @@
 
 
   .project-category {
-    @apply menu-button-base text-red-800 tracking-wide;
+    @apply menu-button-base text-red-800 tracking-wide font-extralight;
   }
   
   .project-button-pulse {
