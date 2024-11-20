@@ -12,7 +12,7 @@ import (
 //go:embed *.json
 var DataDir embed.FS
 
-type Config struct {
+type Files struct {
 	ResumeFile   string
 	ReleasesFile string
 	LiveFile     string
@@ -58,7 +58,7 @@ func findEmbeddedFiles() (map[string]string, error) {
 }
 
 // LoadData initializes the Config with dynamically found JSON file paths.
-func (c *Config) LoadData() error {
+func (c *Files) LoadFiles() error {
 	// Attempt to find embedded files dynamically
 	foundFiles, err := findEmbeddedFiles()
 	if err != nil {
