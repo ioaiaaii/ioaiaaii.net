@@ -1,11 +1,21 @@
-import './assets/main.css'
+import './assets/main.css';
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+// Check if OTEL_ENABLE is true
+const isOtelEnabled = import.meta.env.VITE_OTEL_ENABLE === 'True';
 
-const app = createApp(App)
+if (isOtelEnabled) {
+    console.log('OpenTelemetry is enabled');
+    import('./otel-metrics'); // Dynamically import OpenTelemetry configuration
+    import('./metrics-handlers'); // Load additional metrics handlers
+    import('./fetch-interceptor'); // Load fetch interceptor for tracing HTTP requests
+} else {
+    console.log('OpenTelemetry is disabled');
+}
 
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(router);
+app.mount('#app');
