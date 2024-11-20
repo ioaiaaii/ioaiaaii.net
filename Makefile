@@ -78,3 +78,16 @@ conventional-changelog: conventional-commit-lint
 # Optional target: create a GitHub release with the changelog
 conventional-changelog-release:
 	@docker run -v "$$PWD":/workdir quay.io/git-chglog/git-chglog --config $(CONVENTIONAL_CHANGELOG)/release-config.yml ${TAG}
+
+
+otel-dev:
+	@echo "Starting OpenTelemetry Collector..."
+	@docker run \
+		-v $(PWD)/build/ci/.otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml \
+		-p 1888:1888  \
+		-p 8888:8888 \
+		-p 8889:8889 \
+		-p 13133:13133 \
+		-p 4317:4317 \
+		-p 4318:4318 \
+		otel/opentelemetry-collector-contrib
