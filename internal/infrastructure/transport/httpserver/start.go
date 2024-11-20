@@ -1,30 +1,44 @@
 package httpserver
 
 import (
-	"log"
+	"context"
+	"log/slog"
 	"sync"
-	"time"
 
+	"github.com/gofiber/fiber/v2"
+	"ioaiaaii.net/config"
 	"ioaiaaii.net/internal/controller/httpcontroller"
 )
 
-func StartHTTPServer(contentHandler *httpcontroller.ContentHandler, wg *sync.WaitGroup, timeout time.Duration) {
+// StartHTTPServer starts the Fiber HTTP server with graceful shutdown using context.
+func StartHTTPServer(ctx context.Context, contentHandler *httpcontroller.ContentHandler, wg *sync.WaitGroup, apiConfig config.APIConfig) {
+	// Step 1: Set up the Fiber HTTP server
 	app := SetupHTTPServer(contentHandler)
 
-	// Add to WaitGroup for the HTTP server
+	// Step 2: Add to WaitGroup to manage HTTP server goroutine
 	wg.Add(1)
 
-	// Start the HTTP server in a separate goroutine
+	// Step 3: Start the HTTP server in a goroutine
 	go func() {
-		log.Println("Starting HTTP server on port 8080...")
-		if err := app.Listen(":8080"); err != nil {
-			log.Printf("HTTP server stopped: %v", err)
+		defer wg.Done() // Ensure this is marked as done when the server stops
+
+		slog.InfoContext(ctx, "Starting HTTP server", "port", apiConfig.HTTPPort)
+		if err := app.Listen(":" + apiConfig.HTTPPort); err != nil && err != fiber.ErrServiceUnavailable {
+			slog.ErrorContext(ctx, "HTTP server stopped unexpectedly", "error", err)
 		}
-		wg.Done() // Mark the HTTP server as stopped
 	}()
 
-	// Handle graceful shutdown in a separate goroutine
+	// Step 4: Handle graceful shutdown using the context
 	go func() {
-		GracefulShutdown(app, timeout)
+		<-ctx.Done() // Wait for the context to be canceled
+		slog.InfoContext(ctx, "Initiating graceful shutdown of HTTP server...")
+
+		// Attempt to shut down the server gracefully
+		shutdownErr := app.ShutdownWithTimeout(apiConfig.HTTPServerShutdownTimeout)
+		if shutdownErr != nil {
+			slog.ErrorContext(ctx, "Error during Fiber shutdown", "error", shutdownErr)
+		} else {
+			slog.InfoContext(ctx, "Fiber server shut down gracefully")
+		}
 	}()
 }
