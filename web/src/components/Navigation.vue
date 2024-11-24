@@ -59,7 +59,7 @@
   <!-- Full-screen Mobile Menu Overlay (visible when menu is toggled open) -->
   <div 
     v-if="isMenuOpen" 
-    class="fixed inset-0 bg-white flex flex-col items-center z-40 pt-10 md:pt-12 lg:pt-16"
+    class="fixed inset-0 bg-white flex flex-col items-center z-40 pt-12 md:pt-12 lg:pt-16"
   >
     <!-- Menu Items for Mobile -->
     <ul class="items-center w-full">

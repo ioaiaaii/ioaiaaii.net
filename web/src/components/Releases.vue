@@ -1,5 +1,5 @@
 <template>
-  <div class="base-container p-0 bg-ioai-300">
+  <div class="base-container p-0">
     <!-- Grid Layout for Release Cards -->
     <div
       v-for="(release, releaseIndex) in releases"
@@ -7,7 +7,7 @@
       class="base-grid min-h-screen"
     >
       <!-- Image Carousel with Slider Effect -->
-      <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-100">
+      <div class="relative w-full overflow-hidden lg:border-b lg:border-white">
         <div
           class="flex ease-in-out transition-transform duration-700"
           :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
@@ -57,7 +57,7 @@
       </div>
 
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-ioai-100 border-solid justify-center bg-ioai-300">
+      <div class="flex flex-col flex-grow p-4 border-b border-white justify-center">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>

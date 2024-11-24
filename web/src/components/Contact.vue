@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen p-4 flex flex-col relative items-center justify-center bg-ioai-300">
+  <div class="min-h-screen p-4 flex flex-col relative items-center justify-center">
     <!-- Links centered vertically and horizontally -->
     <div class="flex flex-col text-left">
       <a

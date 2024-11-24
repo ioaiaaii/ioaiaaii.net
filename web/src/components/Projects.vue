@@ -3,7 +3,7 @@
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->
-      <div class="p-4 lg:border-r border-ioai-100">
+      <div class="p-4 lg:border-r border-white">
         <h3 class="project-category mt-4">
           ///
         </h3>

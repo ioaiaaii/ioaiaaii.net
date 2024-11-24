@@ -1,7 +1,7 @@
 <template>
   <div class="base-container">
     <div class="base-grid mt-2">
-      <div class="p-4 lg:border-r border-ioai-100">       
+      <div class="p-4 lg:border-r border-white">       
         <section
           v-if="resume.profile.length"
           class="mt-2"
