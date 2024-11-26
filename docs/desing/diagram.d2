@@ -1,12 +1,34 @@
-Frontend -> API: "API Requests (/api/*)"
-API: {
-  label: "API"
-
-  WebServer -> UseCases: "Call Use Cases"
-  UseCases -> Repositories: "Fetch Data from Repository"
-  Repositories -> DataSource: "Load Data from Files"
-  
-  WebServer <- UseCases: "Return Processed Data"  
+vars: {
+  d2-config: {
+    center: true
+    layout-engine: elk #https://github.com/terrastruct/tala?tab=readme-ov-file#installation
+    theme-id: 300
+  }
+}
+classes: {
+  otel_collector: {
+    icon: https://avatars.githubusercontent.com/u/49998002?s=280&v=4
+    shape: image
+    label: "OTEL Collector" # No text under Grafana
+  }
+  fiber: {
+    icon: https://gofiber.io/assets/images/logo.svg
+    shape: image
+    label: "Fiber" # No text under Grafana
+  }  
 }
 
-API -> Frontend: "Response (JSON)"
+OTEL.class: otel_collector
+Fiber.class: fiber
+
+Frontend <-> API: "API Request/Response (/api/*)"
+API: {
+  label: "API"
+  transport -> _.Fiber
+  transport -> controller
+  controller <-> usecase: "Call Use Cases"
+  usecase <-> repository: "Fetch Data from Repository"
+  repository <-> persistence: "Load Data from Files"
+  controller -> telemetry: "OTEL Instrumentation"
+  telemetry -> _.OTEL
+}
