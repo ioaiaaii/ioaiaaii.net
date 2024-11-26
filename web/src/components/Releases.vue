@@ -1,13 +1,13 @@
 <template>
-  <div class="base-container p-0 bg-ioai-300">
+  <div class="base-container p-0">
     <!-- Grid Layout for Release Cards -->
     <div
       v-for="(release, releaseIndex) in releases"
       :key="release.title"
-      class="base-grid"
+      class="base-grid min-h-screen"
     >
       <!-- Image Carousel with Slider Effect -->
-      <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-100">
+      <div class="relative w-full overflow-hidden lg:border-b lg:border-white">
         <div
           class="flex ease-in-out transition-transform duration-700"
           :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
@@ -17,7 +17,7 @@
             :key="imgIndex"
             :src="imgSrc"
             @load="release.imagesLoaded.splice(imgIndex, 1, true)"
-            class="w-full aspect-square object-contain opacity-0 transition-opacity duration-700 md:min-h-screen"
+            class="aspect-square object-contain opacity-0 transition-opacity duration-700 md:min-h-screen"
             :class="{ 'opacity-100': release.imagesLoaded[imgIndex] }"
             loading="lazy"
           />
@@ -57,7 +57,7 @@
       </div>
 
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-ioai-100 border-solid justify-center bg-ioai-300">
+      <div class="flex flex-col flex-grow p-4 border-b border-white justify-center">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>

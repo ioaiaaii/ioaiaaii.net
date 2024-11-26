@@ -10,11 +10,11 @@ import (
 
 // FileContent handles reading embedded files and parsing them into structs
 type FileContent struct {
-	Config data.Config
+	Config data.Files
 }
 
 // NewFileContent creates a new FileContent instance with embedded file paths
-func NewFileContent(config data.Config) *FileContent {
+func NewFileContent(config data.Files) *FileContent {
 	return &FileContent{
 		Config: config,
 	}
