@@ -22,7 +22,12 @@ ingress:
   ingressClassName: nginx
   path: /
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
+    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer 
+    # even if the usage would be extremely low
+    nginx.ingress.kubernetes.io/limit-connections: "5"   # Max concurrent connections per client IP
+    nginx.ingress.kubernetes.io/limit-rps: "10"          # Max requests per second
+    nginx.ingress.kubernetes.io/limit-rate-after: "1000000"  # Allow 1 MB at full speed
+    nginx.ingress.kubernetes.io/limit-rate: "100"           # Then throttle to 100 bytes/second
   tls:
   - hosts:
     - ioaiaaii.net
