@@ -9,26 +9,42 @@ classes: {
   otel_collector: {
     icon: https://avatars.githubusercontent.com/u/49998002?s=280&v=4
     shape: image
-    label: "OTEL Collector" # No text under Grafana
+    label: "OTEL Collector"
   }
   fiber: {
     icon: https://gofiber.io/assets/images/logo.svg
     shape: image
-    label: "Fiber" # No text under Grafana
+    label: "transport"
+  }
+  frontend: {
+    icon: https://v2.vuejs.org/images/logo.svg
+    label: "frontend" 
+    shape: image
+  }
+  internet: {
+    icon: https://icons.terrastruct.com/essentials%2F140-internet.svg
+    shape: image
   }  
 }
 
+Internet.class: internet
 OTEL.class: otel_collector
-Fiber.class: fiber
+# Fiber.class: fiber
+Frontend.class: frontend
 
-Frontend <-> API: "API Request/Response (/api/*)"
+Internet <-> Frontend: "HTTPS:/*"
+Frontend <-> API: "HTTP:/api/v1/*"
 API: {
   label: "API"
-  transport -> _.Fiber
-  transport -> controller
+  transport.class: fiber{}
+
+  transport -> Otelfiber: "middleware"
+  Otelfiber -> _.OTEL: "gRPC"
+
+  transport <-> controller: "HTTP"
   controller <-> usecase: "Call Use Cases"
   usecase <-> repository: "Fetch Data from Repository"
   repository <-> persistence: "Load Data from Files"
   controller -> telemetry: "OTEL Instrumentation"
-  telemetry -> _.OTEL
+  telemetry -> Otelfiber: "OTEL Providers"
 }

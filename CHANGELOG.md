@@ -1,6 +1,133 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v1.1.9"></a>
+## [v1.1.9] - 2024-11-26
+### ♻️ Code Refactoring
+- **persistence:** minor naming
+- **transport:** tbd
+
+### ✨ Features
+- **api:** enable otel
+- **api:** introduce config package
+- **deploy:** add rate limiting
+- **deploy:** support otel in env
+- **telemetry:** introduce otel instrumentation
+- **transport:** use otel-fiber middleware for instrumentation
+
+### 🐛 Bug Fixes
+- **web:** mozila bug with w-full on img tag
+
+### 👷 Continuous Integration
+- add local otel target
+- **otel:** add local otel config
+
+### 🛠️ Chores
+- go mod tidy and vendor
+- **deploy:** bump chart appversion
+- **deploy:** chart update
+- **transport:** do not instrument health routes
+- **web:** minor styling improvmenets
+- **web:** introduce Metrics Instrumentation with OTEL
+- **web:** minor display improvements
+
+### Pull Requests
+- Merge pull request [#43](https://github.com/ioaiaaii/ioaiaaii.net/issues/43) from ioaiaaii/feat/fontend-otel-instrumentation
+
+
+<a name="v1.1.8"></a>
+## [v1.1.8] - 2024-11-17
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+- **iac:** upload webp images
+- **web:** migrate live to webp image
+- **web:** migrate to webp image
+- **web:** transparent home menu bar
+- **web:** apply default bg color
+- **web:** remove redundunt info
+- **web:** remove gh profile from contancts
+
+### Pull Requests
+- Merge pull request [#42](https://github.com/ioaiaaii/ioaiaaii.net/issues/42) from ioaiaaii/chore/switch-to-webp-images
+
+
+<a name="v1.1.7"></a>
+## [v1.1.7] - 2024-11-15
+### 🐛 Bug Fixes
+- **website:** image path for dec-pdc
+
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+- **iac:** module update with new images
+
+### Pull Requests
+- Merge pull request [#41](https://github.com/ioaiaaii/ioaiaaii.net/issues/41) from ioaiaaii/chore/images-improvements
+- Merge pull request [#40](https://github.com/ioaiaaii/ioaiaaii.net/issues/40) from ioaiaaii/chore/images-improvements
+- Merge pull request [#39](https://github.com/ioaiaaii/ioaiaaii.net/issues/39) from ioaiaaii/chore/images-improvements
+
+
+<a name="v1.1.6"></a>
+## [v1.1.6] - 2024-11-15
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+- **website:** improvment mockups
+
+### Pull Requests
+- Merge pull request [#38](https://github.com/ioaiaaii/ioaiaaii.net/issues/38) from ioaiaaii/chore/images-improvements
+
+
+<a name="v1.1.5"></a>
+## [v1.1.5] - 2024-11-13
+### 🐛 Bug Fixes
+- image min h
+
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+
+### Pull Requests
+- Merge pull request [#37](https://github.com/ioaiaaii/ioaiaaii.net/issues/37) from ioaiaaii/fix/image-h
+
+
+<a name="v1.1.4"></a>
+## [v1.1.4] - 2024-11-13
+### ✨ Features
+- **web:** minor imrovements on images
+
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+- **iac:** images sync
+
+### Pull Requests
+- Merge pull request [#36](https://github.com/ioaiaaii/ioaiaaii.net/issues/36) from ioaiaaii/feat/styling-improv
+
+
+<a name="v1.1.3"></a>
+## [v1.1.3] - 2024-11-12
+### ✨ Features
+- image rendering and styling improvements
+
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+- **iac:** image upload
+
+### Pull Requests
+- Merge pull request [#35](https://github.com/ioaiaaii/ioaiaaii.net/issues/35) from ioaiaaii/feat/images-desing
+- Merge pull request [#34](https://github.com/ioaiaaii/ioaiaaii.net/issues/34) from ioaiaaii/master
+- Merge pull request [#33](https://github.com/ioaiaaii/ioaiaaii.net/issues/33) from ioaiaaii/feat/images-desing
+
+
+<a name="v1.1.2"></a>
+## [v1.1.2] - 2024-11-11
+### 🛠️ Chores
+- **deploy:** bump chart appversion
+
+### Pull Requests
+- Merge pull request [#32](https://github.com/ioaiaaii/ioaiaaii.net/issues/32) from ioaiaaii/feat/improve-image-loading
+
+
+<a name="v1.1.1"></a>
+## [v1.1.1] - 2024-11-11
 ### ♻️ Code Refactoring
 - move website data to website dir
 
@@ -13,9 +140,14 @@
 - **data:** minor text correction
 
 ### 🛠️ Chores
+- **deploy:** bump appversion
 - **deploy:** bump chart version
 - **website:** migrate images from upstream
 - **website:** deprecate embed
+
+### Pull Requests
+- Merge pull request [#31](https://github.com/ioaiaaii/ioaiaaii.net/issues/31) from ioaiaaii/chore/image-bump
+- Merge pull request [#30](https://github.com/ioaiaaii/ioaiaaii.net/issues/30) from ioaiaaii/feat/images_improvements
 
 
 <a name="v1.1.0"></a>
@@ -155,5 +287,14 @@
 - Merge pull request [#8](https://github.com/ioaiaaii/ioaiaaii.net/issues/8) from ioaiaaii/chore/repo-operator
 
 
-[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.9...HEAD
+[v1.1.9]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.8...v1.1.9
+[v1.1.8]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.7...v1.1.8
+[v1.1.7]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.6...v1.1.7
+[v1.1.6]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.5...v1.1.6
+[v1.1.5]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.4...v1.1.5
+[v1.1.4]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.3...v1.1.4
+[v1.1.3]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.2...v1.1.3
+[v1.1.2]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.1...v1.1.2
+[v1.1.1]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/ioaiaaii/ioaiaaii.net/compare/v1.0.0...v1.1.0
