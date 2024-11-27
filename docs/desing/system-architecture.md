@@ -34,7 +34,7 @@ The architecture is divided into distinct layers, each with a specific responsib
 - **Use Case Layer**: Contains the core business logic, orchestrating the application's functionality.
 - **Infrastructure Layer**: Deals with external concerns like database or file storage, server setup, and other transport mechanisms (HTTP, gRPC).
 
-![diagram](./diagram.svg)
+![diagram](./diagram_v1.svg)
 
 ---
 
