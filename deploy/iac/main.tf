@@ -15,15 +15,9 @@ locals {
       content_type = "image/webp"
       predefined_acl = "publicRead"
     },
-    dec_pdc_front = {
-      name         = "assets/images/releases/dec-pdc/front_v3.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/front_v3.jpg"
-      cache_control = "public, max-age=2592000"
-      content_type = "image/jpeg"
-    },
     dec_pdc_record = {
-      name         = "assets/images/releases/dec-pdc/Mockup.jpg"
-      source       = "${local.base_path}/assets/images/releases/dec-pdc/Mockup.jpg"
+      name         = "assets/images/releases/dec-pdc/Mockup_v3.jpg"
+      source       = "${local.base_path}/assets/images/releases/dec-pdc/Mockup_v3.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
@@ -40,14 +34,14 @@ locals {
       content_type = "image/jpeg"
     },
     diataxis_render_a = {
-      name         = "assets/images/releases/diataxis/mockup_a_v2.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/mockup_a_v2.jpg"
+      name         = "assets/images/releases/diataxis/mockup_a_v3.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/mockup_a_v3.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
     diataxis_render_b = {
-      name         = "assets/images/releases/diataxis/mockup_b_v2.jpg"
-      source       = "${local.base_path}/assets/images/releases/diataxis/mockup_b_v2.jpg"
+      name         = "assets/images/releases/diataxis/mockup_b_v3.jpg"
+      source       = "${local.base_path}/assets/images/releases/diataxis/mockup_b_v3.jpg"
       cache_control = "public, max-age=2592000"
       content_type = "image/jpeg"
     },
