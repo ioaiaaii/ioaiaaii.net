@@ -15,9 +15,7 @@
       <a
         :href="'mailto:' + resume.email"
         class="contact-button lowercase"
-      >
-      └ {{ resume.email }}
-      </a>      
+      >├ {{ resume.email }}</a>      
     </div>
   </div>
 </template>
