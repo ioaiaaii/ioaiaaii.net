@@ -14,8 +14,8 @@ These presets are for basic testing and not meant to be used in production
 {{/* The limits are the requests increased by 50% (except ephemeral-storage and xlarge/2xlarge sizes)*/}}
 {{- $presets := dict
   "pico" (dict 
-      "requests" (dict "cpu" "1m" "memory" "28Mi" "ephemeral-storage" "50Mi")
-      "limits" (dict "cpu" "10m" "memory" "92Mi" "ephemeral-storage" "2Gi")
+      "requests" (dict "cpu" "10m" "memory" "28Mi" "ephemeral-storage" "50Mi")
+      "limits" (dict "cpu" "50m" "memory" "92Mi" "ephemeral-storage" "2Gi")
    )
   "nano" (dict 
       "requests" (dict "cpu" "100m" "memory" "128Mi" "ephemeral-storage" "50Mi")
