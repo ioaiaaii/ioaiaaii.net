@@ -91,7 +91,7 @@ web:
   startupProbe:
     enabled: false
 
-  resourcesPreset: "nano"
+  resourcesPreset: "pico"
 
   resources: {}
 
