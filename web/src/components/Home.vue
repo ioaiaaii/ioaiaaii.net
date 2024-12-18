@@ -5,13 +5,13 @@
     :style="{ height: 'calc(var(--vh) * 100)' }"
   >
     <!-- Text Overlay Container with Flex Layout -->
-    <div class="absolute inset-0 flex flex-col p-4 lg:mt-2">
+    <!-- <div class="absolute inset-0 flex flex-col p-4 lg:mt-2">
       <div class="home-heading w-full lg:w-1/2 text-left">
         <h1 class="mt-8">
           {{ resume.title }}
         </h1>
       </div>
-    </div>
+    </div> -->
 
     <!-- Background Image Container with Full Height -->
     <div
