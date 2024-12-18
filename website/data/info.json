@@ -5,57 +5,78 @@
     "linkedIn": "https://www.linkedin.com/in/ioannissavvaidis/",
     "github": "https://github.com/ioaiaaii",
     "profile": "Computer Engineer and Composer dedicated to building sustainable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures with a focus on observability and performance while cultivating a culture of respect and collaboration.",
-    "artistBio": "Composer drawing on quantum and distributed computing principles to interpret relativistic reality and explore soundscapes driven by warped motion dynamics. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Member of UNIX SYSTEMS group. Performs live with synthesizers under an improvisational approach.",
-    "engineerBio": "Computer Engineer dedicated to building sustainable systems. Experienced in Site Reliability Engineering, managing large-scale production infrastructures, focusing on observability and performance while cultivating a culture of respect and collaboration. Currently, pursuing a Master's in Quantum Computing, exploring advanced computational methods.",
-    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, with linear algebra shaping musical interactions as multidimensional spaces. Currently focused on 'Superluminal Motion', inspired by theoretical faster-than-light phenomena, where spacetime intersects across past, present, and future states, creating an emotionally warped drive.",
+    "artistBio": "Composer drawing on Quantum and Distributed Computing principles to interpret relativistic reality with motion dynamics. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Performs live with synthesizers under an improvisational approach.",
+    "engineerBio": "Computer Engineer with over a decade in Systems and Site Reliability Engineering, managing large-scale production infrastructures. Focused on systems performance, software engineering, and cultivating a culture of collaboration and continuous improvement. Interested in physics and music composition. Currently, pursuing a Master's in Quantum Computing.",
+    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on 'Superluminal Motion', inspired by theoretical faster-than-light phenomena, where spacetime intersects across non-local states.",
     "selectedWorks": [
-      "\"Diataxis\" (June Records, 2019)",
-      "\"Superluminal\" Motion (Unreleased, 2021-2024)",
-      "\"Δέσμη Φωτός\" (Unreleased, 2021-2024)",
-      "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou (Athens Epidaurus Festival, 2021), Short Composition",
-      "\"Stone Age\" by Joshua Olsthoorn (Film, 2022), Film Scoring"
+      {
+        "title": "\"Diataxis\" (June Records, 2019)",
+        "link": "https://ioannissavvaidis.bandcamp.com/album/diataxis"
+      },
+      {
+        "title": "\"Superluminal Motion\" (Unreleased, 2021-2024)",
+        "link": "https://on.soundcloud.com/hFMepUAdjMh53FVR8"
+      },
+      {
+        "title": "\"Δέσμη Φωτός\" (Unreleased, 2021-2024)",
+        "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8"
+      }
+    ],
+    "collaborations": [
+      {
+        "title": "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou (Athens Epidaurus Festival, 2021), Short Composition",
+        "link": "https://aefestival.gr/festival_events/sacred-tales-covid-19/?lang=en"
+      },
+      {
+        "title": "\"Stone Age\" by Joshua Olsthoorn (Film, 2022), Film Scoring",
+        "link": "https://typical-organization.com/portfolio/studio-stone-age/"
+      }
     ],
     "experience": [
       {
-        "role": "Senior SRE",
+        "role": "Senior Site Reliability Engineer",
         "company": "TileDB",
         "location": "Remote",
         "startDate": "Jan 2023",
         "endDate": "Mar 2024",
         "description": [
-          "Introduced pre-commit hooks, advocated for conventional commits, and promoted SRE culture",
-          "Acted as primary contact for production troubleshooting, created RFCs and RCAs for performance and configuration issues",
-          "Enhanced Cluster Autoscaler and AWS ASGs strategies for spot instance reliability, enabled multi-zonal clustering and migrated all workloads for multi-zonal HA",
-          "Automated, documented, and led Kubernetes upgrades (1.21 to 1.26) on self-managed node groups",
-          "Streamlined the monitoring deployment process and introduced product and cluster dashboards and alerts",
-          "Leveraged monitoring insights to reorganize infrastructure with dedicated node groups for workloads, optimizing sizing and tolerations to improve reliability and cost efficiency",
-          "Reduced CloudWatch and EC2 costs by ~40%",
-          "Initiated a long-term SRE roadmap advocating for cultural and engineering improvements across platform reliability, observability, release engineer- ing, cost management, and SLIs/SLOs"
+          "Sole SRE for half of my tenure, managing infrastructure stability across multiple AWS regions and supporting critical business operations",
+          "Introduced pre-commit hooks, conventional commits, and SRE practices",
+          "Served as primary contact for production incidents, creating RFCs and RCAs to enhance performance and facilitate troubleshooting",
+          "Streamlined the monitoring process by simplifying Prometheus/Grafana manifest deployment, adding dashboards, alerts, and runbooks for more effective observability and on-call response",
+          "Enhanced Cluster Autoscaler and AWS ASGs, improving spot instance reliability and enabling multi-zonal clustering",
+          "Leveraged monitoring insights to reorganize infrastructure and enhance scaling by creating dedicated node groups and fine-tuning ASG node sizes based on workload characterization",
+          "Reduced CloudWatch and EC2 costs by optimizing resource usage and configurations",
+          "Automated, documented, and led Kubernetes upgrades (1.21 → 1.26) on self-managed node groups, ensuring smooth workload migrations",
+          "Advocated for Product’s smoke testing, profiling, and microservices pattern",
+          "Initiated and led the SRE roadmap focusing on performance, observability, and release engineering improvements, and SLIs/SLOs adaption"
         ]
       },
       {
-        "role": "Senior SRE",
+        "role": "Senior Site Reliability Engineer",
         "company": "Sitecore",
         "location": "Remote",
         "startDate": "May 2022",
         "endDate": "Dec 2022",
         "description": [
+          "SRE Advocate in DevOps team, to enable Observability",
           "Introduced SRE principles to support product adaptation, presenting the SRE discipline to directors and stakeholders"
         ]
       },
       {
-        "role": "Senior SRE",
+        "role": "Senior Site Reliability Engineer",
         "company": "Beat",
         "location": "ATH",
         "startDate": "Apr 2019",
         "endDate": "Apr 2022",
         "description": [
-          "Managed observability and release engineering, establishing centralized metrics, tracing, and CI/CD systems with SLIs/SLOs",
-          "Led migration from Docker and Chartmuseum to Harbor OCI Registry",
+          "Member of SRE team, managing infrastructure across multiple AWS regions (~500 instances) with over 70 microscervices and self-managed Kubernetes Clusters",
+          "Managed observability and release engineering, establishing centralized metrics, logging, tracing, and CI/CD systems with SLIs/SLOs",
+          "Led migration from Docker Registry and Chartmuseum to Harbor Registry",
           "Developed CLI to deploy Prometheus and Grafana manifests with GitOps",
           "Led SSO provisioning for AWS with OneLogin",
-          "Contributed to a Go-based orchestration tool for microservices CI/CD, enabling Kubernetes sandbox environments",
-          "Reduced noisy alerts and optimized infrastructure costs"
+          "Contributed to a Go-based orchestration tool for (~70) microservices CI/CD, enabling Kubernetes sandbox environments",
+          "Contributed to reducing alert noise and improving infrastructure documentation"
         ]
       },
       {
@@ -65,11 +86,11 @@
         "startDate": "Sep 2014",
         "endDate": "Mar 2019",
         "description": [
-          "Managed physical, virtual, and container infrastructure, including web servers, reverse proxies, DNS, OS templates, and monitoring",
-          "Streamlined cost reporting and data center management",
-          "Initiated and automated VM provisioning and decommissioning",
-          "Led the migration of production traffic from Apache to NGINX farms",
-          "Primary contact for layer three support"
+          "First professional role managing large-scale on-prem VMware infrastructure ~(300 servers, 5 storage systems, 5K VMs across 3 DCs)",
+          "Maintained reverse proxies, DNS, Linux VM templates, and monitoring",
+          "Automated cost reporting and VM lifecycle management",
+          "Introduced resource tagging and openDCIM for infrastructure inventory",
+          "Led the migration of production traffic from Apache to NGINX farms"
         ]
       },
       {
@@ -79,7 +100,8 @@
         "startDate": "Aug 2013",
         "endDate": "Jan 2014",
         "description": [
-          "Designed the University’s IaaS Community Cloud"
+          "Designed the fist University’s IaaS Community Cloud as an extension of my bachelor’s dissertation",
+          "Delivered a private cloud using Synnefo (3 servers and 1 storage system), for academic compute and storage needs"
         ]
       }
     ],
@@ -122,12 +144,16 @@
     ],
     "skillGroups": [
       {
+        "category": "Site Reliability Engineering",
+        "skills": ["Systems Performance", "SLIs/SLOs", "Release Engineering", "Incident and Toil Management"]
+      },
+      {
         "category": "Infrastructure",
         "skills": ["AWS", "GCP", "VMware"]
       },
       {
         "category": "IAC",
-        "skills": ["Terraform/Terragrunt", "Ansible"]
+        "skills": ["Terraform","Terragrunt", "Ansible"]
       },
       {
         "category": "Kubernetes",
@@ -135,15 +161,11 @@
       },      
       {
         "category": "Observability",
-        "skills": ["Prometheus/Thanos", "Grafana/Tempo/Loki/Pyroscope", "OpenTelemetry", "OpenSearch", "On-Call", "OpenCost", "core-dump-handler", "Mixins"]
+        "skills": ["Prometheus","Thanos", "Grafana", "Tempo", "Loki", "Pyroscope", "OpenTelemetry", "OpenSearch", "On-Call", "OpenCost", "core-dump-handler", "Mixins"]
       },
       {
         "category": "GitOps",
-        "skills": ["ArgoCD"]
-      },
-      {
-        "category": "CI/CD",
-        "skills": ["GitHub Actions","GitLab CI/CD"]
+        "skills": ["ArgoCD","GitHub Actions","GitLab CI/CD"]
       },
       {
         "category": "Containers",
@@ -160,6 +182,10 @@
       {
         "category": "Programming",
         "skills": ["Bash", "Golang", "Python"]
-      }
+      },
+      {
+        "category": "Quantum Computing",
+        "skills": ["Qiskit", "Quantum Algorithms", "Quantum Networks"]
+      }      
     ]
   }
