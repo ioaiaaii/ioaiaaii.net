@@ -5,7 +5,7 @@
       <!-- Classical Computing Projects Column -->
       <div class="p-4 lg:border-r border-white">
         <h3 class="project-category mt-4">
-          ///
+          Classical Computing
         </h3>
         <div>
           <div 
@@ -13,16 +13,21 @@
             :key="index" 
             class="mt-4"
           >
-            <a 
-              :href="project.link" 
-              target="_blank" 
-              class="project-button-pulse"
-            >
+            <p class="resume-item">
               {{ project.title }}
-            </a>
+            </p>            
             <p class="project-text">
               {{ project.description }}
             </p>
+            <span v-if="project.link"> </span>
+            <a 
+              :href="project.link" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="release-button"
+            > 
+              READ
+            </a>            
           </div>
         </div>
       </div>
@@ -30,24 +35,29 @@
       <!-- Quantum Computing Works Column -->
       <div class="p-4">
         <h2 class="mt-4 project-category">
-          ⊕⊕⊕
+          Quantum Computing
         </h2>
         <ul>
           <li 
-            v-for="(latexDoc, index) in quantumDocuments" 
+            v-for="(project, index) in quantumDocuments" 
             :key="index"
             class="mt-4"
           >
-            <a 
-              :href="latexDoc.link" 
-              target="_blank" 
-              class="project-button-pulse"
-            >
-              {{ latexDoc.title }}
-            </a>
+            <p class="resume-item">
+              {{ project.title }}
+            </p>            
             <p class="project-text">
-              {{ latexDoc.description }}
+              {{ project.description }}
             </p>
+            <span v-if="project.link"> </span>
+            <a 
+              :href="project.link" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="release-button"
+            > 
+              READ
+            </a>  
           </li>
         </ul>
       </div>
