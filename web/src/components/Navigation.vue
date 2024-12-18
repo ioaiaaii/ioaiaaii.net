@@ -6,73 +6,92 @@
       'translate-y-0': isNavbarVisible,
       '-translate-y-full': !isNavbarVisible,
       'bg-white border-b border-gray-700': isMenuOpen,
-      'bg-white bg-opacity-0': isLivePage && !isMenuOpen,
-      'bg-ioai-300': isInfo && !isMenuOpen,
+      'bg-white bg-opacity-0': isComposer && !isMenuOpen,
+      'bg-ioai-300 border-b border-white': isEngineer && !isMenuOpen,
       'bg-white bg-opacity-0': isHomePage && !isMenuOpen,
-      'bg-white bg-opacity-100 border-b border-ioai-700': !isMenuOpen && !isLivePage && !isInfo && !isHomePage
+      'bg-white bg-opacity-100 border-b border-white': !isMenuOpen && !isComposer && !isEngineer && !isHomePage,
     }"
   >
     <!-- Top Bar: Left Conditional Text, Right Menu, and Option Button for Mobile -->
-    <div class="flex items-center py-2 px-4 justify-between relative">
+    <div class="flex py-2 px-4 relative justify-between">
       <!-- Logo or Home Link -->
-      <button 
-        v-if="isHomePage"
-        class="menu-button-home"
-      >
-        IOANNIS SAVVAIDIS
-      </button>
-      <button 
-        v-else
-        class="menu-button"
-        @click="navigateTo('/')"
-      >
-        IOAIAAII
-      </button>
+      <button v-if="isHomePage" class="menu-button-home">IOANNIS SAVVAIDIS</button>
+      <button v-else class="menu-button" @click="navigateTo('/')">IOAIAAII</button>
 
       <!-- Right-aligned menu items for large screens -->
-      <ul class="hidden lg:flex items-center space-x-4 lg:space-x-16 ml-auto">
-        <li v-for="(item, index) in allMenuItems" :key="index">
-          <button
-            :class="[
-              isActiveRoute(item.route) ? 'underline' : '',
-              isLivePage || isInfo ? 'menu-button-live' : 'menu-button'
-            ]"
-            @click="navigateTo(item.route)"
-          >
-            {{ item.label }}
+      <!-- Large Screen Menu -->
+      <ul class="hidden lg:flex space-x-4 lg:space-x-16 menu-button">
+        <li
+          v-for="(category, index) in groupedMenuItems"
+          :key="index"
+          class="relative"
+          @mouseenter="showDropdown(index)"
+          @mouseleave="hideDropdown"
+        >
+          <button class="menu-button">
+            {{ category.label }}
           </button>
+
+          <!-- Submenus -->
+          <ul
+            v-if="activeMenu === index"
+            class="absolute left-0 top-full mt-2 w-48"
+          >
+            <li v-for="(item, idx) in category.items" :key="idx">
+              <button
+                :class="[
+                  'block w-full text-left py-2 menu-button hover:text-white',
+                  isActiveRoute(item.route) ? 'underline' : '',
+                ]"
+                @click="navigateTo(item.route)"
+              >
+              {{ item.label }}
+              </button>
+            </li>
+          </ul>
         </li>
+        <!-- Contact -->
+        <!-- <li>
+          <button class="menu-button" @click="navigateTo('/contact')">Contact</button>
+        </li> -->
       </ul>
 
-      <!-- Menu toggle button for small screens -->
+      <!-- Mobile Menu Button -->
       <div class="lg:hidden ml-auto">
-        <button
-          :class="['menu-button']"
-          @click="toggleMenu"
-        >
-          {{ isMenuOpen ? 'X ⋮⋮⋮' : '⋮⋮⋮' }}
+        <button @click="toggleMenu" class="menu-button">
+          {{ isMenuOpen ? "X" : "⋮⋮⋮" }}
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- Full-screen Mobile Menu Overlay (visible when menu is toggled open) -->
-  <div 
-    v-if="isMenuOpen" 
-    class="fixed inset-0 bg-white flex flex-col items-center z-40 pt-12 md:pt-12 lg:pt-16"
-  >
-    <!-- Menu Items for Mobile -->
-    <ul class="items-center w-full">
-      <li v-for="(item, index) in allMenuItems" :key="index">
-        <button        
-          :class="[
-            'w-full text-left p-4 py-2 border-t border-gray-700 menu-button',
-            isActiveRoute(item.route) ? 'underline' : ''
-          ]"
-          @click="navigateTo(item.route)"
+  <!-- Mobile Menu -->
+  <div v-if="isMenuOpen" class="fixed inset-0 bg-white z-40 flex flex-col pt-12">
+    <ul class="w-full">
+      <li
+        v-for="(category, index) in groupedMenuItems"
+        :key="index"
+        class="border-t border-gray-700"
+      >
+        <button
+          class="w-full text-left py-2 px-4 menu-button-mobile"
+          @click="toggleSubmenu(index)"
         >
-          {{ item.label }}        
+          {{ category.label }}
         </button>
+        <ul v-if="activeMobileMenu === index">
+          <li v-for="(item, idx) in category.items" :key="idx">
+            <button
+              :class="[
+                'w-full text-left py-2 px-4 hover:bg-gray-100 sub-menu-button-mobile',
+                isActiveRoute(item.route) ? 'underline' : ''
+              ]"
+              @click="navigateTo(item.route)"
+            >
+              > {{ item.label }}
+            </button>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -82,28 +101,43 @@
 export default {
   data() {
     return {
-      allMenuItems: [
-        { label: 'Info', route: '/info' },
-        { label: 'Projects', route: '/projects' },
-        { label: 'Releases', route: '/releases' },
-        { label: 'Live', route: '/live' },
-        { label: 'Contact', route: '/contact' },        
+      groupedMenuItems: [
+        {
+          label: "Engineer",
+          items: [
+            { label: "CV", route: "/cv" },
+            { label: "Projects", route: "/projects" },
+            { label: "Contact", route: "/contact" },
+          ],
+        },
+        {
+          label: "Composer",
+          items: [
+            { label: "Info", route: "/info" },
+            { label: "Releases", route: "/releases" },
+            { label: "Live", route: "/live" },
+            { label: "Contact", route: "/contact" },
+          ],
+        },
       ],
-      isMenuOpen: false,
-      isNavbarVisible: true, // Controls navbar visibility
-      lastScrollPosition: 0, // Tracks the last scroll position
+      isMenuOpen: false, // Mobile menu toggle
+      activeMenu: -1, // Tracks hovered menu index for desktop
+      activeMobileMenu: null, // Tracks submenu toggle for mobile
+      dropdownTimer: null, // Timer for delayed dropdown
+      isNavbarVisible: true,
+      lastScrollPosition: 0,
     };
   },
   computed: {
     isHomePage() {
-      return this.$route.path === '/';
+      return this.$route.path === "/";
     },
-    isLivePage() {
-      return ['/live', '/releases', '/contact'].includes(this.$route.path);
+    isComposer() {
+      return ["/live", "/releases", "/contact", "/info" ].includes(this.$route.path);
     },
-    isInfo() {
-      return ['/info', '/projects'].includes(this.$route.path);
-    },    
+    isEngineer() {
+      return ["/projects", "/cv"].includes(this.$route.path);
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
@@ -113,38 +147,41 @@ export default {
   },
   methods: {
     handleScroll() {
-      const currentScrollPosition = window.scrollY;
-      // Show navbar when scrolling up or near the top, hide when scrolling down
-      this.isNavbarVisible = currentScrollPosition < this.lastScrollPosition || currentScrollPosition < 10;
-      this.lastScrollPosition = currentScrollPosition;
+      const currentScroll = window.scrollY;
+      this.isNavbarVisible = currentScroll < this.lastScrollPosition || currentScroll < 10;
+      this.lastScrollPosition = currentScroll;
+    },
+    showDropdown(index) {
+      clearTimeout(this.dropdownTimer);
+      this.activeMenu = index;
+    },
+    hideDropdown() {
+      this.dropdownTimer = setTimeout(() => {
+        this.activeMenu = -1;
+      }, 200); // Delay to prevent flicker
     },
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
-      // Toggle the no-scroll class on the body when the menu is opened or closed
-      if (this.isMenuOpen) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-      }
+      document.body.classList.toggle("no-scroll", this.isMenuOpen);
+    },
+    toggleSubmenu(index) {
+      this.activeMobileMenu = this.activeMobileMenu === index ? null : index;
     },
     navigateTo(route) {
       this.$router.push(route);
       this.isMenuOpen = false;
-      document.body.classList.remove('no-scroll'); // Ensure no-scroll is removed when navigating
+      document.body.classList.remove("no-scroll");
     },
     isActiveRoute(route) {
       return this.$route.path === route;
-    },
+    },    
   },
 };
 </script>
 
-
 <style>
-/* Prevent scrolling when applied to the body */
 .no-scroll {
   overflow: hidden;
-  height: 100vh; /* Prevents vertical scrolling */
+  height: 100vh;
 }
-
 </style>
