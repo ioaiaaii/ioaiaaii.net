@@ -26,12 +26,25 @@
   
   /* Menu */
   .menu-button-base {
-    @apply text-2xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl uppercase font-bold;
+    @apply text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl uppercase font-bold;
+  }
+
+  .sub-menu-button-base {
+    @apply text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl uppercase font-bold;
   }
 
   .menu-button {
     @apply menu-button-base text-blue-700 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
   }
+
+  
+  .menu-button-mobile {
+    @apply menu-button-base text-blue-700 tracking-wide;
+  }
+
+  .sub-menu-button-mobile {
+    @apply sub-menu-button-base text-blue-700 tracking-wide;
+  }  
 
   .contact-button {
     @apply menu-button-base text-blue-700 ;
@@ -84,14 +97,18 @@
     @apply text-4xl font-extrabold text-gray-800 tracking-tight;
   }
 
-
-
   .resume-heading {
-    @apply basic-heading;
+    @apply project-category;
   }
-
+  .resume-item {
+    @apply basic-text font-semibold;
+  }
   .resume-text {
     @apply basic-text;
+  }
+
+  .date {
+    @apply basic-text italic font-semibold;    
   }
 
   .heading-md {
@@ -102,24 +119,20 @@
     @apply text-lg font-medium text-gray-600;
   }
 
-
-
   .project-category {
-    @apply menu-button-base text-red-800 tracking-wide font-extralight;
+    @apply sub-menu-button-base font-semibold tracking-wide;
   }
-  
+
   .project-button-pulse {
-    @apply basic-heading underline uppercase tracking-wide hover:text-blue-500 transition;
+    @apply resume-item hover:text-blue-500 transition;
   }
 
   .project-text {
     @apply basic-text;
   }
 
-
-
   .release-title {
-    @apply text-gray-900 text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl font-bold uppercase;
+    @apply text-gray-900 text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl font-semibold uppercase;
   }
 
   .release-subtitle {
@@ -131,7 +144,7 @@
   }
 
   .release-button {
-    @apply font-semibold text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg  text-gray-900 tracking-wide hover:text-green-700 transition duration-300 uppercase underline;
+    @apply font-semibold text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg  text-ioai-100 tracking-wide hover:text-green-700 transition duration-300 uppercase underline;
   }
 
   .live-text {
@@ -139,7 +152,7 @@
   }
 
   .live-button {
-    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold text-white hover:text-green-700 transition duration-300 uppercase underline;
+    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold text-ioai-100 hover:text-green-700 transition duration-300 uppercase underline;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -154,7 +167,7 @@
   }
 
   .footer {
-    @apply w-full p-4 border-t border-gray-500 flex flex-col sm:flex-row justify-end ;
+    @apply w-full p-4 border-t border-white flex flex-col sm:flex-row justify-end ;
   }
   
   .footer-link {

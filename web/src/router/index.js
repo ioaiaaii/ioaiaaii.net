@@ -4,9 +4,9 @@ import Info from '@/components/Info.vue';
 import Projects from '@/components/Projects.vue';
 import Releases from '@/components/Releases.vue';
 import Live from '@/components/Live.vue';
-import NotFound from '@/components/NotFound.vue'
-import Contact from '@/components/Contact.vue'
-
+import NotFound from '@/components/NotFound.vue';
+import Contact from '@/components/Contact.vue';
+import CV from '@/components/CV.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -15,6 +15,7 @@ const routes = [
   { path: '/releases', name: 'Releases', component: Releases },
   { path: '/live', name: 'Live', component: Live },
   { path: '/contact', name: 'Contact', component: Contact },
+  { path: '/cv', name: 'CV', component: CV },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ];
 

@@ -3,19 +3,9 @@
     <!-- Links centered vertically and horizontally -->
     <div class="flex flex-col text-left">
       <a
-        :href="resume.linkedIn"
-        target="_blank"
-        class="contact-button"
-      >├ LinkedIn</a>
-      <a
-        href="https://soundcloud.com/ioannis_savvaidis"
-        target="_blank"
-        class="contact-button"
-      >├ SoundCloud</a>
-      <a
         :href="'mailto:' + resume.email"
         class="contact-button lowercase"
-      >├ {{ resume.email }}</a>      
+      >{{ resume.email }}</a>      
     </div>
   </div>
 </template>

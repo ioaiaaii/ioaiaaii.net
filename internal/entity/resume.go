@@ -35,7 +35,10 @@ type Resume struct {
 	ArtisticApproach string `json:"artisticApproach"`
 
 	// SelectedWorks for artistic background
-	SelectedWorks []string `json:"selectedWorks"`
+	SelectedWorks []SelectedWorksEntry `json:"selectedWorks"`
+
+	// SelectedWorks for artistic background
+	Collaborations []CollaborationsEntry `json:"collaborations"`
 
 	// Bio for engineering background
 	// example: Infrastructure Engineer with a focus on scalable systems.
@@ -128,6 +131,30 @@ type ProjectEntry struct {
 	// Brief description of the project
 	// example: Research on the impact of quantum algorithms on modern cryptography.
 	Description string `json:"description"`
+
+	// Link to the project or repository
+	// example: https://github.com/ioaiaaii/quantum-security
+	Link string `json:"link"`
+}
+
+// SelectedWorksEntry represents a single entry in the SelectedWorks section.
+// swagger:model
+type SelectedWorksEntry struct {
+	// Title of the project
+	// example: Quantum Security Research
+	Title string `json:"title"`
+
+	// Link to the project or repository
+	// example: https://github.com/ioaiaaii/quantum-security
+	Link string `json:"link"`
+}
+
+// CollaborationsEntry represents a single entry in the Collaborations section.
+// swagger:model
+type CollaborationsEntry struct {
+	// Title of the project
+	// example: Quantum Security Research
+	Title string `json:"title"`
 
 	// Link to the project or repository
 	// example: https://github.com/ioaiaaii/quantum-security
