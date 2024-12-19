@@ -9,8 +9,8 @@ locals {
       content_type = "image/png"
     },
     profile = {
-      name         = "assets/images/home/profile.webp"
-      source       = "${local.base_path}/assets/images/home/profile.webp"
+      name         = "assets/images/home/profile_v2.webp"
+      source       = "${local.base_path}/assets/images/home/profile_v2.webp"
       cache_control = "public, max-age=2592000"
       content_type = "image/webp"
       predefined_acl = "publicRead"
