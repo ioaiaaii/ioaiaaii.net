@@ -7,7 +7,7 @@
       class="base-grid min-h-screen"
     >
       <!-- Image Carousel with Slider Effect -->
-      <div class="relative w-full overflow-hidden lg:border-b lg:border-white">
+      <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-300">
         <div
           class="flex ease-in-out transition-transform duration-700"
           :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
@@ -50,14 +50,14 @@
             :class="{
               'w-2 h-2 rounded-full cursor-pointer transition-all duration-300': true,
               'bg-ioai-600': release.currentImageIndex === imgIndex,
-              'bg-ioai-200': release.currentImageIndex !== imgIndex
+              'bg-ioai-50': release.currentImageIndex !== imgIndex
             }"
           ></span>
         </div>
       </div>
 
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-white justify-center">
+      <div class="flex flex-col flex-grow p-4 border-b border-ioai-300 justify-center">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>
