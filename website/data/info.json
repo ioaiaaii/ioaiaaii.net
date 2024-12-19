@@ -5,9 +5,9 @@
     "linkedIn": "https://www.linkedin.com/in/ioannissavvaidis/",
     "github": "https://github.com/ioaiaaii",
     "profile": "Computer Engineer and Composer dedicated to building sustainable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures with a focus on observability and performance while cultivating a culture of respect and collaboration.",
-    "artistBio": "Composer drawing on Quantum and Distributed Computing principles to interpret relativistic reality with motion dynamics. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Performs live with synthesizers under an improvisational approach.",
-    "engineerBio": "Computer Engineer with over a decade in Systems and Site Reliability Engineering, managing large-scale production infrastructures. Focused on systems performance, software engineering, and cultivating a culture of collaboration and continuous improvement. Interested in physics and music composition. Currently, pursuing a Master's in Quantum Computing.",
-    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on 'Superluminal Motion', inspired by theoretical faster-than-light phenomena, where spacetime intersects across non-local states.",
+    "artistBio": "Composer drawing on Quantum and Distributed Computing principles to interpret relativistic reality. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Performs live with synthesizers under an improvisational approach.",
+    "engineerBio": "Computer Engineer experienced in Systems and Site Reliability Engineering, managing large-scale production infrastructures. Focused on systems performance, software engineering, and cultivating a culture of collaboration and continuous improvement. Interested in physics and music composition. Currently, pursuing a Master's in Quantum Computing.",
+    "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on apparent Superluminal Motion and Quantum nonlocality.",
     "selectedWorks": [
       {
         "title": "\"Diataxis\" (June Records, 2019)",
@@ -121,7 +121,7 @@
         "location": "SKG",
         "startDate": "Sep 2006",
         "endDate": "Feb 2013",
-        "specialization": "Specialization in OOP, OS, Networks, and Distributed Systems",
+        "specialization": "Specialization in  Object-oriented programming, Operating Systems, Networks, and Distributed Computing",
         "dissertation": "Dissertation on Cloud Computing with OpenStack"
       }
     ],
