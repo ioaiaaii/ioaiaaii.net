@@ -1,5 +1,5 @@
 <template>
-  <div class="base-container bg-ioai-300">
+  <div class="base-container">
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->

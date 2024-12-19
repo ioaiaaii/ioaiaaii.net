@@ -7,9 +7,9 @@
       '-translate-y-full': !isNavbarVisible,
       'bg-white border-b border-gray-700': isMenuOpen,
       'bg-white bg-opacity-0': isComposer && !isMenuOpen,
-      'bg-ioai-300 border-b border-white': isEngineer && !isMenuOpen,
+      'bg-white border-b border-ioai-300': isEngineer && !isMenuOpen,
       'bg-white bg-opacity-0': isHomePage && !isMenuOpen,
-      'bg-white bg-opacity-100 border-b border-white': !isMenuOpen && !isComposer && !isEngineer && !isHomePage,
+      'bg-white bg-opacity-100 border-b border-ioai-300': !isMenuOpen && !isComposer && !isEngineer && !isHomePage,
     }"
   >
     <!-- Top Bar: Left Conditional Text, Right Menu, and Option Button for Mobile -->
@@ -40,8 +40,8 @@
             <li v-for="(item, idx) in category.items" :key="idx">
               <button
                 :class="[
-                  'block w-full text-left py-2 menu-button hover:text-white',
-                  isActiveRoute(item.route) ? 'underline' : '',
+                  'block w-full text-left py-2 menu-button hover:text-ioai-300',
+                  isActiveRoute(item.route) ? 'text-ioai-300' : '',
                 ]"
                 @click="navigateTo(item.route)"
               >
@@ -58,8 +58,8 @@
 
       <!-- Mobile Menu Button -->
       <div class="lg:hidden ml-auto">
-        <button @click="toggleMenu" class="menu-button">
-          {{ isMenuOpen ? "X" : "⋮⋮⋮" }}
+        <button @click="toggleMenu" class="menu-button-mobile animate-pulse font-medium">
+          {{ isMenuOpen ? "X" : "///" }}
         </button>
       </div>
     </div>
@@ -88,7 +88,7 @@
               ]"
               @click="navigateTo(item.route)"
             >
-              > {{ item.label }}
+              /{{ item.label }}
             </button>
           </li>
         </ul>
@@ -133,10 +133,10 @@ export default {
       return this.$route.path === "/";
     },
     isComposer() {
-      return ["/live", "/releases", "/contact", "/info" ].includes(this.$route.path);
+      return ["/live", "/contact", "/projects", "/cv", "/releases", "/info" ].includes(this.$route.path);
     },
     isEngineer() {
-      return ["/projects", "/cv"].includes(this.$route.path);
+      return [ ].includes(this.$route.path);
     },
   },
   mounted() {

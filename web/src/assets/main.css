@@ -26,24 +26,24 @@
   
   /* Menu */
   .menu-button-base {
-    @apply text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl uppercase font-bold;
+    @apply text-2xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl  uppercase font-semibold tracking-wide;
   }
 
   .sub-menu-button-base {
-    @apply text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl uppercase font-bold;
+    @apply text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl uppercase font-semibold;
   }
 
   .menu-button {
-    @apply menu-button-base text-blue-700 tracking-wide hover:text-blue-500 transition duration-300 ease-in-out;
+    @apply menu-button-base text-blue-700 hover:text-blue-500 transition duration-300 ease-in-out;
   }
 
   
   .menu-button-mobile {
-    @apply menu-button-base text-blue-700 tracking-wide;
+    @apply menu-button-base text-blue-700 font-semibold;
   }
 
   .sub-menu-button-mobile {
-    @apply sub-menu-button-base text-blue-700 tracking-wide;
+    @apply sub-menu-button-base text-blue-700 tracking-wider font-medium;
   }  
 
   .contact-button {
@@ -52,7 +52,7 @@
 
     /* Menu button style for /live page */
   .menu-button-live {
-    @apply menu-button-base text-blue-700 tracking-wide hover:text-white  transition duration-300 ease-in-out;
+    @apply menu-button-base text-blue-700 tracking-wide hover:text-ioai-200  transition duration-300 ease-in-out;
   }
 
   .menu-button-home {
@@ -72,7 +72,7 @@
 
   /* Basic Text Generators */
   .basic-text {
-    @apply text-base sm:text-base md:text-lg text-gray-950 text-balance font-normal tracking-tight;
+    @apply text-base sm:text-sm md:text-base  text-ioai-950 text-balance font-normal tracking-tight;
   }
 
   .basic-heading {
@@ -144,15 +144,15 @@
   }
 
   .release-button {
-    @apply font-semibold text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg  text-ioai-100 tracking-wide hover:text-green-700 transition duration-300 uppercase underline;
+    @apply font-semibold text-sm sm:text-lg md:text-lg lg:text-lg xl:text-lg  text-ioai-300 tracking-wide hover:text-green-700 transition duration-300 uppercase underline;
   }
 
   .live-text {
-    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold uppercase text-white ;
+    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl font-medium uppercase text-white ;
   }
 
   .live-button {
-    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-semibold text-ioai-100 hover:text-green-700 transition duration-300 uppercase underline;
+    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-medium text-ioai-300 hover:text-green-700 transition duration-300 uppercase underline;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -167,7 +167,7 @@
   }
 
   .footer {
-    @apply w-full p-4 border-t border-white flex flex-col sm:flex-row justify-end ;
+    @apply w-full p-4 border-t border-ioai-300 flex flex-col sm:flex-row justify-end ;
   }
   
   .footer-link {

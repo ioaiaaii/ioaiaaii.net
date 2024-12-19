@@ -33,11 +33,10 @@
                 class="resume-item"
               >{{ edu.degree }}, {{ edu.institution }}, {{ edu.location }}</span>
             
-              <div class="resume-text">
-                <li>
-                  {{ edu.specialization }}
-                  {{ edu.dissertation }}
-                </li>
+              <div class="resume-text list-disc list-outside pl-4 space-y-1">
+                <li>{{ edu.specialization }}</li>
+                <li> {{ edu.dissertation }}</li>
+                
               </div>
             </li>
           </ul>
