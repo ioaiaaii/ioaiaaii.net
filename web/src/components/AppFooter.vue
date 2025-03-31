@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="footer-text">
-      © 2024 Ioannis Savvaidis
+      © Ioannis Savvaidis 2025
     </div>
   </div>
 </template>
