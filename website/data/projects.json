@@ -1,14 +1,14 @@
 {
-    "projects": [
+    "projects": [                  
         {
             "title": "ioaiaaii.net",
-            "description": "The codebase for ioaiaai.net features a Vue.js frontend and a Go backend, engineered using Clean Architecture and adhering to SRE principles.",
+            "description": "Live Kubernetes-native API for a personal portfolio using Golang, Vue.js, and OpenTelemetry, with fully automated CI/CD pipelines and GitOps workflows in a private GKE environment. Hosted at micro-infra, powered by repo-operator.",
             "link": "https://github.com/ioaiaaii/ioaiaaii.net?tab=readme-ov-file#ioaiaaiinet",
             "category": "Classical"
         },
         {
             "title": "micro-infra",
-            "description": "A lightweight production infrastructure utilizing IaC and GitOps for deploying and managing microservices on GKE. It includes a self-managed observability stack and essential infrastructure services.",
+            "description": "Lightweight GCP private infrastructure running production GKE with Terragrunt and Argo CD, including a self-managed core services stack, automated vulnerability scanning, and a WAF.",
             "link": "https://github.com/ioaiaaii/micro-infra?tab=readme-ov-file#micro-infra",
             "category": "Classical"
         },

@@ -7,7 +7,7 @@
       class="base-grid min-h-screen"
     >
       <!-- Image Carousel with Slider Effect -->
-      <div class="relative w-full overflow-hidden lg:border-b lg:border-ioai-300">
+      <div class="relative w-full overflow-hidden">
         <div
           class="flex ease-in-out transition-transform duration-700"
           :style="{ transform: `translateX(-${release.currentImageIndex * 100}%)` }"
@@ -30,7 +30,7 @@
           class="absolute top-1/2 left-2 transform -translate-y-1/2 text-4xl lg:text-5xl text-gray-400 hover:scale-110 focus:outline-none animate-pulse"
           aria-label="Previous image"
         >
-          &#9664; <!-- Unicode for left arrow (◀) -->
+          < <!-- Unicode for left arrow (◀) -->
         </button>
         <button
           v-if="release.image && release.image.length > 1"
@@ -38,26 +38,12 @@
           class="absolute top-1/2 right-2 transform -translate-y-1/2 text-4xl lg:text-5xl text-gray-400 hover:scale-110 focus:outline-none animate-pulse"
           aria-label="Next image"
         >
-          &#9654; <!-- Unicode for right arrow (▶) -->
+          > <!-- Unicode for right arrow (▶) -->
         </button>
-
-        <!-- Indicator Dots -->
-        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          <span
-            v-for="(imgSrc, imgIndex) in release.image"
-            :key="imgIndex"
-            @click="setImage(releaseIndex, imgIndex)"
-            :class="{
-              'w-2 h-2 rounded-full cursor-pointer transition-all duration-300': true,
-              'bg-ioai-600': release.currentImageIndex === imgIndex,
-              'bg-ioai-50': release.currentImageIndex !== imgIndex
-            }"
-          ></span>
-        </div>
       </div>
 
       <!-- Details -->
-      <div class="flex flex-col flex-grow p-4 border-b border-ioai-300 justify-center">
+      <div class="flex flex-col flex-grow p-4 justify-center">
         <h3 class="mt-2 release-title">
           {{ release.artist }} - {{ release.title }}
         </h3>

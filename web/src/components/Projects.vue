@@ -3,17 +3,17 @@
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
       <!-- Classical Computing Projects Column -->
-      <div class="p-4 lg:border-r border-white">
-        <h3 class="project-category mt-4">
+      <div class="p-4">
+        <h3 class="project-category">
           Classical Computing
         </h3>
         <div>
           <div 
             v-for="(project, index) in classicalProjects" 
             :key="index" 
-            class="mt-4"
+            class="mb-8"
           >
-            <p class="resume-item">
+            <p class="project-item">
               {{ project.title }}
             </p>            
             <p class="project-text">
@@ -26,7 +26,7 @@
               rel="noopener noreferrer"
               class="release-button"
             > 
-              READ
+              READ MORE
             </a>            
           </div>
         </div>
@@ -34,16 +34,16 @@
 
       <!-- Quantum Computing Works Column -->
       <div class="p-4">
-        <h2 class="mt-4 project-category">
+        <h2 class="project-category">
           Quantum Computing
         </h2>
         <ul>
           <li 
             v-for="(project, index) in quantumDocuments" 
             :key="index"
-            class="mt-4"
+            class="mb-8"
           >
-            <p class="resume-item">
+            <p class="project-item">
               {{ project.title }}
             </p>            
             <p class="project-text">
@@ -56,7 +56,7 @@
               rel="noopener noreferrer"
               class="release-button"
             > 
-              READ
+              READ MORE
             </a>  
           </li>
         </ul>
