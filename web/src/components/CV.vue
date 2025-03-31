@@ -1,12 +1,12 @@
 <template>
-  <div class="base-container">
-    <div class="base-grid mt-2">
-      <div class="p-4 lg:border-r border-white">       
+  <div class="base-container flex justify-center">
+    <div class="p-4 mt-4 lg:w-2/4">
+   
         <section
           v-if="resume.profile.length"
           class="mt-2"
         >
-          <h3 class="project-category">
+          <h3 class="resume-heading">
             PROFILE
           </h3>
           <p class="resume-text">
@@ -15,7 +15,7 @@
         </section>
         <section
           v-if="resume.education.length"
-          class="mt-6"
+          class="mt-8"
         >
           <h3 class="resume-heading">
             Education
@@ -28,12 +28,12 @@
             >
               <span
                 class="date"
-              >{{ edu.startDate }} - {{ edu.endDate }}</span><br>
+              >{{ edu.startDate }} - {{ edu.endDate }} | </span>
               <span
                 class="resume-item"
-              >{{ edu.degree }}, {{ edu.institution }}, {{ edu.location }}</span>
+              >{{ edu.degree }}, {{ edu.institution }}</span>
             
-              <div class="resume-text list-disc list-outside pl-4 space-y-1">
+              <div class="resume-text list-disc list-outside pl-4 space-y-2">
                 <li>{{ edu.specialization }}</li>
                 <li> {{ edu.dissertation }}</li>
                 
@@ -41,9 +41,43 @@
             </li>
           </ul>
         </section>
+  
+        <!-- Experience Section -->
+        <section
+          v-if="resume.experience.length"
+          class="mt-8"
+        >
+          <h3 class="resume-heading">
+            Professional Experience
+          </h3>
+          <ul class="list-inside space-y-4">
+            <li
+              v-for="(exp, index) in resume.experience"
+              :key="index"
+              class="resume-text"
+            >
+              <span
+                class="date"
+              >{{ exp.startDate }} - {{ exp.endDate }} | </span>
+              <span
+                class="resume-item"
+              >{{ exp.role }}, {{ exp.company }}, {{ exp.location }}</span>
+
+              <ul class="list-disc list-outside pl-4 space-y-2">
+                <li
+                  v-for="(desc, i) in exp.description"
+                  :key="i"
+                >
+                  {{ desc }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>    
+        
         <section
           v-if="resume.skillGroups.length"
-          class="mt-6"
+          class="mt-8"
         >          
           <h3 class="resume-heading">
             Skills
@@ -58,12 +92,12 @@
               class="mb-6"
             >
               <!-- Category Name -->
-              <h2 class="resume-text font-semibold italic">
+              <h2 class="resume-text font-semibold">
                 {{ group.category }}
               </h2>
               
               <!-- Skills List -->
-              <ul class="list-disc list-outside pl-4 space-y-1">
+              <ul class="list-outside space-y-1">
                 <li
                   v-for="(skill, i) in group.skills"
                   :key="i"
@@ -74,44 +108,8 @@
               </ul>
             </div>
           </div>
-        </section>
-      </div>
+        </section>        
 
-      <!-- Right Column: Education, Projects, and Skills -->       
-      <div class="p-4">     
-        <!-- Experience Section -->
-        <section
-          v-if="resume.experience.length"
-          class="mt-2"
-        >
-          <h3 class="resume-heading">
-            Professional Experience
-          </h3>
-          <ul class="list-inside space-y-4">
-            <li
-              v-for="(exp, index) in resume.experience"
-              :key="index"
-              class="resume-text"
-            >
-              <span
-                class="date"
-              >{{ exp.startDate }} - {{ exp.endDate }}</span><br>
-              <span
-                class="resume-item"
-              >{{ exp.role }}, {{ exp.company }}, {{ exp.location }}</span>
-
-              <ul class="list-disc list-outside pl-4 space-y-1">
-                <li
-                  v-for="(desc, i) in exp.description"
-                  :key="i"
-                >
-                  {{ desc }}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </section>          
-      </div>
     </div>
   </div>
 </template>
