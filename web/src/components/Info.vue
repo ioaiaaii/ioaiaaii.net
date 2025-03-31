@@ -37,9 +37,9 @@
               :href="project.link"
               target="_blank"
               rel="noopener noreferrer"
-              class="live-button"
+              class="release-button"
             >
-              Listen
+              LISTEN
             </a>            
           </li>
         </ul>
@@ -58,7 +58,7 @@
               :href="project.link"
               target="_blank"
               rel="noopener noreferrer"
-              class="live-button"
+              class="release-button"
             >
               VIEW
             </a>             
