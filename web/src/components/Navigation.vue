@@ -2,15 +2,11 @@
   <!-- Main Navigation Container -->
   <nav
     :class="{
-      'fixed top-0 left-0 w-full z-50 transition-transform duration-300 ease-in-out': true,
+      'bg-opacity-0 fixed left-0 w-full z-50 transition-transform duration-300 ease-in-out': true,
       'translate-y-0': isNavbarVisible,
       '-translate-y-full': !isNavbarVisible,
       // Background based on state (adjust as desired)
-      'bg-white border-b border-gray-700': isMenuOpen,
-      'bg-white bg-opacity-0': isComposer && !isMenuOpen,
-      'bg-white bg-opacity-0': isEngineer && !isMenuOpen,
-      'bg-white bg-opacity-0': isHomePage && !isMenuOpen,
-      'bg-white bg-opacity-100 border-b border-ioai-300': !isMenuOpen && !isComposer && !isEngineer && !isHomePage,
+      'border-b border-white': !isMenuOpen && !isComposer && !isEngineer && !isHomePage,
     }"
   >
     <!-- Top Bar: Left Logo and Right Hamburger -->
@@ -29,12 +25,16 @@
   </nav>
 
   <!-- Unified Menu (Overlay for All Devices) -->
-  <div v-if="isMenuOpen" class="fixed inset-0 bg-white z-40 flex flex-col pt-12">
+  <div v-if="isMenuOpen" class="fixed inset-0 z-40 flex flex-col pt-12">
+  <!-- Background layer -->
+    <div class="fixed inset-0 -z-10">
+      <LiquidBackground />
+    </div>    
     <ul class="w-full">
       <li
         v-for="(category, index) in groupedMenuItems"
         :key="index"
-        class="border-t border-gray-700"
+        class="border-t-2 border-white" 
       >
         <button
           class="w-full text-left py-2 px-4 menu-button-mobile"
@@ -46,18 +46,18 @@
           <li v-for="(item, idx) in category.items" :key="idx">
             <button
               :class="[
-                'w-full text-left py-2 px-4 hover:bg-blue-800 hover:text-white sub-menu-button-mobile',
+                'menu-button-mobile text-left py-2 px-4  transition duration-300 ease-in-out sub-menu-button-mobile',
                 isActiveRoute(item.route) ? 'underline' : ''
               ]"
               @click="navigateTo(item.route)"
             >
-              /{{ item.label }}
+               / {{ item.label }}
             </button>
           </li>
         </ul>
       </li>
       <!-- Example Contact Item -->
-      <li class="border-t border-gray-700">
+      <li class="border-t-2 border-white">
         <button class="w-full text-left py-2 px-4 menu-button-mobile" @click="navigateTo('/contact')">
           Contact
         </button>
@@ -67,7 +67,12 @@
 </template>
 
 <script>
+import LiquidBackground from '@/components/insprira/LiquidBackground.vue'
+
 export default {
+  components: {
+    LiquidBackground,
+  },  
   data() {
     return {
       groupedMenuItems: [
@@ -82,7 +87,6 @@ export default {
           label: "Composer",
           items: [
             { label: "Info", route: "/info" },
-            { label: "Releases", route: "/releases" },
             { label: "Live", route: "/live" },
           ],
         },
@@ -100,7 +104,7 @@ export default {
       return this.$route.path === "/";
     },
     isComposer() {
-      return ["/live", "/contact", "/projects", "/cv", "/releases", "/info"].includes(this.$route.path);
+      return ["/live", "/contact", "/projects", "/cv", "/info"].includes(this.$route.path);
     },
     isEngineer() {
       return []; // Adjust if needed
