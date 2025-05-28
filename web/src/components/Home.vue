@@ -1,38 +1,11 @@
 <template>
-  <!-- Main Full-Screen Container -->
-  <div
-    class="flex flex-col overflow-hidden relative"
-    :style="{ height: 'calc(var(--vh) * 100)' }"
-  >
-    <!-- Background Image Container with Full Height -->
-    <div
-      class="flex-grow bg-center bg-cover"
-      style="background-image: url('https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/home/profile_v2.webp');"
-    />
+  <!-- Background layer -->
+  <div class="fixed inset-0 -z-10">
+    <LiquidBackground />
   </div>
+
 </template>
 
-<script>
-export default {
-  created() {
-    this.scrollToTop();
-  },
-  mounted() {
-    // Set the viewport height variable for Mobile Safari
-    const setViewportHeight = () => {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    };
-    setViewportHeight();
-    window.addEventListener('resize', setViewportHeight);
-  },
-  methods: {
-    scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    },
-  },
-};
+<script setup>
+import LiquidBackground from '@/components/insprira/LiquidBackground.vue'
 </script>
-
-<style scoped>
-
-</style>
