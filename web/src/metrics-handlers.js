@@ -8,6 +8,7 @@ import {
   pageViewCounter,
 } from './otel-metrics';
 
+import { sanitizeUrl } from '@braintree/sanitize-url';
 
 // Get the current route
 function getCurrentRouteName() {
@@ -92,8 +93,10 @@ function handleResourceError(event) {
 }
 
 // Record a page view when the route changes
-router.afterEach((to) => {
+router.afterEach(() => {
   // Increment the page view counter
+  // to: the route you're navigating to
+  // from: the route you're coming from  
   pageViewCounter.add(1, {
     route: getCurrentRouteName(),
   });

@@ -6,7 +6,7 @@
     "github": "https://github.com/ioaiaaii",
     "profile": "Computer Engineer and Composer dedicated to building sustainable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures with a focus on observability and performance while cultivating a culture of respect and collaboration.",
     "artistBio": "Composer drawing on Quantum and Distributed Computing principles to interpret relativistic reality. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Performs live with synthesizers under an improvisational approach.",
-    "engineerBio": "Computer Engineer experienced in Systems and Site Reliability Engineering, managing large-scale production infrastructures. Focused on systems performance, software engineering, and cultivating a culture of collaboration and continuous improvement. Interested in physics and music composition. Currently, pursuing a Master's in Quantum Computing.",
+    "engineerBio": "Computer Engineer specializing in Systems and Site Reliability Engineering, with 10+ years managing large-scale AWS cloud, on-prem vSphere, and Kubernetes environments. Proven track record of improving systems performance, cutting costs, and advancing observability. Experienced in critical production operations and incident response, with deep debugging and automation skills. Strong collaborator shaping infrastructure long-term strategy, and SRE culture at a staff level. Currently, pursuing a Master's in Quantum Computing.",
     "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on apparent Superluminal Motion and Quantum nonlocality.",
     "selectedWorks": [
       {
@@ -40,9 +40,11 @@
         "startDate": "Apr 2024",
         "endDate": "Present",
         "description": [
-          "Architected three open-source GitHub projects for production-grade cloud infrastructure & microservices, strengthening expertise in Infrastructure as Code, Systems Performance, and Software Engineering.",
+          "Architected a production‐grade GKE platform with Terragrunt, Argo CD, WAF, Trivy, and a self- managed Kubernetes and Observability stack; full env spin up in < 30 min.",
+          "Built a Kubernetes‐native REST API (Go & Vue.js), OpenTelemetry instrumented, with security and efficiency scanning; re-usable CI/CD in GitHub Actions and GitOps managed.",
+          "Developed a modular repository management tool for hermetic builds, integrating with GitHub Actions and Argo CD, enhancing CI/CD workflows.",
           "Completed MSc coursework, deepening knowledge in Computer Engineering and Physics.",
-          "Developing a Kubernetes operator for quantum-classical hybrid computing, enabling cloud-native orchestration, novel OpenTelemetry observability approach, and dynamic scheduling across IBM QPUs."
+          "Researching a Go‐based quantum‐workload Orchestrator for distributed QPUs; prototyping scheduler and observability model as part of MSc thesis."
         ]
       },      
       {
@@ -52,14 +54,13 @@
         "startDate": "Jan 2023",
         "endDate": "Mar 2024",
         "description": [
-          "Owned reliability efforts for TileDB Cloud, managing 5 EKS & RDS clusters, leading RCAs, and influencing cross-team decisions; sole SRE for 8 months, building team culture, backlog, and roadmap.",
-          "Created a strategy to reduce Toil, scale IaC, Kubernetes, RDS, and TileDB Cloud products, and introduce multi-cloud, release engineering, and SLO frameworks to improve system resilience and SRE culture.",
-          "Redesigned 300+ Auto Scaling Groups into 5 workload-dedicated groups with EC2 interruption handling and Multi-AZ support, managing bursty CPU/GPU requests (0-50+ pods/sec), mitigating scaling issues.",
-          "Optimized Kubernetes deployments, fine-tuning HPA, resource allocation, and multi-zone scheduling, increasing cluster utilization from ~20% to ~70%, cutting EC2 costs, and improving uptime.",
-          "Executed EKS upgrades (1.21 to 1.26) in self-managed node groups, creating shell-scripted and documented procedures, ensuring a reproducible and seamless process for engineering teams.",
-          "Improved monitoring systems, adding dashboards and actionable alerts, reducing alert noise by ~80%, mentoring engineers in SRE, and elevating team-wide incident response and observability standards.",
-          "Orchestrated five microservice migrations, integrating an API Gateway, adding profiling, optimizing container signal handling, and developing Helm helpers for maintainable configurations.",
-          "Revamped IaC, improving codebase maintainability & documentation; cut AWS CloudTrail cost by ~50%."
+          "Owned uptime for 6  EKS &  RDS clusters as sole SRE, leading RCAs for critical incidents, implementing permanent fixes that reduced recurrence by 80%.",
+          "Created a four‐quarter roadmap that set SRE strategy (culture, SLOs, scaling) and reduced 50% of toil.",
+          "Consolidated 300+ self-managed AWS ASGs into 5 multi-AZ groups, raising Kubernetes utilisation from 20 % to  70 %, trimming EC2 cost by  30 %, and handling unpredictable GPU/CPU bursts (+50 pods/sec).",
+          "Automated zero-downtime EKS upgrades 1.21 to 1.26 with blue/green pools and canary workloads.",
+          "Cut alert noise 80% by deploying actionable alerts and mentoring 2 engineers; MTTR improved by 40 %.",
+          "Led TileDB Cloud to microservices migration, introducing API Gateway, Helm helpers, and Pyroscope.",
+          "Refactored Terraform IaC in SOC 2 compliant infrastructure, improving maintainability and scalability."
         ]
       },
       {
@@ -68,8 +69,11 @@
         "location": "Remote",
         "startDate": "May 2022",
         "endDate": "Dec 2022",
-        "description": [
-          "Collaborated with leadership to establish the SRE function; added product telemetry and monitoring."        ]
+        "description": [ 
+          "Built the company’s first observability stack using LGTM, providing USE/RED Grafana dashboards.",
+          "Developed Python exporters to instrument core systems and introduced production-grade alerting.",
+          "Advocated SRE culture: introduced incident response and SLI/SLO workshops to leadership."  
+        ]
       },
       {
         "role": "Senior Site Reliability Engineer",
@@ -78,11 +82,13 @@
         "startDate": "Apr 2019",
         "endDate": "Apr 2022",
         "description": [
-          "Established SLO-driven observability with Thanos, Tempo, Loki, and Grafana across 6 Kubernetes clusters (500+ nodes, 70+ microservices), tracking thousands of requests per second across LATAM.",
-          "Migrated production traffic of six Docker Registries and ChartMuseums to a centralized Harbor Registry, enhancing container security scanning, adding RBAC, and reducing image pull times and storage costs.",
-          "Built two Go-based tools to orchestrate microservices CI/CD, integrating GitHub Actions, reusable workflows, and ArgoCD across 70+ repositories, boosting developer productivity and GitOps adoption.",
-          "Implemented SSO provisioning for AWS with OneLogin, improving access management for 200+ users.",
-          "Developed internal documentation, a central knowledge base, and contributed to hiring and onboarding."
+          "Managed 6-region AWS infrastructure (Kubernetes, RDS, ElastiCache, Kafka & ElasticSearch clusters).",
+          "Introduced Thanos, Tempo, and Loki with SLO-based observability; unified monitoring in Grafana, tracking thousands RPS, and supporting 250+ internal users.",
+          "Established GitOps workflows: infrastructure with Terragrunt via Atlantis, deployments with Argo CD, and CI/CD with GitHub Actions and self-hosted runners.",
+          "Centralised Docker images & Helm charts into Harbor OCI registry, slashing pull latency 40 %, and enabling security, proxy-cache, and RBAC.",
+          "Built a Go API to sandbox 70+ Kubernetes-native microservices, enabling 200+ engineers to ship faster.",
+          "Provisioned AWS SSO with OneLogin for 200+ engineers, improving access control and auditing.",
+          "Deployed incident.io to formalize incident response and authored observability documentation."
         ]
       },
       {
@@ -92,10 +98,12 @@
         "startDate": "Sep 2014",
         "endDate": "Mar 2019",
         "description": [
-          "Managed on-prem hybrid infrastructure across 3 Data Centers & AWS, overseeing 300+ bare-metal servers, 5K+ VMs, and Kubernetes clusters; administered Linux, Reverse Proxy, and authoritative DNS.",
-          "Led cross-team automation (Systems, Networks, PMs), standardizing VM lifecycle and specifications, cutting provisioning SLA from 3d to 3h, enabling on-demand requests and boosting operational efficiency.",
-          "Optimized resource utilization by consolidating VMs across hypervisors, executing capacity planning, and introducing openDCIM, phpIPAM, VMTurbo, and cost reporting.",
-          "Migrated production traffic to NGINX RP farms, improving security and performance."
+          "Oversaw VMware vSphere infrastructure across 3 DCs: 300 bare-metal servers, 5K VMs, 10 SAN arrays; provisioned ESXi hosts with VLAN tagging, LUN mapping, and zoning.",
+          "Automated VM provision and cut internal SLA time from 3 days to 3 hours; standardized VM lifecycle and governance, streamlining workflows and coordination across PMs, Networks, DevOps teams.",
+          "Managed BIND Authoritative DNS with 300+ zones and Linux (CentOS/RHEL) VM Images.",
+          "Owned L3 on-call and VMware escalations; implemented actionable Nagios alerting.",
+          "Migrated public traffic from Apache to NGINX reverse proxy farms, boosting security and performance.",
+          "Deployed self-managed Kubernetes clusters and Jenkins CI pipelines; containerized in-house products."
         ]
       },
       {
@@ -105,7 +113,7 @@
         "startDate": "Aug 2013",
         "endDate": "Jan 2014",
         "description": [
-          "Designed the fist University’s IaaS Community Cloud; delivered a private cloud using Synnefo (3 servers and 1 storage system)."
+          "Designed campus IaaS with GRNET’s Synnefo stack on 3 bare-metal servers + SAN; delivered VM self‐service portal for professors and researchers."
         ]
       }
     ],

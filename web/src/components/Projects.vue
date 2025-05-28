@@ -1,4 +1,9 @@
 <template>
+  <div
+    class="fixed inset-0 bg-cover bg-center -z-10 pointer-events-none"
+    :style="{ backgroundImage: `url(${auroraBg})` }"
+  ></div>
+
   <div class="base-container">
     <!-- Split Columns for Classical Projects and Quantum Papers -->
     <div class="base-grid">
@@ -26,7 +31,7 @@
               rel="noopener noreferrer"
               class="release-button"
             > 
-              READ MORE
+              READ
             </a>            
           </div>
         </div>
@@ -56,7 +61,7 @@
               rel="noopener noreferrer"
               class="release-button"
             > 
-              READ MORE
+              READ
             </a>  
           </li>
         </ul>
@@ -66,9 +71,12 @@
 </template>
 
 <script>
-export default {
+const auroraBg = 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/bg.webp';
+
+export default { 
   data() {
     return {
+      auroraBg,
       classicalProjects: [],
       quantumDocuments: [],
     };

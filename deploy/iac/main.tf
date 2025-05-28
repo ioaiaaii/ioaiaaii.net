@@ -80,7 +80,13 @@ locals {
       source       = "${local.base_path}/assets/fonts/Montserrat-VariableFont_wght.ttf"
       cache_control = "public, max-age=2592000"
       content_type = "font/ttf"
-    }
+    },
+    bg = {
+      name         = "assets/images/bg.webp"
+      source       = "${local.base_path}/assets/images/bg.webp"
+      cache_control = "public, max-age=2592000"
+      content_type = "image/webp"
+    }    
   }
 }
 

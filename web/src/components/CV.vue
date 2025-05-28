@@ -1,7 +1,13 @@
 <template>
+  <!-- Background layer -->
+  <div
+    class="fixed inset-0 bg-cover bg-center -z-10 pointer-events-none"
+    :style="{ backgroundImage: `url(${auroraBg})` }"
+  ></div>
+
   <div class="base-container flex justify-center">
-    <div class="p-4 mt-4 lg:w-2/4">
-   
+    <div class="p-4 mt-4 lg:w-7/12">
+  
         <section
           v-if="resume.profile.length"
           class="mt-2"
@@ -20,7 +26,7 @@
           <h3 class="resume-heading">
             Education
           </h3>
-          <ul class="list-inside space-y-4">
+          <ul class="list-inside space-y-6">
             <li
               v-for="(edu, index) in resume.education"
               :key="index"
@@ -33,7 +39,7 @@
                 class="resume-item"
               >{{ edu.degree }}, {{ edu.institution }}</span>
             
-              <div class="resume-text list-disc list-outside pl-4 space-y-2">
+              <div class="resume-text list-disc list-outside pl-4 space-y-4 mt-2">
                 <li>{{ edu.specialization }}</li>
                 <li> {{ edu.dissertation }}</li>
                 
@@ -50,7 +56,7 @@
           <h3 class="resume-heading">
             Professional Experience
           </h3>
-          <ul class="list-inside space-y-4">
+          <ul class="list-inside space-y-8">
             <li
               v-for="(exp, index) in resume.experience"
               :key="index"
@@ -63,7 +69,7 @@
                 class="resume-item"
               >{{ exp.role }}, {{ exp.company }}, {{ exp.location }}</span>
 
-              <ul class="list-disc list-outside pl-4 space-y-2">
+              <ul class="list-disc list-outside pl-4 space-y-4 mt-2">
                 <li
                   v-for="(desc, i) in exp.description"
                   :key="i"
@@ -84,7 +90,7 @@
           </h3>
           
           <!-- Grid Layout for Skill Groups -->
-          <div class="grid grid-cols-2 md:grid-cols-4">
+          <div class="grid grid-cols-2 md:grid-cols-4 ">
             <!-- Skill Groups List -->
             <div
               v-for="(group, index) in resume.skillGroups"
@@ -97,7 +103,7 @@
               </h2>
               
               <!-- Skills List -->
-              <ul class="list-outside space-y-1">
+              <ul class="list-outside space-y-2 mt-2">
                 <li
                   v-for="(skill, i) in group.skills"
                   :key="i"
@@ -114,10 +120,14 @@
   </div>
 </template>
 
-<script>
+<script >
+
+const auroraBg = 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/bg.webp';
+
 export default {
   data() {
     return {
+      auroraBg, // expose image to template
       resume: {
         name: '',
         title: '',
