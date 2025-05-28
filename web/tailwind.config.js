@@ -1,44 +1,66 @@
-/** @type {import('tailwindcss').Config} */
+import animate from "tailwindcss-animate";
+import { setupInspiraUI } from "@inspira-ui/plugins";
+
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  darkMode: ["selector", "class"],
+  safelist: ["dark"],
+  prefix: "",
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    // screens: {
-    //   'tablet': '640px',
-    //   // => @media (min-width: 640px) { ... }
-
-    //   'laptop': '1024px',
-    //   // => @media (min-width: 1024px) { ... }
-
-    //   'desktop': '1280px',
-    //   // => @media (min-width: 1280px) { ... }
-    // },    
-    extend: {
-      fontFamily: {
-        sans: ["Figtree", "sans-serif",],
-      },
-      gridAutoColumns: {
-        '2fr': 'minmax(0, 2fr)',
-      },
-      colors: {
-        'ioai': {
-                '50': '#f6f6f7',
-                '100': '#efeff0',
-                '200': '#e2e1e4',
-                '300': '#d3d2d7',
-                '400': '#bcb9c0',
-                '500': '#a9a6ae',
-                '600': '#94919a',
-                '700': '#817c86',
-                '800': '#69666d',
-                '900': '#57555a',
-                '950': '#333135',
-            },                 
-      },      
-    },    
+  	extend: {
+		fontFamily: {
+			sans: ["Figtree", "sans-serif",],
+		  },		
+  		colors: {
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		borderRadius: {
+  			xl: 'calc(var(--radius) + 4px)',
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
-  plugins: [
-  ],  
-}
+
+  plugins: [animate, setupInspiraUI],
+};
