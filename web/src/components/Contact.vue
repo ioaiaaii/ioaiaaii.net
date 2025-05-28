@@ -1,4 +1,7 @@
 <template>
+  <div class="fixed inset-0 -z-10">
+    <LiquidBackground />
+  </div>  
   <div class="min-h-screen p-4 flex flex-col relative items-center justify-center">
     <!-- Links centered vertically and horizontally -->
     <div class="flex flex-col text-left">
@@ -11,7 +14,12 @@
 </template>
 
 <script>
+import LiquidBackground from '@/components/insprira/LiquidBackground.vue'
+
 export default {
+  components: {
+    LiquidBackground,
+  },  
   data() {
     return {
       resume: {
