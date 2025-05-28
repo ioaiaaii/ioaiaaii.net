@@ -122,7 +122,7 @@
 
 <script >
 
-import auroraBg from '@/assets/images/aurora-bg.png';
+const auroraBg = 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/bg.webp';
 
 export default {
   data() {

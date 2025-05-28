@@ -111,7 +111,7 @@
 
 <script setup lang="ts">
 import { reactive, onMounted } from 'vue'
-import auroraBg from '@/assets/images/aurora-bg.png';
+const auroraBg = 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/bg.webp';
 
 // state ─────────────────────────────────────────────
 const resume = reactive({
