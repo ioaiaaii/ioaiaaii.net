@@ -3,6 +3,78 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree-VariableFont_wght.ttf") format("truetype");
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-input: 240 3.7% 15.9%;
+    --sidebar-input: 240 5.9% 90%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-input: 240 3.7% 15.9%;
+  }
+}
+
+
+@font-face {
   font-family: "Inter";
   src: url("/assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
 }
@@ -30,7 +102,7 @@
   }
 
   .sub-menu-button-base {
-    @apply text-blue-800 text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl uppercase;
+    @apply text-blue-800 text-xl sm:text-xl md:text-xl lg:text-xl xl:text-3xl 2xl:text-3xl uppercase;
   }
 
   .menu-button {
@@ -51,7 +123,7 @@
 
     /* Menu button style for /live page */
   .menu-button-live {
-    @apply menu-button-base hover:text-ioai-200  transition duration-300 ease-in-out;
+    @apply menu-button-base hover:text-gray-400 transition duration-300 ease-in-out;
   }
 
   .menu-button-home {
@@ -68,17 +140,14 @@
     @apply text-xs sm:text-sm md:text-lg lg:text-lg font-bold uppercase text-red-900;
   }  
 
-
   /* Basic Text Generators */
   .basic-text {
-    @apply sm:text-sm md:text-base font-light text-wrap;
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-800 leading-tight md:leading-tight lg:leading-tight xl:leading-tight font-normal text-pretty; 
   }
 
   .basic-heading {
-    @apply text-base sm:text-base md:text-lg lg:text-xl xl:text-xl text-gray-900 font-bold uppercase;    
+    @apply text-base md:text-2xl lg:text-3xl xl:text-3xl text-gray-900 font-semibold uppercase;    
   }
-
-
 
   .info-title {
     @apply text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold text-left sm:text-left md:text-left lg:text-center;
@@ -100,7 +169,7 @@
     @apply project-category;
   }
   .resume-item {
-    @apply basic-text font-semibold;
+    @apply text-lg sm:text-lg md:text-lg lg:text-lg xl:text-xl 2xl:text-xl font-semibold;
   }
 
   .resume-text {
@@ -108,7 +177,7 @@
   }
 
   .date {
-    @apply basic-text font-semibold;    
+    @apply resume-item;    
   }
 
   .heading-md {
@@ -120,15 +189,15 @@
   }
 
   .project-category {
-    @apply sub-menu-button-base font-semibold text-black border-b border-black mt-4;
+    @apply sub-menu-button-base text-black pb-2 pt-8 font-semibold;
   }
 
   .project-button-pulse {
-    @apply resume-item hover:text-blue-300 transition;
+    @apply resume-item hover:text-blue-300 transition duration-300 ease-in-out;
   }
 
   .project-item {
-    @apply basic-text font-semibold ;
+    @apply basic-text font-semibold text-gray-800;
   }
 
   .project-text {
@@ -148,7 +217,7 @@
   }
 
   .release-button {
-    @apply font-semibold text-sm text-ioai-300  hover:text-green-700 transition duration-300 underline;
+    @apply font-semibold text-sm hover:text-green-700 transition duration-300 text-gray-200  bg-black px-1 py-1 dark:bg-white dark:text-black inline-block;
   }
 
   .live-text {
@@ -156,7 +225,7 @@
   }
 
   .live-button {
-    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl  font-medium text-ioai-300 hover:text-green-700 transition duration-300 uppercase underline;
+    @apply release-button ;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -180,5 +249,15 @@
   
   .footer-text {
     @apply text-xs uppercase text-gray-400;
-  }
+  }  
 }
+
+
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
