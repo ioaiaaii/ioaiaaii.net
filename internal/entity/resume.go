@@ -19,6 +19,14 @@ type Resume struct {
 	// example: https://linkedin.com/in/ioannis
 	EngineeringProfile string `json:"engineeringProfile"`
 
+	// Bandcamp profile link
+	// example: https://ioannissavvaidis.bandcamp.com
+	Bandcamp string `json:"bandcamp"`
+
+	// SoundCloud profile link
+	// example: https://soundcloud.com/ioannis_savvaidis
+	Soundcloud string `json:"soundcloud"`
+
 	// A short summary profile
 	// example: Experienced SRE with a strong background in cloud infrastructure.
 	Profile string `json:"profile"`
