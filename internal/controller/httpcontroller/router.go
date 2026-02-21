@@ -47,16 +47,6 @@ func RegisterAPIRoutes(app *fiber.App, handler *ContentHandler) {
 	// @Success      200  {object}  []entity.LivePerformance
 	// @Router       /api/v1/live [get]
 	apiV1.Get("/live", handler.GetLivePerformances)
-
-	// Get project details
-	// @Summary      Get project details
-	// @Description  Retrieves details on various projects the individual has undertaken.
-	// @Tags         Projects
-	// @Accept       json
-	// @Produce      json
-	// @Success      200  {object}  []entity.ProjectEntry
-	// @Router       /api/v1/projects [get]
-	apiV1.Get("/projects", handler.GetWebsiteProjects)
 }
 
 // RegisterUIRoutes serves the frontend UI and handles SPA routing.

@@ -12,7 +12,6 @@ type ContentUsecase interface {
 	GetResume() (entity.Resume, error)
 	GetReleases() ([]entity.Release, error)
 	GetLivePerformances() ([]entity.LivePerformance, error)
-	GetWebsiteProjects() ([]entity.WebsiteProjectEntry, error)
 	CheckDependencies() error
 }
 
@@ -39,11 +38,6 @@ func (uc *contentUsecase) GetReleases() ([]entity.Release, error) {
 // GetLivePerformances fetches live performances content using the repository.
 func (uc *contentUsecase) GetLivePerformances() ([]entity.LivePerformance, error) {
 	return uc.repo.LoadLivePerformances()
-}
-
-// GetWebsiteProjects fetches website projects content using the repository.
-func (uc *contentUsecase) GetWebsiteProjects() ([]entity.WebsiteProjectEntry, error) {
-	return uc.repo.LoadWebsiteProjects()
 }
 
 // CheckDependencies checks if critical content files are accessible

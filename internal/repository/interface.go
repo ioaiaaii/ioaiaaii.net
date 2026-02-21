@@ -9,5 +9,4 @@ type ContentRepository interface {
 	LoadResume() (entity.Resume, error)
 	LoadReleases() ([]entity.Release, error)
 	LoadLivePerformances() ([]entity.LivePerformance, error)
-	LoadWebsiteProjects() ([]entity.WebsiteProjectEntry, error)
 }

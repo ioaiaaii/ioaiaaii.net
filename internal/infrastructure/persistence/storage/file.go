@@ -70,20 +70,3 @@ func (f *FileContent) LoadLivePerformances() ([]entity.LivePerformance, error) {
 
 	return performances.Items, nil
 }
-
-// LoadWebsiteProjects reads and parses the website projects JSON file
-func (f *FileContent) LoadWebsiteProjects() ([]entity.WebsiteProjectEntry, error) {
-	// Read the embedded website projects JSON file
-	data, err := data.DataDir.ReadFile(f.Config.ProjectsFile)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read website projects file: %w", err)
-	}
-
-	// Unmarshal the JSON data into a slice of WebsiteProjectEntry structs
-	var projects entity.WebsiteProjects
-	if err := json.Unmarshal(data, &projects); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal website projects JSON: %w", err)
-	}
-
-	return projects.Items, nil
-}
