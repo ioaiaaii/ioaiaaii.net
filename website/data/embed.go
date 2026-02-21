@@ -16,7 +16,6 @@ type Files struct {
 	ResumeFile   string
 	ReleasesFile string
 	LiveFile     string
-	ProjectsFile string
 }
 
 // Map file types to their corresponding filenames (this can be extended as needed)
@@ -24,7 +23,6 @@ var fileMap = map[string]string{
 	"resume":   "info.json",
 	"releases": "releases.json",
 	"live":     "live.json",
-	"projects": "projects.json",
 }
 
 // FindEmbeddedFiles dynamically finds files based on fileMap.
@@ -68,7 +66,6 @@ func (c *Files) LoadFiles() error {
 	c.ResumeFile = foundFiles["resume"]
 	c.ReleasesFile = foundFiles["releases"]
 	c.LiveFile = foundFiles["live"]
-	c.ProjectsFile = foundFiles["projects"]
 
 	return nil
 }
