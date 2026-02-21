@@ -1,86 +1,84 @@
 <template>
-  <div
-    class="relative w-full overflow-hidden bg-cover bg-center transition-opacity duration-300"
-    :class="{ 'opacity-20': !backgroundLoaded, 'opacity-100': backgroundLoaded }"
-    :style="backgroundLoaded ? { backgroundImage: `url(${backgroundUrl})`, height: 'calc(var(--vh) * 100)' } : {}"
-  >
-    <!-- Hidden image to trigger loading -->
-    <img
-      :src="backgroundUrl"
-      @load="backgroundLoaded = true"
-      class="hidden"
-      alt="Background"
-    />
+  <div class="base-container flex justify-center">
+    <div class="w-full px-4 sm:px-6 md:px-8 lg:px-0 lg:w-2/3 xl:w-1/2 py-8 sm:py-10 md:py-12 pb-20">
+      <h1 class="sr-only">Live Performances</h1>
 
-    <div class="min-h-12 h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 max-h-40"></div>
+      <!-- Loading State -->
+      <div v-if="isLoading" class="text-center py-8">
+        <p class="live-text opacity-50">Loading performances...</p>
+      </div>
 
-    <div class="relative h-full flex flex-col items-start justify-start p-4">
-      <ul
-        class="space-y-4 overflow-y-auto w-full scrollbar-hide"
-        :style="{ maxHeight: 'calc(var(--vh) * 75)' }"
-      >
-        <li
+      <!-- Error State -->
+      <div v-else-if="error" class="text-center py-8">
+        <p class="text-red-600 text-base sm:text-lg">{{ error }}</p>
+      </div>
+
+      <!-- Content -->
+      <div v-else class="space-y-2">
+        <div
           v-for="(performance, index) in performances"
           :key="index"
-          class="live-text"
+          class="group py-4"
         >
-          <div>
-            {{ performance.date }} : {{ performance.title }}
-            <span v-if="performance.event_link" class="mx-2"> + </span>
-            <a
-              v-if="performance.event_link"
-              :href="performance.event_link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="live-button"
-            >
-              Info
-            </a>
-            <span v-if="performance.listen_link" class="mx-2"> + </span>
-            <a
-              v-if="performance.listen_link"
-              :href="performance.listen_link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="live-button"
-            >
-              Listen
-            </a>
+          <!-- Mobile: stacked layout -->
+          <div class="flex flex-col gap-1 sm:hidden">
+            <span class="text-sm uppercase tracking-wide text-gray-500 font-semibold">{{ formatDate(performance.date) }}</span>
+            <div class="flex items-center justify-between gap-4">
+              <span class="text-base text-gray-900 font-medium tracking-wide">{{ performance.title }}</span>
+              <div class="flex items-center gap-3">
+                <a v-if="performance.event_link" :href="performance.event_link" target="_blank" rel="noopener noreferrer" class="release-button" aria-label="Event information, opens in new window">INFO</a>
+                <a v-if="performance.listen_link" :href="performance.listen_link" target="_blank" rel="noopener noreferrer" class="release-button" aria-label="Listen to recording, opens in new window">LISTEN</a>
+              </div>
+            </div>
           </div>
-        </li>
-      </ul>
+
+          <!-- Desktop: single row with vertical line -->
+          <div class="hidden sm:flex relative items-center gap-4">
+            <span class="text-sm uppercase tracking-wide text-gray-500 font-semibold whitespace-nowrap w-24">{{ formatDate(performance.date) }}</span>
+            <div class="absolute top-0 bottom-0 bg-black" style="width: 1px; left: 120px;"></div>
+            <span class="text-base text-gray-900 font-medium tracking-wide flex-1 pl-8">{{ performance.title }}</span>
+            <div class="flex items-center gap-3">
+              <a v-if="performance.event_link" :href="performance.event_link" target="_blank" rel="noopener noreferrer" class="release-button" aria-label="Event information, opens in new window">INFO</a>
+              <a v-if="performance.listen_link" :href="performance.listen_link" target="_blank" rel="noopener noreferrer" class="release-button" aria-label="Listen to recording, opens in new window">LISTEN</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      performances: [],
-      backgroundUrl: 'https://storage.googleapis.com/ioaiaaii-website-static-content/assets/images/live/studio_2024_3000_v1.webp',
-      backgroundLoaded: false, // Track if background image has loaded
-    };
-  },
-  created() {
-    this.fetchLive();
-  },
-  mounted() {
-    const setViewportHeight = () => {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    };
-    setViewportHeight();
-    window.addEventListener('resize', setViewportHeight);
-  },
-  methods: {
-    fetchLive() {
-      fetch('/api/v1/live')
-        .then((response) => response.json())
-        .then((data) => {
-          this.performances = data;
-        })
-        .catch((error) => console.error('Error fetching live performances:', error));
-    },
-  },
-};
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const performances = ref([]);
+const isLoading = ref(true);
+const error = ref(null);
+
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
+async function fetchLive() {
+  try {
+    isLoading.value = true;
+    error.value = null;
+    const response = await fetch('/api/v1/live');
+    if (!response.ok) throw new Error('Failed to fetch live performances');
+    const data = await response.json();
+    performances.value = data;
+  } catch (err) {
+    error.value = err.message;
+    console.error('Error fetching live performances:', err);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onMounted(fetchLive);
 </script>
