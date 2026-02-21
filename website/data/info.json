@@ -11,26 +11,55 @@
     "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on apparent Superluminal Motion and Quantum nonlocality.",
     "selectedWorks": [
       {
-        "title": "\"Diataxis\" (June Records, 2019)",
-        "link": "https://ioannissavvaidis.bandcamp.com/album/diataxis"
+        "title": "Diataxis",
+        "link": "https://ioannissavvaidis.bandcamp.com/album/diataxis",
+        "description": "Working with tensors from vector spaces and their interactions. A study to interpret my father's painting.",
+        "released": "June Records",
+        "date": "2019"
       },
       {
-        "title": "\"Superluminal Motion\" (Unreleased, 2021-2025)",
-        "link": "https://on.soundcloud.com/yBsywY8J3b9UkXPY9"
+        "title": "Superluminal Motion",
+        "link": "https://on.soundcloud.com/yBsywY8J3b9UkXPY9",
+        "description": "Six pieces, drawing inspiration from Superluminal Motion—an astrophysical phenomenon observed in stellar objects that indicates an apparent faster-than-light motion—and Quantum nonlocality—an instantaneous action or information transfer between quantum systems with an apparent faster-than-light speed. Exploring warped soundscapes driven by emotional states that are nonlocal and entangled in spacetime.",
+        "released": "Unreleased",
+        "date": "2021-2025"
       },
       {
-        "title": "\"Δέσμη Φωτός\" (Unreleased, 2021-2024)",
-        "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8"
+        "title": "Δέσμη Φωτός",
+        "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
+        "description": "Concept of light beams, their properties, and interactions, shaping the flow of energy and information in real life.",
+        "released": "Unreleased",
+        "date": "2021-2024"        
+      },
+      {
+        "title": "Inter-process Communication",
+        "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
+        "description": "The Inter-process Communication, in Operating Systems, enables processes to exchange data and synchronize their actions, shaping the flow of information and control within a system.",
+        "released": "Unreleased",
+        "date": "2025-2026"
+      },
+      {
+        "title": "EtherType",
+        "link": "https://on.soundcloud.com/cH6zosJCsDRxXvBajh",
+        "description": "Exploring the concept of EtherType, in an Ethernet frame header. Encoding data link layer as an Autonomous System, to demultiplex frames and determine how to process data.",
+        "released": "Unreleased",
+        "date": "2022-2024"
       }
     ],
     "collaborations": [
       {
-        "title": "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou (Athens Epidaurus Festival, 2021), Short Composition",
-        "link": "https://aefestival.gr/festival_events/sacred-tales-covid-19/?lang=en"
+        "title": "\"SACRED TALES/COVID-19\" by Aemilia Papaphilippou",
+        "link": "https://aefestival.gr/festival_events/sacred-tales-covid-19/?lang=en",
+        "date": "2021",
+        "where": "Athens Epidaurus Festival",
+        "type": "Short Composition"
       },
       {
-        "title": "\"Stone Age\" by Joshua Olsthoorn (Film, 2022), Film Scoring",
-        "link": "https://typical-organization.com/portfolio/studio-stone-age/"
+        "title": "\"Stone Age\" by Joshua Olsthoorn",
+        "link": "https://typical-organization.com/portfolio/studio-stone-age/",
+        "date": "2022",
+        "where": "Typical Organization",
+        "type": "Film Scoring"
       }
     ]
   }

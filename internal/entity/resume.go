@@ -45,12 +45,16 @@ type Resume struct {
 // swagger:model
 type SelectedWorksEntry struct {
 	// Title of the project
-	// example: Quantum Security Research
 	Title string `json:"title"`
 
 	// Link to the project or repository
-	// example: https://github.com/ioaiaaii/quantum-security
 	Link string `json:"link"`
+
+	// Free text to describe the project
+	Description string `json:"description"`
+
+	Released string `json:"released"`
+	Date     string `json:"date"`
 }
 
 // CollaborationsEntry represents a single entry in the Collaborations section.
@@ -62,5 +66,9 @@ type CollaborationsEntry struct {
 
 	// Link to the project or repository
 	// example: https://github.com/ioaiaaii/quantum-security
-	Link string `json:"link"`
+	Link        string `json:"link"`
+	Description string `json:"description"`
+	Date        string `json:"date"`
+	Where       string `json:"where"`
+	Type        string `json:"type"`
 }
