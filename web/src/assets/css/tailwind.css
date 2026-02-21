@@ -1,11 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@font-face {
-  font-family: "Figtree";
-  src: url("/assets/fonts/Figtree-VariableFont_wght.ttf") format("truetype");
-}
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -37,7 +30,6 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --sidebar-input: 240 3.7% 15.9%;
     --sidebar-input: 240 5.9% 90%;
   }
 
@@ -88,7 +80,7 @@
 
   /* View */
   .base-container {
-    @apply pt-6 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-10 min-h-screen;
+    @apply pt-16 sm:pt-16 md:pt-20 lg:pt-20 xl:pt-20 min-h-screen;
   }
 
   .base-grid {
@@ -97,52 +89,33 @@
 
   
   /* Menu */
-  .menu-button-base {
-    @apply text-blue-800 text-2xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl uppercase;
-  }
-
-  .sub-menu-button-base {
-    @apply text-blue-800 text-xl sm:text-xl md:text-xl lg:text-xl xl:text-3xl 2xl:text-3xl uppercase;
-  }
-
-  .menu-button {
-    @apply menu-button-base hover:text-blue-200 transition duration-300 ease-in-out;
-  }
-
-  .menu-button-mobile {
-    @apply menu-button-base hover:text-blue-200 ;
-  }
-
-  .sub-menu-button-mobile {
-    @apply sub-menu-button-base ;
-  }  
-
+  /* Primary navigation buttons */
+  .menu-button,
+  .menu-button-home,
   .contact-button {
-    @apply menu-button-base ;
+    @apply inline-flex items-center cursor-pointer select-none
+      uppercase font-medium tracking-wider
+      text-blue-800
+      text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
+      transition-all duration-200 ease-out
+      hover:opacity-50
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white
   }
 
-    /* Menu button style for /live page */
-  .menu-button-live {
-    @apply menu-button-base hover:text-gray-400 transition duration-300 ease-in-out;
-  }
-
-  .menu-button-home {
-    @apply menu-button-base 
-  }
-
-
-
+  /* Home headings */
   .home-heading {
-    @apply menu-button-base text-red-900;
+    @apply uppercase font-semibold tracking-wide text-black
+      text-2xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl;
   }
 
   .home-subheading {
-    @apply text-xs sm:text-sm md:text-lg lg:text-lg font-bold uppercase text-red-900;
-  }  
+    @apply uppercase font-bold tracking-wide text-black
+      text-xs sm:text-sm md:text-base lg:text-lg;
+  }
 
   /* Basic Text Generators */
   .basic-text {
-    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-800 leading-tight md:leading-tight lg:leading-tight xl:leading-tight font-normal text-pretty; 
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-700 leading-relaxed font-normal text-pretty; 
   }
 
   .basic-heading {
@@ -166,18 +139,18 @@
   }
 
   .resume-heading {
-    @apply project-category;
+    @apply text-xl sm:text-xl md:text-xl lg:text-xl xl:text-3xl 2xl:text-3xl uppercase text-black pb-2 pt-8 font-semibold;
   }
   .resume-item {
     @apply text-lg sm:text-lg md:text-lg lg:text-lg xl:text-xl 2xl:text-xl font-semibold;
   }
 
   .resume-text {
-    @apply basic-text;
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-900 leading-loose font-normal tracking-wide text-pretty mb-0;
   }
 
   .date {
-    @apply resume-item;    
+    @apply text-lg sm:text-lg md:text-lg lg:text-lg xl:text-xl 2xl:text-xl font-semibold;
   }
 
   .heading-md {
@@ -189,19 +162,19 @@
   }
 
   .project-category {
-    @apply sub-menu-button-base text-black pb-2 pt-8 font-semibold;
+    @apply text-base md:text-lg uppercase tracking-wide text-gray-700 pb-8 font-semibold;
   }
 
   .project-button-pulse {
-    @apply resume-item hover:text-blue-300 transition duration-300 ease-in-out;
+    @apply cursor-pointer text-lg sm:text-lg md:text-lg lg:text-lg xl:text-xl 2xl:text-xl font-semibold hover:text-blue-300 transition duration-300 ease-in-out;
   }
 
   .project-item {
-    @apply basic-text font-semibold text-gray-800;
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-700 leading-relaxed font-medium text-pretty;
   }
 
   .project-text {
-    @apply basic-text;
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-700 leading-relaxed font-normal text-pretty;
   }
 
   .release-title {
@@ -213,19 +186,19 @@
   }
 
   .release-text {
-    @apply basic-text text-balance;
+    @apply text-base md:text-base lg:text-lg xl:text-lg text-gray-700 leading-relaxed font-normal text-pretty text-balance;
   }
 
   .release-button {
-    @apply font-semibold text-sm hover:text-green-700 transition duration-300 text-gray-200  bg-black px-1 py-1 dark:bg-white dark:text-black inline-block;
+    @apply cursor-pointer text-base uppercase tracking-wide text-gray-700 hover:text-blue-800 transition-colors font-medium underline decoration-blue-800;
   }
 
   .live-text {
-    @apply text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl font-medium uppercase text-white ;
+    @apply text-base sm:text-base md:text-lg lg:text-xl xl:text-xl font-medium uppercase text-black ;
   }
 
   .live-button {
-    @apply release-button ;
+    @apply cursor-pointer font-semibold text-sm sm:text-sm md:text-base hover:text-blue-700 transition duration-300 text-gray-200 bg-black px-2 py-1 dark:bg-white dark:text-black inline-block;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -240,11 +213,11 @@
   }
 
   .footer {
-    @apply w-full p-4 border-t border-white flex flex-col sm:flex-row justify-center ;
+    @apply w-full p-4 border-t border-white flex flex-col sm:flex-row justify-start ;
   }
   
   .footer-link {
-    @apply text-xs md:text-sm font-semibold text-gray-600 uppercase hover:underline;
+    @apply cursor-pointer text-lg md:text-xl font-semibold text-black uppercase hover:underline;
   }
   
   .footer-text {
@@ -261,3 +234,29 @@
     @apply bg-background text-foreground;
   }
 } */
+
+@layer base {
+  html {
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+      "Segoe UI Emoji";
+    text-rendering: optimizeLegibility;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    @apply antialiased bg-white text-gray-900;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  #app {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .dark body {
+    @apply bg-gray-950 text-gray-50;
+  }
+}
