@@ -1,13 +1,13 @@
 # Multi-stage docker build
 ##    Build base, parse LD_FLAGS, add user and build the service bin to /tmp dir.
-FROM node:18-alpine AS build-ui
+FROM node:22-alpine AS build-ui
 WORKDIR /app
 COPY ./web/package.json ./web/package-lock.json ./
 RUN npm install
 COPY ./web .
 RUN npm run build
 
-FROM golang@sha256:9dd2625a1ff2859b8d8b01d8f7822c0f528942fe56cfe7a1e7c38d3b8d72d679 as base
+FROM golang@sha256:c83e68f3ebb6943a2904fa66348867d108119890a2c6a2e6f07b38d0eb6c25c5 AS base
 ARG LD_FLAGS
 RUN adduser \
     --disabled-password \
