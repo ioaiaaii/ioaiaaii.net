@@ -6,14 +6,14 @@
     "bandcamp": "https://ioannissavvaidis.bandcamp.com",
     "soundcloud": "https://soundcloud.com/ioannis_savvaidis",
     "profile": "Computer Engineer and Composer dedicated to building sustainable systems and exploring the intersection of technology and art. Experienced in managing large-scale production infrastructures with a focus on observability and performance while cultivating a culture of respect and collaboration.",
-    "artistBio": "Composer drawing on Quantum and Distributed Computing principles to interpret relativistic reality. Discography with record labels including Anopolis, June, Lower Parts, and Phormix. Performs live with synthesizers under an improvisational approach.",
+    "artistBio": "Composer exploring synthesis, structure, and interference. Releases on Anopolis, June, Lower Parts, and Phormix. Member of the music groups UNIX SYSTEMS and ΨΥΧΥ. Performs live with synthesizers under an improvisational approach.",
     "engineerBio": "Computer Engineer specializing in Systems and Site Reliability Engineering, with 10+ years managing large-scale AWS cloud, on-prem vSphere, and Kubernetes environments. Proven track record of improving systems performance, cutting costs, and advancing observability. Experienced in critical production operations and incident response, with deep debugging and automation skills. Strong collaborator shaping infrastructure long-term strategy, and SRE culture at a staff level. Currently, pursuing a Master's in Quantum Computing.",
     "artisticApproach": "Drawing from a Computer Engineering background, emerged into music, experimenting with the concept of 'Tensor Music'. An approach that explores vector spaces and their interactions, shaping multidimensional spaces. Currently focused on apparent Superluminal Motion and Quantum nonlocality.",
     "selectedWorks": [
       {
         "title": "Diataxis",
         "link": "https://ioannissavvaidis.bandcamp.com/album/diataxis",
-        "description": "Working with tensors from vector spaces and their interactions. A study to interpret my father's painting.",
+        "description": "Inspired by Αναπαράσταση Δυνάμεων (1990), a painting by Anastasios Savvaidis, Diataxis is a study derived from the topology and signal flow of optical networks. Each composition unfolds through transmission, interference, and reconstruction, shaped by accompanying texts.",
         "released": "June Records",
         "date": "2019"
       },
@@ -27,21 +27,21 @@
       {
         "title": "Δέσμη Φωτός",
         "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
-        "description": "Concept of light beams, their properties, and interactions, shaping the flow of energy and information in real life.",
+        "description": "A movement within a beam of light.",
         "released": "Unreleased",
         "date": "2021-2024"        
       },
       {
         "title": "Inter-process Communication",
         "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
-        "description": "The Inter-process Communication, in Operating Systems, enables processes to exchange data and synchronize their actions, shaping the flow of information and control within a system.",
+        "description": "Inspired by inter-process communication in operating systems: exchange, synchronization, and control between independent entities within a shared address space.",
         "released": "Unreleased",
         "date": "2025-2026"
       },
       {
         "title": "EtherType",
         "link": "https://on.soundcloud.com/cH6zosJCsDRxXvBajh",
-        "description": "Exploring the concept of EtherType, in an Ethernet frame header. Encoding data link layer as an Autonomous System, to demultiplex frames and determine how to process data.",
+        "description": "Exploring EtherType within the Ethernet frame header. Treating the data link layer as an autonomous routing system—demultiplexing signals and redefining how information is processed.",
         "released": "Unreleased",
         "date": "2022-2024"
       }
