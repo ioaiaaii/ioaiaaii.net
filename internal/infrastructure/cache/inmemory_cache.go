@@ -169,33 +169,3 @@ func (c *InMemoryCacheRepository) LoadLivePerformances() ([]entity.LivePerforman
 	c.updateCache(key, livePerformances) // Cache the newly fetched data
 	return livePerformances, nil
 }
-
-// LoadWebsiteProjects loads WebsiteProject data either from the cache or the underlying repository.
-func (c *InMemoryCacheRepository) LoadWebsiteProjects() ([]entity.WebsiteProjectEntry, error) {
-	const key = "websiteProjects"
-
-	// Try fetching data from cache
-	data, found := c.getFromCache(key)
-	if found && !c.checkCacheExpiry(key) {
-		fmt.Println("Serving Website Projects from cache")
-		return data.([]entity.WebsiteProjectEntry), nil
-	}
-
-	// Serve stale cache and refresh in the background
-	if found {
-		fmt.Println("Serving stale Website Projects from cache, refreshing...")
-		c.AsyncCacheUpdate(key, func() (interface{}, error) {
-			return c.repo.LoadWebsiteProjects() // Fetch fresh data asynchronously
-		})
-		return data.([]entity.WebsiteProjectEntry), nil
-	}
-
-	// Cache miss: block and fetch fresh data from the repository
-	fmt.Println("Cache miss for Website Projects, loading from repository")
-	projects, err := c.repo.LoadWebsiteProjects()
-	if err != nil {
-		return nil, err
-	}
-	c.updateCache(key, projects) // Cache the newly fetched data
-	return projects, nil
-}

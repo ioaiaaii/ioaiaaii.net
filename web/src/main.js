@@ -8,9 +8,9 @@ const isOtelEnabled = import.meta.env.VITE_OTEL_ENABLE === 'True';
 
 if (isOtelEnabled) {
     console.log('OpenTelemetry is enabled');
-    import('./otel-metrics'); // Dynamically import OpenTelemetry configuration
-    import('./metrics-handlers'); // Load additional metrics handlers
-    import('./fetch-interceptor'); // Load fetch interceptor for tracing HTTP requests
+    // import('./otel-metrics'); // Dynamically import OpenTelemetry configuration
+    // import('./metrics-handlers'); // Load additional metrics handlers
+    // import('./fetch-interceptor'); // Load fetch interceptor for tracing HTTP requests
 } else {
     console.log('OpenTelemetry is disabled');
 }

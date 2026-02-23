@@ -44,12 +44,3 @@ func (h *ContentHandler) GetLivePerformances(c *fiber.Ctx) error {
 	}
 	return c.JSON(performances)
 }
-
-// GetWebsiteProjects handles the retrieval of project details.
-func (h *ContentHandler) GetWebsiteProjects(c *fiber.Ctx) error {
-	projects, err := h.Usecase.GetWebsiteProjects()
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
-	}
-	return c.JSON(projects)
-}
