@@ -1,14 +1,16 @@
 <template>
   <div
     ref="ctnDom"
-    :class="cn('block size-full', props?.class)"
-  ></div>
+    class="block size-full"
+    :class="[props?.class]"
+  />
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, type HTMLAttributes } from "vue";
-import { Renderer, Program, Mesh, Color, Triangle, type OGLRenderingContext } from "ogl";
-import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "vue";
+import type { OGLRenderingContext } from "ogl";
+import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 
@@ -94,8 +96,14 @@ function update(t: number) {
   }
 }
 
-onMounted(() => {
+function initWebGL() {
   if (!ctnDom.value) return;
+
+  // Defer until the container has non-zero dimensions (CSS may not have applied yet)
+  if (ctnDom.value.offsetWidth === 0 || ctnDom.value.offsetHeight === 0) {
+    requestAnimationFrame(initWebGL);
+    return;
+  }
 
   renderer = new Renderer();
   gl = renderer.gl;
@@ -122,6 +130,11 @@ onMounted(() => {
   animateId = requestAnimationFrame(update);
 
   ctnDom.value.appendChild(gl.canvas);
+  console.log(`[LiquidBackground] WebGL initialized (${gl.canvas.width}x${gl.canvas.height})`);
+}
+
+onMounted(() => {
+  initWebGL();
 });
 
 onUnmounted(() => {
