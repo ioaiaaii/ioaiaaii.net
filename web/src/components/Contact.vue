@@ -4,8 +4,8 @@
       <h1 class="sr-only">Contact Information</h1>
 
       <!-- Loading State -->
-      <div v-if="isLoading" class="text-center py-8">
-        <p class="resume-text opacity-50">Loading contact info...</p>
+      <div v-if="isLoading" class="flex justify-center py-8">
+        <div class="w-6 h-6 border-2 border-gray-300 border-t-gray-500 rounded-full animate-spin" />
       </div>
 
       <!-- Error State -->

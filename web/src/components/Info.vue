@@ -4,8 +4,8 @@
     <div class="w-full px-4 sm:px-6 md:px-8 lg:px-0 lg:w-2/3 xl:w-1/2 py-8 sm:py-10 md:py-12 pb-20">
 
     <!-- Loading State -->
-    <div v-if="isLoading" class="text-center py-4">
-      <p class="resume-text opacity-50">Loading profile...</p>
+    <div v-if="isLoading" class="flex justify-center py-4">
+      <div class="w-6 h-6 border-2 border-gray-300 border-t-gray-500 rounded-full animate-spin" />
     </div>
 
     <!-- Error State -->
