@@ -48,22 +48,22 @@ local-preview: website-build
 	wait
 	@echo "Both processes have finished."
 
-## local-docker-lint, fetching non-local target and linting all project's images
-.PHONY: local-docker-lint
-local-docker-lint: 
-	make docker-lint DOCKER_IMAGE=ioaiaaii 
+## local-image-lint, fetching non-local target and linting all project's images
+.PHONY: local-image-lint
+local-image-lint:
+	make image-lint DOCKER_IMAGE=ioaiaaii
 
-## local-docker-build, fetching non-local target and building all project's images
-.PHONY: local-docker-build
-local-docker-build: 
-	make docker-image DOCKER_IMAGE=ioaiaaii 
+## local-image-build, fetching non-local target and building all project's images
+.PHONY: local-image-build
+local-image-build:
+	make docker-image DOCKER_IMAGE=ioaiaaii
 
 ## local-docker-push, fetching non-local target and building all project's images
 .PHONY: local-docker-push
-local-docker-push: 
+local-docker-push:
 	make docker-push DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo" DOCKER_IMAGE=ioaiaaii
 
-## local-docker-run, fetching non-local target docker-run and run all images in the backround
-.PHONY: local-docker-run
-local-docker-run: 
+## local-image-run, fetching non-local target docker-run and run all images in the backround
+.PHONY: local-image-run
+local-image-run:
 	make docker-run DOCKER_IMAGE=ioaiaaii
