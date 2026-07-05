@@ -1,0 +1,32 @@
+{
+  "_comment": "FINAL release list = 3 items. The following were REMOVED from the old repo releases.json during design: 'Celestial Electronics vol.1 Rozselini', 'Telepresence', 'Krama Installation 2021', 'Anisotropy'. Display order is newest-first as below. Each renders with a BUY link (bandcamp_link).",
+  "releases": [
+    {
+      "title": "Diataxis",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2019-05-18",
+      "label": "JUNE Records",
+      "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
+      "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/diataxis",
+      "description": "Interprets Αναπαράσταση Δυνάμεων (1990), a painting by Anastasios Savvaidis, through principles of optical networks. Pressed on 12″ vinyl with an A3 poster of the original painting."
+    },
+    {
+      "title": "DEC/PDC",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2019-11-19",
+      "label": "JUNE Records",
+      "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
+      "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/dec-pdc",
+      "description": "Two live-recorded pieces interpreting distributed-computing principles, with layered fragments that merge and dissipate. Limited-edition transparent lathe-cut 7″ vinyl."
+    },
+    {
+      "title": "NSA Trusted Networks",
+      "artist": "Ioannis Savvaidis",
+      "releaseDate": "2016-12-30",
+      "label": "Lower Parts",
+      "discogs_link": "https://www.discogs.com/release/9283679-Ioannis-Savvaidis-NSA-Trusted-Networks",
+      "bandcamp_link": "https://lowerparts.bandcamp.com/album/nsa-trusted-networks-2",
+      "description": "Debut album, inspired by early computer networks and live-recorded with ’90s Yamaha synthesizers. Pressed on 12″ vinyl with an included A3 poster by Layer Based Human Activities."
+    }
+  ]
+}

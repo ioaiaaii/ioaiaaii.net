@@ -1,3 +1,0 @@
-chart-dirs:
-  - deploy/helm/
-upgrade: true
