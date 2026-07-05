@@ -1,0 +1,89 @@
+name: Web CI/CD
+
+on:
+  pull_request:
+    paths:
+      - 'web/**'
+      - 'Makefile'
+      - '.github/workflows/web-ci.yaml'
+  push:
+    branches:
+      - master
+    paths:
+      - 'web/**'
+      - 'Makefile'
+      - '.github/workflows/web-ci.yaml'
+
+# Least privilege: jobs only read the repo. Deploys authenticate with Cloudflare
+# secrets, not GITHUB_TOKEN.
+permissions:
+  contents: read
+
+# One run per ref; a newer push supersedes an in-flight one.
+concurrency:
+  group: web-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: web/.nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: make website-install
+      - run: make website-lint-ci
+      - run: make website-test
+      - run: make website-build
+
+      - name: Upload build output
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: dist
+          path: web/dist
+          retention-days: 1
+
+  # Development delivery: every green master push publishes a Cloudflare Pages
+  # PREVIEW (master.ioaiaaii-net.pages.dev). Production is deployed from tags in
+  # release.yaml — the project's production branch is "production", so --branch=master
+  # is always a preview.
+  deliver:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download build output
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to Cloudflare Pages (development)
+        id: deploy
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=ioaiaaii-net --branch=master
+
+      - name: Smoke-test the deployment
+        env:
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          echo "Smoke-testing $URL"
+          # Root serves the app shell (the <title> lives in the static index.html).
+          curl -fsS --retry 5 --retry-delay 3 --retry-all-errors "$URL" \
+            | grep -q "Ioannis Savvaidis"
+          # A deep link must fall back to index.html — validates _redirects.
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$URL/works")
+          test "$code" = "200"
