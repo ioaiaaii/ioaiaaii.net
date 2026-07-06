@@ -1,69 +1,64 @@
-GOPRIVATE=ioaiaaii.net
-GONOSUMDB=ioaiaaii.net
-export
-
 # +++ Overrides to Repo Operator
 override OPERATOR_PATH := repo-operator
-override OPENAPI_FILE := api/OpenAPI/openapi.yaml
-override OPENAPI_DOCS_PATH := docs/api
 
-# +++ Include make files from Repo Operator
+# +++ Shared makefiles from Repo Operator (kept as a submodule)
 include ${OPERATOR_PATH}/makefiles/base.mk
-include ${OPERATOR_PATH}/makefiles/openapi.mk
-include ${OPERATOR_PATH}/makefiles/golang.mk
-include ${OPERATOR_PATH}/makefiles/package.mk
-include ${OPERATOR_PATH}/makefiles/security.mk
-include ${OPERATOR_PATH}/makefiles/helm.mk
-include ${OPERATOR_PATH}/makefiles/otel.mk
 include ${OPERATOR_PATH}/makefiles/changelog.mk
 
-
-# +++ Local configuration starts, hit `make help` to fetch all available targets
+# +++ Static site — Vue 3 + Vite, deployed to Cloudflare Pages.
+# Hit `make help` to list all targets.
 WEBSITE_PATH=web
 
+## website-install, installs frontend deps from the lockfile (npm ci)
+.PHONY: website-install
+website-install:
+	@cd ${WEBSITE_PATH} && npm ci
 
-## local-dev, runs bff and backend locally in dev mode
-.PHONY: local-dev
-local-dev:
-	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd ${WEBSITE_PATH} && npm run dev) & \
-	(cd cmd/ioaiaaii.net/ && go run main.go) & \
-	wait
-	@echo "Both processes have finished."
+## website-dev, runs the Vite dev server with hot reload
+.PHONY: website-dev
+website-dev:
+	@cd ${WEBSITE_PATH} && npm run dev
 
-## website-build, builds vite project
-website-lint:
-	@cd ${WEBSITE_PATH} && npm run lint
-
-## website-build, builds vite project
+## website-build, builds the static site into web/dist
+.PHONY: website-build
 website-build:
 	@cd ${WEBSITE_PATH} && npm run build
 
-## local-preview, runs bff and backend in preview mode (production)
-.PHONY: local-preview
-local-preview: website-build
-	@echo "Starting npm in frontend and Go in bff in parallel..."
-	@(cd ${WEBSITE_PATH} && npm run preview) & \
-	(cd cmd/ioaiaaii.net/ && go run main.go) & \
-	wait
-	@echo "Both processes have finished."
+## website-preview, builds then serves the production bundle locally
+.PHONY: website-preview
+website-preview: website-build
+	@cd ${WEBSITE_PATH} && npm run preview
 
-## local-image-lint, fetching non-local target and linting all project's images
-.PHONY: local-image-lint
-local-image-lint:
-	make image-lint DOCKER_IMAGE=ioaiaaii
+## website-lint, lints and auto-fixes the frontend (eslint)
+.PHONY: website-lint
+website-lint:
+	@cd ${WEBSITE_PATH} && npm run lint
 
-## local-image-build, fetching non-local target and building all project's images
-.PHONY: local-image-build
-local-image-build:
-	make docker-image DOCKER_IMAGE=ioaiaaii
+## website-lint-ci, lints without auto-fixing — strict gate for CI
+.PHONY: website-lint-ci
+website-lint-ci:
+	@cd ${WEBSITE_PATH} && npm run lint:ci
 
-## local-docker-push, fetching non-local target and building all project's images
-.PHONY: local-docker-push
-local-docker-push:
-	make docker-push DOCKER_IMAGE_REPO="europe-west3-docker.pkg.dev/micro-infra/micro-repo" DOCKER_IMAGE=ioaiaaii
+## website-format, formats the frontend (prettier)
+.PHONY: website-format
+website-format:
+	@cd ${WEBSITE_PATH} && npm run format
 
-## local-image-run, fetching non-local target docker-run and run all images in the backround
-.PHONY: local-image-run
-local-image-run:
-	make docker-run DOCKER_IMAGE=ioaiaaii
+## website-test, runs the unit test suite (vitest)
+.PHONY: website-test
+website-test:
+	@cd ${WEBSITE_PATH} && npm run test:unit
+
+## website-test-e2e, builds and runs the Cypress smoke tests
+.PHONY: website-test-e2e
+website-test-e2e:
+	@cd ${WEBSITE_PATH} && npm run test:e2e
+
+## website-check, CI gate — lint, unit tests, then build
+.PHONY: website-check
+website-check: website-lint website-test website-build
+
+## website-clean, removes the build output (web/dist)
+.PHONY: website-clean
+website-clean:
+	@rm -rf ${WEBSITE_PATH}/dist

@@ -42,3 +42,11 @@ vendor/
 go.work
 go.work.sum
 # env file
+
+# Terraform (deploy/iac) — never commit local provider cache or state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+.wrangler

@@ -1,0 +1,68 @@
+{
+  "name": "IOANNIS SAVVAIDIS",
+  "email": "johnsavvaidis@gmail.com",
+  "bandcamp": "https://ioannissavvaidis.bandcamp.com",
+  "soundcloud": "https://soundcloud.com/ioannis_savvaidis",
+  "engineeringProfile": "https://github.com/ioaiaaii",
+
+  "_comment_identity": "Public site is COMPOSER-ONLY. engineerBio / the 'Computer Engineer and Composer' title are intentionally NOT rendered. engineeringProfile is kept here as data but is NOT shown in Contact (the 'Engineering blog' link was removed).",
+
+  "profile": "Composer exploring synthesis, structure, and interference. Releases on Anopolis, June, Lower Parts and Phormix. Member of the music groups UNIX SYSTEMS and ΨΥΧΥ. Performs live with synthesizers under an improvisational approach.",
+
+  "_comment_approach": "Renders as TWO paragraphs. The phrases listed in artisticApproachTerms get the .term treatment (IBM Plex Serif italic) inline.",
+  "artisticApproach": [
+    "Drawing from a Computer Engineering background, emerged into music while experimenting with the concept of Tensor Music — an approach that explores vector spaces and their interactions, shaping multidimensional spaces.",
+    "Currently focused on apparent Superluminal Motion and Quantum nonlocality: warped soundscapes driven by emotional states that are nonlocal and entangled in spacetime."
+  ],
+  "artisticApproachTerms": ["Tensor Music", "apparent Superluminal Motion", "Quantum nonlocality"],
+
+  "_comment_selectedWorks": "Diataxis was intentionally REMOVED from Selected Works (it lives only under Releases). Display order is as below. Each renders with a LISTEN link.",
+  "selectedWorks": [
+    {
+      "title": "Inter-process Communication",
+      "date": "2025–26",
+      "released": "Unreleased",
+      "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
+      "description": "Inspired by inter-process communication in operating systems: exchange, synchronization, and control between independent entities within a shared address space."
+    },
+    {
+      "title": "Superluminal Motion",
+      "date": "2021–25",
+      "released": "Unreleased",
+      "link": "https://on.soundcloud.com/yBsywY8J3b9UkXPY9",
+      "description": "Six pieces drawing inspiration from superluminal motion — an astrophysical phenomenon indicating an apparent faster-than-light motion — and quantum nonlocality. Warped soundscapes driven by emotional states that are nonlocal and entangled in spacetime."
+    },
+    {
+      "title": "EtherType",
+      "date": "2022–24",
+      "released": "Unreleased",
+      "link": "https://on.soundcloud.com/cH6zosJCsDRxXvBajh",
+      "description": "Exploring EtherType within the Ethernet frame header — treating the data link layer as an autonomous routing system, demultiplexing signals and redefining how information is processed."
+    },
+    {
+      "title": "Δέσμη Φωτός",
+      "date": "2021–24",
+      "released": "Unreleased",
+      "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
+      "description": "A movement within a beam of light."
+    }
+  ],
+
+  "_comment_collaborations": "Renders with a VIEW link. Displayed newest-first.",
+  "collaborations": [
+    {
+      "title": "“Stone Age” — Joshua Olsthoorn",
+      "date": "2022",
+      "type": "Film Scoring",
+      "where": "Typical Organization",
+      "link": "https://typical-organization.com/portfolio/studio-stone-age/"
+    },
+    {
+      "title": "“Sacred Tales / COVID-19” — Aemilia Papaphilippou",
+      "date": "2021",
+      "type": "Short Composition",
+      "where": "Athens Epidaurus Festival",
+      "link": "https://aefestival.gr/festival_events/sacred-tales-covid-19/?lang=en"
+    }
+  ]
+}
