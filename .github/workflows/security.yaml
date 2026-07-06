@@ -1,0 +1,56 @@
+name: Security Scan
+
+# Trivy filesystem scan — the security check from the old ci.yaml, adapted for the
+# static stack: it scans web/package-lock.json for vulnerable dependencies and the
+# repo for committed secrets. IaC misconfig is covered by the terragrunt trivy hook.
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    # Weekly (Mon 06:00 UTC): re-scan unchanged deps so newly-disclosed CVEs surface.
+    - cron: '0 6 * * 1'
+
+# Least privilege: only read the repo.
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  trivy-fs:
+    name: Trivy Filesystem Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          submodules: recursive
+
+      # The useful half of the old cache.yaml: cache Trivy's vulnerability DB so the
+      # scan doesn't re-download it every run. Date-keyed → refreshes at most daily.
+      - name: Trivy DB cache key
+        id: date
+        run: echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Trivy DB
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ runner.os }}-${{ steps.date.outputs.date }}
+          restore-keys: |
+            trivy-db-${{ runner.os }}-
+
+      - name: Trivy scan (dependencies + secrets)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+          format: table
