@@ -73,9 +73,8 @@ in as the account owner. Production is public.
 - `release.yaml` — a `v*` tag: build the tagged tree, deploy to production, and cut a
   GitHub Release with the changelog.
 
-Both deploy jobs upload `web/dist` with `cloudflare/wrangler-action`. After deploying, each job smoke-tests the result: the homepage must
-contain the site name and a deep link must return HTTP 200, so a broken build fails the
-pipeline instead of going live.
+Both deploy jobs upload `web/dist` with `cloudflare/wrangler-action`. There is no
+post-deploy smoke test yet.
 
 ### Releasing
 
@@ -98,10 +97,10 @@ git tag v1.2.0
 git push origin v1.2.0
 ```
 
-`release.yaml` builds that exact commit, deploys it with `--branch=production`,
-smoke-tests it, and cuts a GitHub Release. The release notes are generated from the
-conventional commit messages since the last tag, so write commits accordingly. To undo a
-bad release, see Rollback below.
+`release.yaml` builds that exact commit, deploys it with `--branch=production`, and cuts
+a GitHub Release. The release notes are generated from the conventional commit messages
+since the last tag, so write commits accordingly. To undo a bad release, see Rollback
+below.
 
 `web/public/_redirects` handles SPA routing. `web/public/_headers` sets caching and
 security headers.

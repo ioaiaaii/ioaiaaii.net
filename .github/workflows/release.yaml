@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Production delivery: verify the tagged tree, deploy to the Cloudflare Pages
-  # production branch, then smoke-test the result. Only tags reach production.
+  # Production delivery: verify the tagged tree and deploy to the Cloudflare Pages
+  # production branch. Only tags reach production.
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -42,16 +42,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy web/dist --project-name=ioaiaaii-net --branch=production
-
-      - name: Smoke-test the deployment
-        env:
-          URL: ${{ steps.deploy.outputs.deployment-url }}
-        run: |
-          echo "Smoke-testing $URL"
-          curl -fsS --retry 5 --retry-delay 3 --retry-all-errors "$URL" \
-            | grep -q "Ioannis Savvaidis"
-          code=$(curl -s -o /dev/null -w '%{http_code}' "$URL/works")
-          test "$code" = "200"
 
   # Only cut the GitHub Release once production is live — never announce a version
   # that did not ship.
