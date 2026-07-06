@@ -21,7 +21,7 @@ watch(() => route.fullPath, () => {
   <div
     id="scroll-root"
     ref="scrollContainer"
-    class="fixed inset-0 z-10 overflow-y-auto overflow-x-hidden overscroll-contain"
+    class="fixed inset-0 z-10 flex flex-col overflow-y-auto overflow-x-hidden overscroll-contain"
   >
     <RouterView :key="$route.fullPath" />
     <footer v-if="showFooter" class="site-footer">

@@ -127,7 +127,8 @@ nav.primary a.active { opacity: 0.4; }
 /* ─── Stage / content shell ────────────────────────────── */
 main.stage {
   display: block;
-  padding: 148px 0 140px;
+  flex: 1 0 auto;   /* grow to fill the viewport so the footer sticks to the bottom */
+  padding: 148px 0 0;
   margin: 0;
 }
 
@@ -380,6 +381,7 @@ h2.section-label {
 
 /* ─── Footer ───────────────────────────────────────────── */
 footer.site-footer {
+  flex-shrink: 0;   /* never squash the footer when content overflows */
   padding: clamp(48px, 8vw, 96px) var(--edge) 40px;
   display: flex;
   justify-content: flex-end;
@@ -406,7 +408,7 @@ footer.site-footer .footer-text {
 
 /* ─── Responsive ───────────────────────────────────────── */
 @media (max-width: 900px) {
-  main.stage { padding: 100px 0 120px; }
+  main.stage { padding: 100px 0 0; }
   .work {
     grid-template-columns: 64px minmax(0, 1fr);
     gap: 4px 20px;
@@ -441,10 +443,8 @@ footer.site-footer .footer-text {
   nav.primary { gap: 16px; font-size: 11px; letter-spacing: 0.1em; }
   nav.primary a { padding: 6px 0; }
 
-  main.stage {
-    padding: 84px 0 96px;
-    padding-bottom: max(96px, env(safe-area-inset-bottom));
-  }
+  main.stage { padding: 84px 0 0; }
+  footer.site-footer { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
   section.content { gap: clamp(44px, 11vw, 64px); }
 
   h2.section-label { font-size: 10px; letter-spacing: 0.16em; }
@@ -468,6 +468,6 @@ footer.site-footer .footer-text {
 }
 
 @media (max-height: 480px) and (orientation: landscape) {
-  main.stage { padding-top: 64px; padding-bottom: 64px; }
+  main.stage { padding-top: 64px; padding-bottom: 0; }
   header.site { padding-top: 10px; padding-bottom: 10px; }
 }
