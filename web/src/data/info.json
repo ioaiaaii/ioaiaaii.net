@@ -1,47 +1,59 @@
 {
   "name": "IOANNIS SAVVAIDIS",
-  "email": "johnsavvaidis@gmail.com",
+  "email": "ioannis.a.savvaidis@gmail.com",
   "bandcamp": "https://ioannissavvaidis.bandcamp.com",
   "soundcloud": "https://soundcloud.com/ioannis_savvaidis",
   "engineeringProfile": "https://github.com/ioaiaaii",
+  "engineeringBlog": "https://ioaiaaii.github.io",
 
-  "_comment_identity": "Public site is COMPOSER-ONLY. engineerBio / the 'Computer Engineer and Composer' title are intentionally NOT rendered. engineeringProfile is kept here as data but is NOT shown in Contact (the 'Engineering blog' link was removed).",
+  "_comment_identity": "Composer-first site. The 'Computer Engineer and Composer' title and engineerBio are still NOT rendered. As of 2026-07, Contact does link the SRE blog (engineeringBlog) labelled 'ioaiaaii' — a deliberate cross-link to the engineer identity, at the composer's request, reversing the earlier composer-only rule. engineeringProfile (the GitHub URL) stays data-only, not rendered.",
 
-  "profile": "Composer exploring synthesis, structure, and interference. Releases on Anopolis, June, Lower Parts and Phormix. Member of the music groups UNIX SYSTEMS and ΨΥΧΥ. Performs live with synthesizers under an improvisational approach.",
-
-  "_comment_approach": "Renders as TWO paragraphs. The phrases listed in artisticApproachTerms get the .term treatment (IBM Plex Serif italic) inline.",
+  "profile": "Composer working through the Abstraction/Representation relation in computing paradigms. Drawing from a Computer Engineering background, emerged into music through the concept of Tensor Synthesis, constructing vector spaces and multilinear maps of their abstract structures.",
+  "_comment_approach": "profile + these paragraphs render as one continuous block. Phrases in `emphasis` render as Newsreader italic inline, in the profile too. They are matched literally: if a phrase does not appear verbatim in the copy it silently does not italicise, with no error. Re-check that list whenever the copy changes.",
   "artisticApproach": [
-    "Drawing from a Computer Engineering background, emerged into music while experimenting with the concept of Tensor Music — an approach that explores vector spaces and their interactions, shaping multidimensional spaces.",
-    "Currently focused on apparent Superluminal Motion and Quantum nonlocality: warped soundscapes driven by emotional states that are nonlocal and entangled in spacetime."
+    "The debut, NSA Trusted Networks (Lower Parts, 2016), derived from early computer networks. DEC/PDC (JUNE Records, 2019) extended it into distributed computing. With Diataxis (JUNE Records, 2019), the composition procedure formed around the nature of light, and has held since.",
+    "Currently focused on Superluminal Motion, a work in progress, following an MSc in Quantum Computing. Perceiving reality as a structure of entangled states across spacetime, its existence spanning past, present and future simultaneously.",
+    "Member of the music groups UNIX SYSTEMS and ΨΥΧΥ. Performs live, improvising on synthesizers."
   ],
-  "artisticApproachTerms": ["Tensor Music", "apparent Superluminal Motion", "Quantum nonlocality"],
+  "_comment_emphasis": "One list for the whole site, not per-page: coined terms, work/release titles, and the odd inline emphasis (trusted) that set in italic. Matched literally and GLOBALLY across all rendered copy — a term italicises everywhere it appears, in both the profile/approach (info.json) and the release descriptions (releases.json). That is why all three record titles live here: Diataxis is italic in its own release copy AND in the profile discography sentence, so its siblings must be too or that sentence reads half-italic. `Αναπαράσταση Δυνάμεων` lives here though its copy is in releases.json. Kept as one list so the pages cannot drift apart. Re-check whenever copy changes: a phrase that is not present verbatim silently fails to italicise.",
+  "emphasis": [
+    "Abstraction/Representation",
+    "Tensor Synthesis",
+    "Superluminal Motion",
+    "NSA Trusted Networks",
+    "DEC/PDC",
+    "Diataxis",
+    "Αναπαράσταση Δυνάμεων",
+    "trusted"
+  ],
 
   "_comment_selectedWorks": "Diataxis was intentionally REMOVED from Selected Works (it lives only under Releases). Display order is as below. Each renders with a LISTEN link.",
   "selectedWorks": [
     {
-      "title": "Inter-process Communication",
-      "date": "2025–26",
-      "released": "Unreleased",
-      "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
-      "description": "Inspired by inter-process communication in operating systems: exchange, synchronization, and control between independent entities within a shared address space."
-    },
-    {
       "title": "Superluminal Motion",
-      "date": "2021–25",
+      "date": "2026",
       "released": "Unreleased",
       "link": "https://on.soundcloud.com/yBsywY8J3b9UkXPY9",
-      "description": "Six pieces drawing inspiration from superluminal motion — an astrophysical phenomenon indicating an apparent faster-than-light motion — and quantum nonlocality. Warped soundscapes driven by emotional states that are nonlocal and entangled in spacetime."
+      "_comment_body": "Rich physics text (prose + display equations) rendered by the SuperluminalMotionBody component, not a plain description. The copy lives in that component's template because it interleaves native MathML.",
+      "body": "superluminal-motion"
+    },
+    {
+      "title": "Inter-process Communication",
+      "date": "2025",
+      "released": "Unreleased",
+      "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
+      "description": "Takes inter-process communication in operating systems, where every process runs in its own address space, and exchange, synchronization and control pass through shared memory and message passing."
     },
     {
       "title": "EtherType",
-      "date": "2022–24",
+      "date": "2024",
       "released": "Unreleased",
       "link": "https://on.soundcloud.com/cH6zosJCsDRxXvBajh",
-      "description": "Exploring EtherType within the Ethernet frame header — treating the data link layer as an autonomous routing system, demultiplexing signals and redefining how information is processed."
+      "description": "Reads the EtherType field of the Ethernet frame header, treating the data link layer as self-contained, demultiplexing each payload to its protocol handler and determining how information is processed."
     },
     {
       "title": "Δέσμη Φωτός",
-      "date": "2021–24",
+      "date": "2023",
       "released": "Unreleased",
       "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
       "description": "A movement within a beam of light."

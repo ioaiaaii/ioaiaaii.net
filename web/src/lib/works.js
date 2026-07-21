@@ -15,9 +15,11 @@ export function buildSections(info, releases) {
   const workItems = (info.selectedWorks || []).map((w) => ({
     year: w.date,
     title: w.title,
-    desc: w.description,
+    desc: w.description || null,
     meta: w.released,
     link: w.link,
+    // A work with a rich body renders that instead of a plain description.
+    body: w.body || null,
   }));
 
   const collabItems = (info.collaborations || []).map((c) => ({

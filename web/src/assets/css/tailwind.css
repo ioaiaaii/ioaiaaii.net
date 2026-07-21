@@ -1,38 +1,225 @@
 @import "tailwindcss";
 
+/* Greek prose, in a serif that pairs with Newsreader.
+   Newsreader ships no Greek, so ΨΥΧΥ and Αναπαράσταση Δυνάμεων fall through the
+   --font-serif stack. Georgia (the old fallback) is a serif but sets heavier than
+   Newsreader; Plex Sans matched the weight but is a *sans* dropped into serif
+   prose. Literata is the fix: a warm literary serif with a real Greek subset, so
+   the Greek keeps the texture of the surrounding Latin. This face is Greek-only —
+   it references Literata's greek woff2 directly and scopes to the Greek range, so
+   the Latin stays Newsreader and every other codepoint is untouched. Range copied
+   verbatim from @fontsource's greek block.
+   Literata sets a touch heavier than Newsreader, so this points at Literata's 300
+   file while *declaring* weight 400: the prose asks for 400 in the Greek range,
+   resolves here, and gets the lighter cut — matching Newsreader's colour without
+   lightening the Latin (which is a separate variable face).
+   --font-mono does NOT use this — work titles (ΔΕΣΜΗ ΦΩΤΟΣ) are monospace, and a
+   serif Greek there would clash; they keep Plex Sans via the --font-mono stack. */
+@font-face {
+  font-family: "Greek Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/literata/files/literata-greek-300-normal.woff2")
+    format("woff2");
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
+    U+03A3-03FF;
+}
+/* Italic pair, for Greek inside an italic run. Artwork titles set in italic, so
+   the Greek original of a title (Αναπαράσταση Δυνάμεων, the "Representation of
+   Forces" painting) needs a real italic — Literata ships one, so the .italic span
+   gets a true cursive Greek rather than a synthesized slant. Same 300-declared-400
+   lightening as the roman face, to sit with the Newsreader italic around it. */
+@font-face {
+  font-family: "Greek Serif";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/literata/files/literata-greek-300-italic.woff2")
+    format("woff2");
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
+    U+03A3-03FF;
+}
+
 /* ─────────────────────────────────────────────────────────
    Editorial "ledger" design system.
-   Ported from the design-reference site.css (visual source of
-   truth): IBM Plex fusion type, cobalt accent, white ground.
-   Fonts are self-hosted via @fontsource (imported in main.js).
+   IBM Plex fusion type, cobalt accent, white ground. Fonts are
+   self-hosted via @fontsource (imported in main.js).
+
+   Everything below is a design token. Styling lives in the
+   components as Tailwind utilities generated from these names
+   (text-ink, font-serif, px-edge, grid-cols-work-narrow, …).
    ───────────────────────────────────────────────────────── */
 
 @theme {
-  /* color */
-  --color-bg:        oklch(1 0 0);            /* pure white */
-  --color-ink:       oklch(0.16 0.01 260);    /* near-black body */
-  --color-ink-soft:  oklch(0.30 0.01 260);    /* muted labels / meta */
-  --color-rule:      oklch(0.82 0.008 260);   /* hairlines (used sparingly) */
-  --color-link:      oklch(0.44 0.20 258);    /* COBALT accent */
-  --color-accent:    #1a1a1a;                 /* hover wash base */
+  /* ─── Color ──────────────────────────────────────────── */
+  --color-bg: oklch(1 0 0); /* pure white ground */
+  --color-ink: oklch(0.16 0.01 260); /* near-black body */
+  --color-ink-soft: oklch(0.3 0.01 260); /* muted labels / meta */
+  --color-link: oklch(0.44 0.2 258); /* cobalt accent */
 
-  /* type families */
-  --font-mono:  "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-serif: "IBM Plex Serif", Georgia, serif;
-  --font-sans:  "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-title: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  /* Derived colors, pre-mixed so they are plain utilities rather than
+     arbitrary color-mix() values at every call site. */
+  --color-link-soft: color-mix(in oklch, oklch(0.44 0.2 258) 45%, transparent);
+  --color-muted: color-mix(in oklch, oklch(0.16 0.01 260) 40%, transparent);
+  --color-row-hover: color-mix(in oklch, #1a1a1a 4%, transparent);
+
+  /* ─── Type families ──────────────────────────────────── */
+  /* Plex Sans appears in both stacks for one reason: Greek. Neither Plex Mono nor
+     Newsreader ships a Greek subset, so `Δέσμη Φωτός` and `ΨΥΧΥ` fell through to
+     whatever the OS offered — Menlo and Georgia here, Consolas and Georgia on
+     Windows. Plex Sans covers Greek, is already loaded, and only downloads its
+     Greek subset when Greek is on the page. It sits *after* the real family, so
+     Latin is untouched; it is Plex Mono's own superfamily, so the two share a
+     skeleton and weight. Keep it ahead of the generic fallbacks in both stacks. */
+  --font-mono: "IBM Plex Mono", "IBM Plex Sans", ui-monospace, SFMono-Regular, monospace;
+  /* @fontsource's variable build registers the family as "Newsreader Variable".
+     "Greek Serif" (Literata, Greek-only — see the @font-face above) catches the
+     Greek that Newsreader lacks. It must precede Georgia, which is what Greek
+     fell to before. */
+  --font-serif: "Newsreader Variable", "Newsreader", "Greek Serif", Georgia, serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* ─── Type scale ─────────────────────────────────────── */
+  /* Named for role, not size. Each is ONE fluid token interpolating from 375px to
+     1280px of viewport — no xs/sm/base steps, so call sites read `text-body` with
+     no responsive variants, and sizes scale smoothly instead of jumping at a
+     breakpoint. Read each clamp as: min, slope, max. */
+  /* rem, not px: the floor/ceiling then respect the reader's browser font-size
+     setting (px and vw both ignore it). Comments carry the px so the scale stays
+     legible; assumes the 16px root. */
+  --text-footnote: clamp(0.563rem, 0.17vw + 0.523rem, 0.656rem); /* 9 → 10.5px — footer credit only */
+  --text-label: clamp(0.656rem, 0.17vw + 0.618rem, 0.75rem); /* 10.5 → 12px — section labels */
+  --text-meta: clamp(0.719rem, 0.17vw + 0.68rem, 0.813rem); /* 11.5 → 13px — year, side column, dense titles */
+  --text-social: clamp(0.625rem, 0.17vw + 0.585rem, 0.719rem); /* 10 → 11.5px — contact row, sized (with the tightened gap) so the three links align to the email's width above (`social`, not `link`: collides with --color-link) */
+  --text-nav: clamp(0.75rem, 0.44vw + 0.647rem, 1rem); /* 12 → 16px — wordmark + nav */
+  --text-title: clamp(0.875rem, 0.44vw + 0.772rem, 1.125rem); /* 14 → 18px — work titles */
+  /* Newsreader has a comparatively short x-height, so it reads optically smaller
+     than its nominal size — the ceiling is set high to compensate. */
+  --text-body: clamp(1rem, 0.33vw + 0.922rem, 1.1875rem); /* 16 → 19px — prose + descriptions */
+  /* Derived, not duplicated. The email has always matched the prose in px — the
+     sans x-height (21% taller than Newsreader's) is what makes it read prominent,
+     so it never needs to be numerically larger. A hardcoded clamp here is exactly
+     what let it drift *above* the body when --text-body changed. */
+  --text-email: var(--text-body); /* contact email + the 404 link */
+
+  /* ─── Measure ────────────────────────────────────────── */
+  /* Line length, not a width. `ch` keys off the "0" glyph, wider than the average
+     letter — with Newsreader at the 19px body, 1ch ≈ 10.5px against an ~8.3px
+     average char, so chars/line ≈ ch × 1.27; 70ch ≈ 89 chars. Because `ch` tracks
+     font-size, this measure grew in px when --text-body went to 19px: it now
+     slightly exceeds the Info column at 1280 (70ch ≈ 732px vs a 719px ≈ 68.7ch
+     column), so there the prose is column-bound and runs ~87 chars; from ~1500px
+     up the column is wide enough that the 70ch measure binds again at ~89.
+     Tuned so the opening sentence — "Composer working through the Abstraction/
+     Representation relation in computing paradigms." — sets on one line: it needs
+     67.3ch, the next word would join at 74.1ch, and the column holds ~68.7ch at
+     1280 (a couple ch of headroom). It survives on justification, hyphenation and
+     1.7 leading (see --leading-prose, load-bearing at this length). It breaks if
+     that sentence is edited, or below ~1250px where the column drops under 67.3ch
+     (measured: holds at 1260, wraps at 1240).
+     The dial, if lines ever read too long: 63ch ≈ 80, 60ch ≈ 76, 52ch ≈ 66. */
+  --container-measure: 70ch;
+  --container-measure-short: 44ch; /* the 404 lead */
+
+  /* ─── Tracking ───────────────────────────────────────── */
+  /* One value per role, no breakpoint steps: `em` is relative to font-size, so
+     tracking already rides the fluid clamps above. Each role previously stepped
+     its tracking by breakpoint to compensate for size — work the clamp now does.
+     The single value is picked to keep tracked caps fitting a 375px nav; it is not
+     mechanically the old ladder's midpoint, so treat each as tuned by eye. */
+  --tracking-label: 0.18em;
+  --tracking-nav: 0.14em;
+  --tracking-meta: 0.08em;
+  --tracking-title: 0.04em;
+  --tracking-footer: 0.14em;
+  --tracking-email: -0.01em;
+
+  /* ─── Leading ────────────────────────────────────────── */
+  /* Running text sits at a ~89-char measure — long lines need more leading, or
+     the eye loses the next line on the return sweep, so 1.7 is doing real work at
+     this length and should not be trimmed without shortening the measure first.
+     Distinct names, not Tailwind's tight/snug/relaxed, so we don't silently
+     override its defaults. */
+  --leading-prose: 1.7; /* prose + work descriptions */
+  --leading-dense: 1.5; /* Live titles */
+  --leading-title: 1.35; /* work titles */
+  --leading-email: 1.25; /* contact email + the 404 link */
+
+  /* ─── Easing ─────────────────────────────────────────── */
+  /* The house curve. It was written out as a raw cubic-bezier at three call sites
+     — in two spellings, `.2` and `0.2` — so it could not be changed in one edit.
+     Tailwind's own --ease-in-out is already cubic-bezier(0.4, 0, 0.2, 1); use
+     `ease-in-out` for that one rather than respelling it. */
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ─── Spacing ────────────────────────────────────────── */
+  /* The page gutter. Fluid, so it needs no breakpoint override. */
+  --spacing-edge: clamp(18px, 5vw, 84px);
+  --spacing-stage: 148px; /* clearance under the fixed header */
+  /* Where a sticky aside parks once the layout goes two-column. Same question as
+     --spacing-stage — "how far below the fixed header" — but answered for the
+     scrolled state, so it is a smaller number. It was the same magic 120px in
+     both Info and Works; if the header height changes, both this and
+     --spacing-stage need revisiting together. */
+  --spacing-sticky: 120px;
+
+  /* Fluid rhythm. Named so call sites read `gap-section`, not a raw clamp(). */
+  --spacing-section: clamp(60px, 7vw, 104px); /* between page sections */
+  --spacing-column: clamp(32px, 5vw, 72px); /* two-column page gap */
+  --spacing-column-stacked: clamp(40px, 8vw, 56px); /* …once stacked */
+  --spacing-stack: clamp(48px, 6vw, 80px); /* Info text blocks */
+  --spacing-aside: clamp(28px, 3.4vw, 44px); /* Info sidebar */
+  --spacing-row: clamp(20px, 3vw, 40px); /* work row columns */
+  --spacing-row-dense: clamp(18px, 2.4vw, 32px);
+  --spacing-side: clamp(14px, 2vw, 28px); /* side column */
+  --spacing-side-dense: clamp(12px, 1.6vw, 22px);
+  --spacing-footer: clamp(48px, 8vw, 96px); /* above the footer credit */
+
+  /* One line-height, so the paragraph break always outranks the line break and
+     tracks --leading-prose instead of drifting when it changes. `lh` resolves
+     against the element's own line-height — which is why this lives on the <p>
+     and not as space-y-* on the parent, where it would resolve against the
+     parent's font-size instead. */
+  --spacing-paragraph: 1lh;
+
+  /* ─── Grid tracks (the ledger rows + page columns) ───── */
+  --grid-template-columns-work-dense: 52px minmax(0, clamp(300px, 44vw, 480px)) auto 1fr;
+  --grid-template-columns-work-narrow: 60px minmax(0, 1fr) auto;
+  --grid-template-columns-work-stack: 64px minmax(0, 1fr);
+  --grid-template-columns-work-stack-dense: 46px minmax(0, 1fr);
+  --grid-template-columns-page: minmax(0, 1fr) minmax(240px, 32%); /* Info: prose + portrait */
+  /* Works: ledger + studio photo. Inverted from `page` above — the ledger asks for
+     what it needs and the photo takes whatever is left, rather than the photo
+     claiming a fixed share and the ledger living on the remainder.
+     `auto` settles the ledger at its max-content (~927px: the row's year track,
+     gaps, links track, and a description the measure caps), and `1fr` hands every
+     remaining pixel to the photo. Measured: photo 362px at 1512, 561px at 1728,
+     description on its measure at both — the prose never pays for the photo.
+     A percentage cannot express this. The measure is absolute, so a wide viewport
+     opens slack a percentage is blind to: 30% gave the photo 468px at 1728 where
+     561px was free, and below ~1400 it took its share out of the prose instead
+     (~84 chars at 1280 against ~88).
+     Under ~1230px the photo sits on its 240px floor and the ledger takes what is
+     left; the prose still holds its measure there. Nothing to retune per width. */
+  --grid-template-columns-page-ledger: auto minmax(240px, 1fr);
+
+  /* ─── Breakpoints ────────────────────────────────────── */
+  /* The ledger's own steps, replacing Tailwind's defaults. */
+  --breakpoint-xs: 380px;
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 760px;
+  --breakpoint-lg: 900px;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
 }
 
-:root {
-  /* derived / non-color tokens */
-  --edge: clamp(24px, 5vw, 84px);
-  --link-soft: color-mix(in oklch, var(--color-link) 45%, transparent);
-}
+/* Short landscape phones: claw back vertical space. Not expressible as a
+   breakpoint, so it gets a named variant — `landscape-short:pt-16`. */
+@custom-variant landscape-short (@media (max-height: 480px) and (orientation: landscape));
 
 /* ─── Base ─────────────────────────────────────────────── */
 @layer base {
-  * { box-sizing: border-box; }
-
   html {
     height: 100%;
     overflow: hidden;
@@ -43,7 +230,6 @@
     height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
-    margin: 0;
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -53,421 +239,30 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  #app { height: 100%; overflow: hidden; }
-}
-
-/* visually hidden, still announced to screen readers */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ─── Header / Navigation ──────────────────────────────── */
-header.site {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 34px var(--edge);
-  z-index: 50;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  transition: transform 380ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-header.site.nav-hidden { transform: translateY(-115%); }
-header.site > * { pointer-events: auto; }
-
-.wordmark {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  letter-spacing: 0.16em;
-  font-weight: 500;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: inherit;
-  text-decoration: none;
-}
-
-nav.primary {
-  display: flex;
-  gap: 36px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-nav.primary a {
-  color: var(--color-ink);
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 2px;
-}
-nav.primary a::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 100%;
-  bottom: 0;
-  height: 1px;
-  background: var(--color-link);
-  transition: right 280ms cubic-bezier(.2, .7, .2, 1);
-}
-nav.primary a:hover { color: var(--color-link); }
-nav.primary a:hover::after { right: 0; }
-nav.primary a.active { opacity: 0.4; }
-
-/* ─── Stage / content shell ────────────────────────────── */
-main.stage {
-  display: block;
-  flex: 1 0 auto;   /* grow to fill the viewport so the footer sticks to the bottom */
-  padding: 148px 0 0;
-  margin: 0;
-}
-
-section.content {
-  width: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(60px, 7vw, 104px);
-}
-
-/* ─── Section labels + prose ───────────────────────────── */
-h2.section-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin: 0;
-  color: var(--color-ink-soft);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.section { display: block; }
-.section-head {
-  margin: 0 0 20px 0;
-  padding: 0 var(--edge);
-}
-.section-body { min-width: 0; }
-
-.prose { padding: 0 var(--edge); }
-.prose p {
-  margin: 0 0 1.1em 0;
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1.62;
-  max-width: 60ch;
-  text-wrap: pretty;
-  letter-spacing: 0;
-}
-.prose p:last-child { margin-bottom: 0; }
-.prose .term {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-/* ─── Info page: two-column top ────────────────────────── */
-.info-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 32%);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  padding: 0 var(--edge);
-}
-.info-top-text {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(48px, 6vw, 80px);
-}
-.info-top-text .section-head,
-.info-top-text .prose { padding: 0; }
-
-.info-side {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 3.4vw, 44px);
-  position: sticky;
-  top: 120px;
-}
-.info-photo { margin: 0; }
-.info-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: grayscale(0.15) contrast(1.02);
-}
-.info-contact .section-head,
-.info-contact .section-body,
-.info-contact .contact { padding: 0; }
-
-/* ─── Contact ──────────────────────────────────────────── */
-.contact { padding: 0 var(--edge); }
-.contact-email {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: clamp(15px, 1.4vw, 17px);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  color: var(--color-ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--link-soft);
-  padding-bottom: 2px;
-  transition: color 180ms ease, border-color 180ms ease;
-}
-.contact-email:hover { color: var(--color-link); border-color: var(--color-link); }
-
-.contact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 26px;
-  margin-top: clamp(8px, 1vw, 12px);
-}
-.contact-row a {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-  text-decoration: none;
-  transition: color 160ms ease;
-}
-.contact-row a::after {
-  content: "↗";
-  margin-left: 5px;
-  font-size: 10px;
-  color: var(--color-link);
-  opacity: 0.55;
-  transition: opacity 160ms ease;
-}
-.contact-row a:hover { color: var(--color-link); }
-.contact-row a:hover::after { opacity: 1; }
-
-/* ─── Work rows (Works + Live) ─────────────────────────── */
-.works { display: flex; flex-direction: column; }
-
-.work {
-  display: grid;
-  grid-template-columns: 72px minmax(0, clamp(340px, 40vw, 470px)) auto 1fr;
-  gap: 0 clamp(20px, 3vw, 40px);
-  padding: 26px var(--edge);
-  align-items: baseline;
-  transition: background 200ms ease;
-}
-.work:hover { background: color-mix(in oklch, var(--color-accent) 4%, transparent); }
-
-.work .year {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  color: var(--color-ink-soft);
-  text-transform: uppercase;
-  padding-top: 1px;
-}
-
-.work .body { display: flex; flex-direction: column; gap: 10px; }
-.work .title {
-  font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1.35;
-  font-variation-settings: normal;
-}
-.work .desc {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1.62;
-  color: var(--color-ink);
-  max-width: 60ch;
-  margin: 0;
-  text-wrap: pretty;
-  letter-spacing: 0;
-}
-
-.work .side {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: flex-start;
-  text-align: left;
-  gap: clamp(14px, 2vw, 28px);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-  padding-top: 1px;
-}
-.work .side > span { color: color-mix(in oklch, var(--color-ink) 40%, transparent); }
-.work .listen {
-  color: var(--color-link);
-  text-decoration: none;
-  border-bottom: 1px solid var(--link-soft);
-  padding-bottom: 1px;
-  font-weight: 500;
-  transition: padding 220ms ease, border-color 220ms ease;
-}
-.work .listen:hover { border-bottom-color: var(--color-link); }
-.work .listen::after {
-  content: " ↗";
-  display: inline-block;
-  transition: transform 280ms cubic-bezier(.2, .7, .2, 1);
-}
-.work .listen:hover::after { transform: translate(2px, -2px); }
-
-/* ─── Live: denser rows ────────────────────────────────── */
-#live .work {
-  grid-template-columns: 52px minmax(0, clamp(300px, 44vw, 480px)) auto 1fr;
-  gap: 0 clamp(18px, 2.4vw, 32px);
-  padding: 18px var(--edge);
-}
-#live .work .title {
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.5;
-  color: var(--color-ink);
-}
-#live .work .year { font-size: 11.5px; letter-spacing: 0.08em; padding-top: 0; }
-#live .work .side {
-  gap: clamp(12px, 1.6vw, 22px);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  padding-top: 0;
-}
-#live .work .side > span:first-child { min-width: 52px; }
-#live .work .body { gap: 0; }
-#live .work .listen { font-size: 11.5px; letter-spacing: 0.08em; }
-.side .side-links { display: flex; gap: 14px; }
-
-/* ─── Works page: sections + sticky studio photo ───────── */
-.works-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 34%);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  padding: 0 var(--edge);
-}
-.works-main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(60px, 7vw, 104px);
-}
-/* the grid already supplies the edge padding */
-.works-main .section-head { padding: 0; }
-.works-main .work {
-  grid-template-columns: 60px minmax(0, 1fr) auto;
-  padding: 26px 0;
-}
-.works-side {
-  position: sticky;
-  top: 120px;
-}
-
-/* ─── Footer ───────────────────────────────────────────── */
-footer.site-footer {
-  flex-shrink: 0;   /* never squash the footer when content overflows */
-  padding: clamp(48px, 8vw, 96px) var(--edge) 40px;
-  display: flex;
-  justify-content: flex-end;
-}
-footer.site-footer .footer-text {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
+  #app {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 /* ─── Reveal on scroll ─────────────────────────────────── */
-.reveal {
+/* A stateful animation primitive: v-reveal toggles `.in` from JS, so this is
+   a real utility rather than something expressible at the call site. */
+@utility reveal {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 700ms cubic-bezier(.2, .7, .2, 1),
-              transform 700ms cubic-bezier(.2, .7, .2, 1);
-}
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
+  transition:
+    opacity 700ms var(--ease-soft),
+    transform 700ms var(--ease-soft);
 
-/* ─── Responsive ───────────────────────────────────────── */
-@media (max-width: 900px) {
-  main.stage { padding: 100px 0 0; }
-  .work {
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 4px 20px;
+  &.in {
+    opacity: 1;
+    transform: none;
   }
-  .work .side { grid-column: 2 / -1; }
-  .works-main .work { grid-template-columns: 64px minmax(0, 1fr); }
-  .works-main .work .side { grid-column: 2 / -1; }
-  #live .work { grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; }
-  #live .work .side { grid-column: 2 / -1; }
-  nav.primary { gap: 18px; }
-}
 
-@media (max-width: 760px) {
-  .info-top { grid-template-columns: 1fr; gap: clamp(40px, 8vw, 56px); }
-  .info-side { position: static; }
-  .info-photo { order: -1; }
-  .section-head { margin-bottom: 16px; }
-
-  .works-layout { grid-template-columns: 1fr; gap: clamp(40px, 8vw, 56px); }
-  .works-side { position: static; }
-}
-
-@media (max-width: 600px) {
-  :root { --edge: 18px; }
-
-  header.site {
-    padding: 14px var(--edge);
-    padding-top: max(14px, env(safe-area-inset-top));
-    align-items: center;
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
-  .wordmark { font-size: 11px; letter-spacing: 0.12em; }
-  nav.primary { gap: 16px; font-size: 11px; letter-spacing: 0.1em; }
-  nav.primary a { padding: 6px 0; }
-
-  main.stage { padding: 84px 0 0; }
-  footer.site-footer { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
-  section.content { gap: clamp(44px, 11vw, 64px); }
-
-  h2.section-label { font-size: 10px; letter-spacing: 0.16em; }
-  .prose p { font-size: 15.5px; line-height: 1.62; }
-
-  .work .title { font-size: 13px; }
-  #live .work .title { font-size: 11.5px; }
-  .work .desc { font-size: 15.5px; line-height: 1.62; }
-  .work .year { font-size: 10.5px; }
-  .work .side { font-size: 10.5px; }
-
-  .contact-email { font-size: 15px; }
-  .contact-row { gap: 20px; }
-}
-
-@media (max-width: 380px) {
-  nav.primary { gap: 12px; font-size: 10px; }
-  .wordmark { font-size: 10px; letter-spacing: 0.1em; }
-  .work .title { font-size: 12px; }
-  #live .work .title { font-size: 11px; }
-}
-
-@media (max-height: 480px) and (orientation: landscape) {
-  main.stage { padding-top: 64px; padding-bottom: 0; }
-  header.site { padding-top: 10px; padding-bottom: 10px; }
 }

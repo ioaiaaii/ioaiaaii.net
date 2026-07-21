@@ -11,3 +11,16 @@ repos:
         args: [--fix=lf]
       - id: detect-private-key
       - id: end-of-file-fixer
+
+  # Full Trivy scan (deps, secrets, IaC misconfig, licenses) before pushing. On
+  # pre-push, not pre-commit — it takes a few seconds, too slow for every commit but
+  # right before a push. Mirrors the CI Security Scan and `make security`. Needs Trivy
+  # on PATH (brew install trivy) and, one-time, `pre-commit install --hook-type pre-push`.
+  - repo: local
+    hooks:
+      - id: trivy-security
+        name: Trivy security scan
+        entry: make security
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
