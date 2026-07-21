@@ -62,3 +62,12 @@ website-check: website-lint website-test website-build
 .PHONY: website-clean
 website-clean:
 	@rm -rf ${WEBSITE_PATH}/dist
+
+## security, Trivy scan of the whole tree down to MEDIUM — dependency CVEs (vuln),
+## committed secrets, Terraform misconfig, and dependency licenses. Mirrors CI.
+## Accepted findings live in .trivyignore. Run before pushing. brew install trivy
+.PHONY: security
+security:
+	@trivy fs --scanners vuln,secret,misconfig,license --severity CRITICAL,HIGH,MEDIUM \
+		--ignore-unfixed --skip-dirs node_modules --skip-dirs ${WEBSITE_PATH}/dist \
+		--exit-code 1 .

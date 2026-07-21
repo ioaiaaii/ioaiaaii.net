@@ -4,9 +4,6 @@ import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
 import pluginCypress from 'eslint-plugin-cypress'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
-import vueParser from 'vue-eslint-parser';
 
 export default [
   {
@@ -30,16 +27,23 @@ export default [
 
   {
     rules: {
-      // override/add rules settings here, such as:
-      'vue/multi-word-component-names': 'off',  // Disable the multi-word component rule
-    }
+      // Left ON deliberately. It is a Priority A rule in Vue's style guide — single
+      // word names risk colliding with current or future HTML elements — and it was
+      // switched off to accommodate Info/Works/Live/NotFound, which are now
+      // InfoView/WorksView/LiveView/NotFoundView under src/views/. App is exempt by
+      // the rule itself.
+      'vue/multi-word-component-names': 'error',
+    },
   },
 
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    // Tests sit next to their subject as src/lib/*.test.js — they are not in a
+    // __tests__/ directory, which the old glob assumed, so these rules matched
+    // nothing at all.
+    files: ['src/**/*.test.js'],
   },
-  
+
   {
     ...pluginCypress.configs.recommended,
     files: [
@@ -48,23 +52,4 @@ export default [
     ],
   },
   skipFormatting,
-  // Pass inspira ui liquid background component to typescript-eslint parser
-  {
-    files: ['src/components/insprira/LiquidBackground.vue'],
-    languageOptions: {
-      parser: vueParser,
-      parserOptions: {
-        parser: tsParser,
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        extraFileExtensions: ['.vue'],
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      ...tsPlugin.configs.recommended.rules,
-    },
-  }
 ]

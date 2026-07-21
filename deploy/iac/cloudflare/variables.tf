@@ -11,7 +11,7 @@ variable "project_name" {
 
 variable "production_branch" {
   type        = string
-  description = "Production branch of the Pages project. Only this branch serves production; CI deploys it from git tags."
+  description = "The --branch label Cloudflare Pages treats as production, matched exactly (no wildcards). The tag release workflow deploys with --branch=production, so tags serve production; master and every other branch fall through to preview. This is a Pages label, not a real git branch."
   default     = "production"
 }
 
