@@ -41,7 +41,16 @@ vendor/
 # Go workspace file
 go.work
 go.work.sum
-# env file
+# env / local secrets — VITE_* vars are baked into the client bundle, so never put a
+# real secret in one; .dev.vars is Wrangler's local secrets file
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+.claude/
+*.code-workspace
 
 # Terraform (deploy/iac) — never commit local provider cache or state
 **/.terraform/*
