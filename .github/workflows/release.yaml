@@ -1,9 +1,16 @@
 name: Release
 
 on:
+  # A version tag cuts a production release. `v[0-9]*` (not `v*`) so a stray
+  # non-version tag can't accidentally reach production.
   push:
     tags:
-      - 'v*'  # Trigger on tags starting with 'v'
+      - 'v[0-9]*'
+  # Manual production deploy — to evaluate the production environment without cutting
+  # a real release tag. It deploys whatever ref you run it from to the production
+  # environment (which, until the domain is cut over, serves at the *.pages.dev
+  # production URL, not the live domain). No GitHub Release is created for these.
+  workflow_dispatch:
 
 # Default to read-only; the release-notes job elevates to contents: write.
 permissions:
@@ -41,12 +48,16 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy web/dist --project-name=ioaiaaii-net --branch=production
+          # --commit-message just stamps the tag as the deploy's version label in the CF
+          # dashboard (cosmetic); --branch=production is what selects the prod environment.
+          command: pages deploy web/dist --project-name=ioaiaaii-net --branch=production --commit-message=${{ github.ref_name }}
 
   # Only cut the GitHub Release once production is live — never announce a version
-  # that did not ship.
+  # that did not ship. Tag pushes only: a manual workflow_dispatch has no version tag
+  # to release, so it deploys but skips this job.
   release-notes:
     needs: deploy
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
