@@ -1,8 +1,8 @@
 name: Security Scan
 
 # Trivy filesystem scan — the security check from the old ci.yaml, adapted for the
-# static stack: it scans web/package-lock.json for vulnerable dependencies and the
-# repo for committed secrets. IaC misconfig is covered by the terragrunt trivy hook.
+# static stack: web/package-lock.json for vulnerable dependencies, the repo for
+# committed secrets, and the deploy/iac Terraform for misconfiguration.
 on:
   pull_request:
   push:
@@ -44,13 +44,16 @@ jobs:
           restore-keys: |
             trivy-db-${{ runner.os }}-
 
-      - name: Trivy scan (dependencies + secrets)
+      - name: Trivy scan (deps, secrets, IaC misconfig, licenses)
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: fs
           scan-ref: .
-          scanners: vuln,secret
-          severity: CRITICAL,HIGH
+          scanners: vuln,secret,misconfig,license
+          severity: CRITICAL,HIGH,MEDIUM
           ignore-unfixed: true
           exit-code: '1'
           format: table
+          # Accepted findings (legacy-GCP misconfig, a build-only MPL-2.0 dep) are
+          # documented in .trivyignore, which Trivy auto-loads from the repo root.
+          trivyignores: .trivyignore
