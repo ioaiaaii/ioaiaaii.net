@@ -17,9 +17,7 @@ defineProps({
     :is="to ? 'router-link' : 'a'"
     :to="to ?? undefined"
     :href="href ?? undefined"
-    class="text-ink text-email border-link-soft hover:text-link hover:border-link leading-email
-           tracking-email inline-block border-b pb-0.5 font-sans font-normal no-underline
-           transition-[color,border-color] duration-180"
+    class="text-ink text-email border-link-soft hover:text-link hover:border-link leading-email tracking-email inline-block border-b pb-0.5 font-sans font-normal no-underline transition-[color,border-color] duration-180"
   >
     <slot />
   </component>

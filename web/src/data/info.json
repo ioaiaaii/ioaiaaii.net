@@ -11,7 +11,7 @@
   "profile": "Composer working through the Abstraction/Representation relation in computing paradigms. Drawing from a Computer Engineering background, emerged into music through the concept of Tensor Synthesis, constructing vector spaces and multilinear maps of their abstract structures.",
   "_comment_approach": "profile + these paragraphs render as one continuous block. Phrases in `emphasis` render as Newsreader italic inline, in the profile too. They are matched literally: if a phrase does not appear verbatim in the copy it silently does not italicise, with no error. Re-check that list whenever the copy changes.",
   "artisticApproach": [
-    "The debut, NSA Trusted Networks (Lower Parts, 2016), derived from early computer networks. DEC/PDC (JUNE Records, 2019) extended it into distributed computing. With Diataxis (JUNE Records, 2019), the composition procedure formed around the nature of light, and has held since.",
+    "The first record, NSA Trusted Networks (Lower Parts, 2016), derived from early computer networks. DEC/PDC (JUNE Records, 2019) extended it into distributed computing. With Diataxis (JUNE Records, 2019), the composition procedure formed around the nature of light, and has held since.",
     "Currently focused on Superluminal Motion, a work in progress, following an MSc in Quantum Computing. Perceiving reality as a structure of entangled states across spacetime, its existence spanning past, present and future simultaneously.",
     "Member of the music groups UNIX SYSTEMS and ΨΥΧΥ. Performs live, improvising on synthesizers."
   ],
@@ -33,7 +33,7 @@
       "title": "Superluminal Motion",
       "date": "2026",
       "released": "Unreleased",
-      "link": "https://on.soundcloud.com/yBsywY8J3b9UkXPY9",
+      "link": "https://on.soundcloud.com/LQS7Zv4wZ0uWhUnlpe",
       "_comment_body": "Rich physics text (prose + display equations) rendered by the SuperluminalMotionBody component, not a plain description. The copy lives in that component's template because it interleaves native MathML.",
       "body": "superluminal-motion"
     },
@@ -53,6 +53,7 @@
     },
     {
       "title": "Δέσμη Φωτός",
+      "slug": "desmi-fotos",
       "date": "2023",
       "released": "Unreleased",
       "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
