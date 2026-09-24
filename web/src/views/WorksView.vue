@@ -20,10 +20,13 @@ const sections = buildSections(info, releasesData);
       <div v-for="section in sections" :key="section.label" v-reveal>
         <SectionLabel>{{ section.label }}</SectionLabel>
 
-        <ul class="flex min-w-0 list-none flex-col p-0">
+        <!-- role="list": Preflight's list-style:none makes Safari/VoiceOver stop
+             exposing a <ul> as a list, dropping the item count. -->
+        <ul role="list">
           <WorkRow
             v-for="item in section.items"
             :key="item.year + '-' + item.title"
+            :anchor="item.id"
             :year="item.year"
             :title="item.title"
             :desc="item.desc"
@@ -47,7 +50,7 @@ const sections = buildSections(info, releasesData);
 
     <!-- Right: studio photo, sticky once the layout goes two-column -->
     <aside class="md:top-sticky md:sticky">
-      <figure class="m-0">
+      <figure>
         <img
           :src="studio"
           alt="Ioannis Savvaidis' studio"
