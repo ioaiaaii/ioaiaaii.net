@@ -33,12 +33,7 @@ const socials = [
     <div class="gap-stack flex flex-col">
       <div v-reveal>
         <SectionLabel>Profile</SectionLabel>
-        <p
-          v-for="(paragraph, i) in paragraphs"
-          :key="i"
-          class="text-body leading-prose mb-paragraph max-w-measure text-justify font-serif
-                 tracking-normal hyphens-auto last:mb-0"
-        >
+        <p v-for="(paragraph, i) in paragraphs" :key="i" class="prose mb-paragraph last:mb-0">
           <template v-for="(segment, j) in paragraph" :key="j">
             <span v-if="segment.term" class="italic">{{ segment.text }}</span>
             <template v-else>{{ segment.text }}</template>
@@ -47,9 +42,11 @@ const socials = [
       </div>
     </div>
 
-    <!-- Right: portrait + contact, sticky once two-column -->
-    <div class="gap-aside md:top-sticky order-first flex flex-col md:sticky md:order-none">
-      <figure class="m-0">
+    <!-- Right: portrait + contact, sticky once two-column. Stacked, the column
+         dissolves (`contents`) so its two children order independently in the page
+         grid: portrait first, profile, then contact last. -->
+    <div class="gap-aside md:top-sticky contents md:sticky md:flex md:flex-col">
+      <figure class="order-first md:order-none">
         <img
           :src="portrait"
           alt="Ioannis Savvaidis performing live with synthesizers"
@@ -72,11 +69,7 @@ const socials = [
             :href="social.href"
             target="_blank"
             rel="noopener"
-            class="text-ink-soft text-social tracking-meta hover:text-link after:text-link
-                   font-mono uppercase no-underline transition-colors duration-160
-                   after:ml-[0.4em] after:text-[0.83em] after:opacity-55
-                   after:transition-opacity after:duration-160 after:content-['↗']
-                   hover:after:opacity-100"
+            class="text-ink-soft text-social tracking-meta hover:text-link after:text-link font-mono uppercase no-underline transition-colors duration-160 after:ml-[0.4em] after:text-[0.83em] after:opacity-55 after:transition-opacity after:duration-160 after:content-['↗'] hover:after:opacity-100"
           >
             {{ social.label }}
           </a>
