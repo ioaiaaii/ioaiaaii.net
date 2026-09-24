@@ -9,7 +9,7 @@ import TextLink from '@/components/TextLink.vue';
          spacing the other call sites get from the label's own margin. -->
     <SectionLabel as="h1" :spaced="false">Error 404</SectionLabel>
 
-    <p class="text-ink text-body leading-prose m-0 max-w-measure-short font-serif">
+    <p class="text-body leading-prose max-w-measure-short font-serif">
       The page you are looking for doesn’t exist or has been moved.
     </p>
 

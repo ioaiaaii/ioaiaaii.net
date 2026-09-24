@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Greek prose, in a serif that pairs with Newsreader.
    Newsreader ships no Greek, so ΨΥΧΥ and Αναπαράσταση Δυνάμεων fall through the
@@ -16,14 +16,12 @@
    --font-mono does NOT use this — work titles (ΔΕΣΜΗ ΦΩΤΟΣ) are monospace, and a
    serif Greek there would clash; they keep Plex Sans via the --font-mono stack. */
 @font-face {
-  font-family: "Greek Serif";
+  font-family: 'Greek Serif';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url("@fontsource/literata/files/literata-greek-300-normal.woff2")
-    format("woff2");
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
-    U+03A3-03FF;
+  src: url('@fontsource/literata/files/literata-greek-300-normal.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
 }
 /* Italic pair, for Greek inside an italic run. Artwork titles set in italic, so
    the Greek original of a title (Αναπαράσταση Δυνάμεων, the "Representation of
@@ -31,14 +29,12 @@
    gets a true cursive Greek rather than a synthesized slant. Same 300-declared-400
    lightening as the roman face, to sit with the Newsreader italic around it. */
 @font-face {
-  font-family: "Greek Serif";
+  font-family: 'Greek Serif';
   font-style: italic;
   font-display: swap;
   font-weight: 400;
-  src: url("@fontsource/literata/files/literata-greek-300-italic.woff2")
-    format("woff2");
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
-    U+03A3-03FF;
+  src: url('@fontsource/literata/files/literata-greek-300-italic.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -72,13 +68,13 @@
      Greek subset when Greek is on the page. It sits *after* the real family, so
      Latin is untouched; it is Plex Mono's own superfamily, so the two share a
      skeleton and weight. Keep it ahead of the generic fallbacks in both stacks. */
-  --font-mono: "IBM Plex Mono", "IBM Plex Sans", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: 'IBM Plex Mono', 'IBM Plex Sans', ui-monospace, SFMono-Regular, monospace;
   /* @fontsource's variable build registers the family as "Newsreader Variable".
      "Greek Serif" (Literata, Greek-only — see the @font-face above) catches the
      Greek that Newsreader lacks. It must precede Georgia, which is what Greek
      fell to before. */
-  --font-serif: "Newsreader Variable", "Newsreader", "Greek Serif", Georgia, serif;
-  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: 'Newsreader Variable', 'Newsreader', 'Greek Serif', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* ─── Type scale ─────────────────────────────────────── */
   /* Named for role, not size. Each is ONE fluid token interpolating from 375px to
@@ -88,10 +84,22 @@
   /* rem, not px: the floor/ceiling then respect the reader's browser font-size
      setting (px and vw both ignore it). Comments carry the px so the scale stays
      legible; assumes the 16px root. */
-  --text-footnote: clamp(0.563rem, 0.17vw + 0.523rem, 0.656rem); /* 9 → 10.5px — footer credit only */
+  --text-footnote: clamp(
+    0.563rem,
+    0.17vw + 0.523rem,
+    0.656rem
+  ); /* 9 → 10.5px — footer credit only */
   --text-label: clamp(0.656rem, 0.17vw + 0.618rem, 0.75rem); /* 10.5 → 12px — section labels */
-  --text-meta: clamp(0.719rem, 0.17vw + 0.68rem, 0.813rem); /* 11.5 → 13px — year, side column, dense titles */
-  --text-social: clamp(0.625rem, 0.17vw + 0.585rem, 0.719rem); /* 10 → 11.5px — contact row, sized (with the tightened gap) so the three links align to the email's width above (`social`, not `link`: collides with --color-link) */
+  --text-meta: clamp(
+    0.719rem,
+    0.17vw + 0.68rem,
+    0.813rem
+  ); /* 11.5 → 13px — year, side column, dense titles */
+  --text-social: clamp(
+    0.625rem,
+    0.17vw + 0.585rem,
+    0.719rem
+  ); /* 10 → 11.5px — contact row, sized (with the tightened gap) so the three links align to the email's width above (`social`, not `link`: collides with --color-link) */
   --text-nav: clamp(0.75rem, 0.44vw + 0.647rem, 1rem); /* 12 → 16px — wordmark + nav */
   --text-title: clamp(0.875rem, 0.44vw + 0.772rem, 1.125rem); /* 14 → 18px — work titles */
   /* Newsreader has a comparatively short x-height, so it reads optically smaller
@@ -170,8 +178,7 @@
   --spacing-column-stacked: clamp(40px, 8vw, 56px); /* …once stacked */
   --spacing-stack: clamp(48px, 6vw, 80px); /* Info text blocks */
   --spacing-aside: clamp(28px, 3.4vw, 44px); /* Info sidebar */
-  --spacing-row: clamp(20px, 3vw, 40px); /* work row columns */
-  --spacing-row-dense: clamp(18px, 2.4vw, 32px);
+  --spacing-row: clamp(14px, 2vw, 28px); /* ledger row columns, Works and Live alike */
   --spacing-side: clamp(14px, 2vw, 28px); /* side column */
   --spacing-side-dense: clamp(12px, 1.6vw, 22px);
   --spacing-footer: clamp(48px, 8vw, 96px); /* above the footer credit */
@@ -184,24 +191,32 @@
   --spacing-paragraph: 1lh;
 
   /* ─── Grid tracks (the ledger rows + page columns) ───── */
-  --grid-template-columns-work-dense: 52px minmax(0, clamp(300px, 44vw, 480px)) auto 1fr;
-  --grid-template-columns-work-narrow: 60px minmax(0, 1fr) auto;
-  --grid-template-columns-work-stack: 64px minmax(0, 1fr);
-  --grid-template-columns-work-stack-dense: 46px minmax(0, 1fr);
+  /* Works and Live rows share their year track at each layout and gap their columns
+     with --spacing-row, so the title column sits at the same x on both pages and
+     cannot drift apart. The year ("2019") is text-meta, which is fluid: it sets ~31px
+     on a phone, ~33px by the `lg` switch and 35px at the largest size. Stacked
+     (below `lg`) the track hugs it at 34px, so the title sits close on a phone;
+     wide rows use 40px, which holds the largest year with a little slack. */
+  --grid-template-columns-work-year: 40px;
+  --grid-template-columns-work-dense: var(--grid-template-columns-work-year)
+    minmax(0, clamp(300px, 44vw, 480px)) auto 1fr;
+  --grid-template-columns-work-narrow: var(--grid-template-columns-work-year) minmax(0, 1fr) auto;
+  --grid-template-columns-work-stack: 34px minmax(0, 1fr);
   --grid-template-columns-page: minmax(0, 1fr) minmax(240px, 32%); /* Info: prose + portrait */
   /* Works: ledger + studio photo. Inverted from `page` above — the ledger asks for
      what it needs and the photo takes whatever is left, rather than the photo
      claiming a fixed share and the ledger living on the remainder.
-     `auto` settles the ledger at its max-content (~927px: the row's year track,
+     `auto` settles the ledger at its max-content (~883px: the row's year track,
      gaps, links track, and a description the measure caps), and `1fr` hands every
-     remaining pixel to the photo. Measured: photo 362px at 1512, 561px at 1728,
+     remaining pixel to the photo. Measured: photo 406px at 1512, 605px at 1728,
      description on its measure at both — the prose never pays for the photo.
      A percentage cannot express this. The measure is absolute, so a wide viewport
      opens slack a percentage is blind to: 30% gave the photo 468px at 1728 where
-     561px was free, and below ~1400 it took its share out of the prose instead
+     605px was free, and below ~1400 it took its share out of the prose instead
      (~84 chars at 1280 against ~88).
-     Under ~1230px the photo sits on its 240px floor and the ledger takes what is
-     left; the prose still holds its measure there. Nothing to retune per width. */
+     Under ~1320px the photo sits on its 240px floor and the ledger takes what is
+     left (805px at 1230, measured), so from there down the description narrows
+     below its measure. Nothing to retune per width. */
   --grid-template-columns-page-ledger: auto minmax(240px, 1fr);
 
   /* ─── Breakpoints ────────────────────────────────────── */
@@ -215,7 +230,7 @@
 }
 
 /* Short landscape phones: claw back vertical space. Not expressible as a
-   breakpoint, so it gets a named variant — `landscape-short:pt-16`. */
+   breakpoint, so it gets a named variant — `landscape-short:[--clearance:…]` on <main>. */
 @custom-variant landscape-short (@media (max-height: 480px) and (orientation: landscape));
 
 /* ─── Base ─────────────────────────────────────────────── */
@@ -235,7 +250,7 @@
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.55;
-    font-feature-settings: "ss01", "cv01";
+    font-feature-settings: 'ss01', 'cv01';
     -webkit-font-smoothing: antialiased;
   }
 
@@ -243,6 +258,14 @@
     height: 100%;
     overflow: hidden;
   }
+}
+
+/* ─── Prose ────────────────────────────────────────────── */
+/* The one reading style: Info paragraphs and every Works description. Justified at
+   every width, with hyphenation to keep the word spacing even on narrow columns.
+   Change it here, not at a call site. */
+@utility prose {
+  @apply text-body leading-prose max-w-measure font-serif tracking-normal hyphens-auto text-justify;
 }
 
 /* ─── Reveal on scroll ─────────────────────────────────── */

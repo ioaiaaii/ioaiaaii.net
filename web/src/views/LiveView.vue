@@ -1,6 +1,7 @@
 <script setup>
 import live from '@/data/live.json';
 import ActionLink from '@/components/ActionLink.vue';
+import SectionLabel from '@/components/SectionLabel.vue';
 import WorkRow from '@/components/WorkRow.vue';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -18,38 +19,43 @@ const performances = (live.performances || []).map((p) => {
 <template>
   <h1 class="sr-only">Live performances</h1>
 
-  <!-- reveal the list as one block, like Works reveals each section. It goes on
-       the <ul>, not on WorkRow: the row carries a hover-colour transition, and two
-       transitions on one element don't merge (one wins, dropping the fade). The
-       <ul> has no such transition, so the reveal plays — and WorkRow stays a plain
-       shared component with no animation knowledge. -->
-  <ul v-reveal class="flex list-none flex-col p-0">
-    <WorkRow
-      v-for="performance in performances"
-      :key="performance.date + '-' + performance.title"
-      dense
-      :year="performance.year"
-      :title="performance.title"
-      :meta="performance.meta"
-    >
-      <template #links>
-        <span v-if="performance.event_link || performance.listen_link" class="flex gap-3.5">
-          <ActionLink
-            v-if="performance.event_link"
-            :href="performance.event_link"
-            :aria-label="`Info about ${performance.title}`"
-          >
-            Info
-          </ActionLink>
-          <ActionLink
-            v-if="performance.listen_link"
-            :href="performance.listen_link"
-            :aria-label="`Listen to ${performance.title}`"
-          >
-            Listen
-          </ActionLink>
-        </span>
-      </template>
-    </WorkRow>
-  </ul>
+  <!-- Same gutter, label and row tracks as Works, so the year and title columns and
+       the first row sit in the same place on both pages. Revealed as one block, like
+       each Works section. The reveal sits on this wrapper, never on WorkRow: the row
+       carries a hover-colour transition, and two transitions on one element don't
+       merge (one wins, dropping the fade). -->
+  <div v-reveal class="px-edge">
+    <SectionLabel>Performances</SectionLabel>
+
+    <!-- role="list": see WorksView — keeps the list and its count in Safari/VoiceOver. -->
+    <ul role="list">
+      <WorkRow
+        v-for="performance in performances"
+        :key="performance.date + '-' + performance.title"
+        dense
+        :year="performance.year"
+        :title="performance.title"
+        :meta="performance.meta"
+      >
+        <template #links>
+          <span v-if="performance.event_link || performance.listen_link" class="flex gap-3.5">
+            <ActionLink
+              v-if="performance.event_link"
+              :href="performance.event_link"
+              :aria-label="`Info about ${performance.title}`"
+            >
+              Info
+            </ActionLink>
+            <ActionLink
+              v-if="performance.listen_link"
+              :href="performance.listen_link"
+              :aria-label="`Listen to ${performance.title}`"
+            >
+              Listen
+            </ActionLink>
+          </span>
+        </template>
+      </WorkRow>
+    </ul>
+  </div>
 </template>

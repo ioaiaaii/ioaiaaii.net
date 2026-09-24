@@ -29,7 +29,7 @@ const reveal = {
       // threshold 0: reveal as soon as any pixel enters (with the -40px bottom margin
       // for a slight delay). A ratio threshold would strand an element taller than
       // ~1/threshold viewports — it could never become that fraction visible — which
-      // the Live <ul> risks as it grows a row a year.
+      // the Live list (one reveal block) risks as it grows a row a year.
       { root, threshold: 0, rootMargin: '0px 0px -40px 0px' },
     );
 
@@ -43,5 +43,21 @@ const reveal = {
     }
   },
 };
+
+// Show an element's reveal block at once, skipping the fade/rise. For a row reached by
+// a link (/works#diataxis): it should already be there when the page lands, and the
+// 12px rise would otherwise throw off the scroll to it, which measures the painted
+// box, including the browser's own fragment jump on a fresh load. Forcing a reflow
+// with the transition off commits the final state, so restoring it animates nothing.
+// It runs even when the block is already `.in`: a section that has only just scrolled
+// into view is still mid-rise, and turning the transition off snaps it to the end.
+export function revealNow(el) {
+  const block = el.closest('.reveal');
+  if (!block) return;
+  block.style.transition = 'none';
+  block.classList.add('in');
+  void block.offsetHeight;
+  block.style.transition = '';
+}
 
 export default reveal;

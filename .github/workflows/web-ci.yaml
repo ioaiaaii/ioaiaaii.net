@@ -52,12 +52,42 @@ jobs:
           path: web/dist
           retention-days: 1
 
+  # End-to-end smoke tests: Cypress against the production build, served by vite
+  # preview (make website-test-e2e builds, serves and runs cypress/e2e). Runs beside
+  # `build`; the preview deploy waits for both.
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: web/.nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      # npm ci also downloads the Cypress binary (its postinstall).
+      - run: make website-install
+      - run: make website-test-e2e
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: cypress-screenshots
+          path: web/cypress/screenshots
+          retention-days: 7
+          if-no-files-found: ignore
+
   # Development delivery: every green master push publishes a Cloudflare Pages
   # PREVIEW (master.ioaiaaii-net.pages.dev). Production is deployed from tags in
   # release.yaml — the project's production branch is "production", so --branch=master
   # is always a preview.
   deliver:
-    needs: build
+    needs: [build, e2e]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 10

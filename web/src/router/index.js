@@ -8,6 +8,10 @@ const SITE = 'Ioannis Savvaidis';
 const ORIGIN = 'https://ioaiaaii.net';
 const HOME_DESCRIPTION =
   'Ioannis Savvaidis, composer working through the Abstraction/Representation relation in computing paradigms.';
+// Tab and search-result titles: every page, home included, leads with its own name,
+// so tabs stay distinguishable when the browser truncates them. index.html carries
+// the Info title too, for crawlers that don't run JS.
+const pageTitle = (page) => `${page} - ${SITE}`;
 
 // `name` is the route name, not the component name — Navigation matches its links
 // against these, and App hides the footer on NotFound. They stay single words.
@@ -17,15 +21,16 @@ const routes = [
     path: '/',
     name: 'Info',
     component: InfoView,
-    meta: { title: `${SITE} — Composer`, description: HOME_DESCRIPTION },
+    meta: { title: pageTitle('Info'), description: HOME_DESCRIPTION },
   },
   {
     path: '/works',
     name: 'Works',
     component: WorksView,
     meta: {
-      title: `Works — ${SITE}`,
-      description: 'The discography and selected works of composer Ioannis Savvaidis.',
+      title: pageTitle('Works'),
+      description:
+        'Records and selected works by composer Ioannis Savvaidis, with releases on JUNE Records and Lower Parts.',
     },
   },
   {
@@ -33,20 +38,21 @@ const routes = [
     name: 'Live',
     component: LiveView,
     meta: {
-      title: `Live — ${SITE}`,
-      description: 'Live performances by composer Ioannis Savvaidis.',
+      title: pageTitle('Live'),
+      description: 'Live performances by composer Ioannis Savvaidis, improvising on synthesizers.',
     },
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFoundView,
-    meta: { title: `Not found — ${SITE}`, description: HOME_DESCRIPTION, noindex: true },
+    meta: { title: pageTitle('Page not found'), description: HOME_DESCRIPTION, noindex: true },
   },
 ];
 
 // No scrollBehavior: the window never scrolls (body is overflow:hidden), so it would
-// be a no-op. App.vue resets the inner scroll container on navigation instead.
+// be a no-op. App.vue scrolls the inner container instead: to the top, or to the
+// #work row a link names.
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
@@ -68,15 +74,30 @@ function upsert(selector, make, attr, value) {
   return el;
 }
 router.afterEach((to) => {
-  document.title = to.meta.title || `${SITE} — Composer`;
+  document.title = to.meta.title || SITE;
   if (to.meta.description) {
-    upsert('meta[name="description"]', () => Object.assign(document.createElement('meta'), { name: 'description' }), 'content', to.meta.description);
+    upsert(
+      'meta[name="description"]',
+      () => Object.assign(document.createElement('meta'), { name: 'description' }),
+      'content',
+      to.meta.description,
+    );
   }
-  upsert('link[rel="canonical"]', () => Object.assign(document.createElement('link'), { rel: 'canonical' }), 'href', ORIGIN + (to.path === '/' ? '/' : to.path));
+  upsert(
+    'link[rel="canonical"]',
+    () => Object.assign(document.createElement('link'), { rel: 'canonical' }),
+    'href',
+    ORIGIN + (to.path === '/' ? '/' : to.path),
+  );
   // Keep the 404 out of the index (it is served with a 200 by the SPA fallback).
   const robots = document.head.querySelector('meta[name="robots"]');
   if (to.meta.noindex) {
-    upsert('meta[name="robots"]', () => Object.assign(document.createElement('meta'), { name: 'robots' }), 'content', 'noindex');
+    upsert(
+      'meta[name="robots"]',
+      () => Object.assign(document.createElement('meta'), { name: 'robots' }),
+      'content',
+      'noindex',
+    );
   } else if (robots) {
     robots.remove();
   }

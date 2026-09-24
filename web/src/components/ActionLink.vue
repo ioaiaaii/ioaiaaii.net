@@ -15,10 +15,7 @@ defineProps({
     :href="href"
     target="_blank"
     rel="noopener"
-    class="text-link border-link-soft hover:border-link border-b pb-px font-medium no-underline
-           transition-[border-color] duration-220 after:inline-block
-           after:transition-transform after:duration-280 after:ease-soft
-           after:content-['_↗'] hover:after:translate-x-0.5 hover:after:-translate-y-0.5"
+    class="text-link border-link-soft hover:border-link border-b pb-px font-medium no-underline transition-[border-color] duration-220 after:inline-block after:transition-transform after:duration-280 after:ease-soft after:content-['_↗'] hover:after:translate-x-0.5 hover:after:-translate-y-0.5"
   >
     <slot />
   </a>
