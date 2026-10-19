@@ -2,15 +2,6 @@
 # (not muted silently) so the reasoning is visible and re-checkable. Only add an ID
 # after understanding why it does not apply.
 
-# --- Legacy GCP asset bucket (deploy/iac/gcp) ---
-# The GCP stack is being decommissioned for Cloudflare Pages. These three MEDIUM
-# misconfigs originate in Google's own cloud-foundation-fabric module and are
-# intentional for a public-read static-asset bucket. They disappear when the GCP
-# stack is torn down. Re-review (and likely delete this block) at that point.
-AVD-GCP-0002
-AVD-GCP-0077
-AVD-GCP-0078
-
 # --- lightningcss (MPL-2.0) ---
 # A build-time CSS transformer pulled in by Tailwind v4 / Vite. It runs during the
 # build and is NOT distributed in web/dist. MPL-2.0 is a file-level reciprocal
