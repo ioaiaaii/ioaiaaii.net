@@ -2,8 +2,9 @@
 # The Cloudflare secrets are added to each environment by hand, so none sit in state.
 
 locals {
-  # The default branch ruleset, created in the dashboard in 2024.
-  main_ruleset_id = 2385377
+  # Rulesets created in the dashboard in 2024.
+  main_ruleset_id            = 2385377
+  tag_restriction_ruleset_id = 2358499
 }
 
 # Pushes to master deploy Pages previews (web-ci.yaml).
@@ -75,16 +76,16 @@ import {
   id = "${var.repository}:${local.main_ruleset_id}"
 }
 
-# Release tags: only repo admins may create, move or delete them.
-resource "github_repository_ruleset" "release_tags" {
+# All tags: only repo admins may create, move or delete them, and they must be signed.
+resource "github_repository_ruleset" "tag_restriction" {
   repository  = var.repository
-  name        = "release tags"
+  name        = "tag-restriction"
   target      = "tag"
   enforcement = "active"
 
   conditions {
     ref_name {
-      include = ["refs/tags/v[0-9]*"]
+      include = ["~ALL"]
       exclude = []
     }
   }
@@ -96,8 +97,15 @@ resource "github_repository_ruleset" "release_tags" {
   }
 
   rules {
-    creation = true
-    update   = true
-    deletion = true
+    creation            = true
+    update              = true
+    deletion            = true
+    non_fast_forward    = true
+    required_signatures = true
   }
+}
+
+import {
+  to = github_repository_ruleset.tag_restriction
+  id = "${var.repository}:${local.tag_restriction_ruleset_id}"
 }
