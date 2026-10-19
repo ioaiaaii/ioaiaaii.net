@@ -6,10 +6,9 @@ on:
   push:
     tags:
       - 'v[0-9]*'
-  # Manual production deploy — to evaluate the production environment without cutting
-  # a real release tag. It deploys whatever ref you run it from to the production
-  # environment (which, until the domain is cut over, serves at the *.pages.dev
-  # production URL, not the live domain). No GitHub Release is created for these.
+  # Manual redeploy of a release: run it from a tag. The GitHub production environment
+  # only accepts v* tags, so a run from a branch stops at the deploy job. No GitHub Release
+  # is created for these.
   workflow_dispatch:
 
 # Default to read-only; the release-notes job elevates to contents: write.
@@ -21,9 +20,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Production delivery: verify the tagged tree and deploy to the Cloudflare Pages
-  # production branch. Only tags reach production.
-  deploy:
+  # Verify and build the tagged tree. No secrets here: npm install scripts run in this job.
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,6 +40,27 @@ jobs:
       - run: make website-test
       - run: make website-build
 
+      - name: Upload build output
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist
+          path: web/dist
+          retention-days: 1
+
+  # Production delivery: deploy the build to the Cloudflare Pages production branch.
+  # Runs no npm. Its Cloudflare secrets come from the GitHub production environment.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    steps:
+      - name: Download build output
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: dist
+          path: dist
+
       - name: Deploy to Cloudflare Pages (production)
         id: deploy
         uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
@@ -50,7 +69,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # --commit-message just stamps the tag as the deploy's version label in the CF
           # dashboard (cosmetic); --branch=production is what selects the prod environment.
-          command: pages deploy web/dist --project-name=ioaiaaii-net --branch=production --commit-message=${{ github.ref_name }}
+          command: pages deploy dist --project-name=ioaiaaii-net --branch=production --commit-message=${{ github.ref_name }}
 
   # Only cut the GitHub Release once production is live — never announce a version
   # that did not ship. Tag pushes only: a manual workflow_dispatch has no version tag

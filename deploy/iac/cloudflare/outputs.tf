@@ -5,7 +5,7 @@ output "project_name" {
 
 output "pages_subdomain" {
   description = "Default *.pages.dev host for the project."
-  value       = "${cloudflare_pages_project.site.name}.pages.dev"
+  value       = local.pages_host
 }
 
 output "custom_domain" {
