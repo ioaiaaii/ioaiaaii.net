@@ -19,7 +19,9 @@ Serve the frontend as a static Vue 3 + Vite SPA on Cloudflare Pages (free tier).
   server runs at render time.
 - Cloudflare Pages (Direct Upload) driven by GitHub Actions: pushes to `master` deploy a
   preview (development), and `v*` tags deploy production. SPA routing comes from
-  `public/_redirects`, headers from `public/_headers`.
+  `public/_redirects`, headers from `public/_headers`. `_redirects` was removed on
+  2026-10-18: with no `404.html` in the build, Pages serves `index.html` for any path
+  that is not a file.
 - Remove the Go backend, Helm/k8s manifests, and Docker image pipeline. The repo becomes
   the `web/` app plus docs and the `repo-operator` submodule.
 

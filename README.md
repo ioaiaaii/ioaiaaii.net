@@ -1,130 +1,157 @@
 # ioaiaaii.net
 
-A personal website for my composer profile. It is a static Vue single-page app with content managed in JSON.
-
-The site used to be a Go backend on Kubernetes. It moved to a static build on Cloudflare
-Pages to cut hosting cost and ops work.
+Source for [ioannissavvaidis.com](https://ioannissavvaidis.com), the website of composer
+Ioannis Savvaidis. The site is a static Vue single-page app on Cloudflare Pages, with its
+content in JSON files. It was served at `ioaiaaii.net` until October 2026; the move is
+recorded in [ADR 005](docs/adr/005-domain-ioannissavvaidis-com.md). The repository keeps
+its original name.
 
 ## Stack
 
-- Vue 3 + Vue Router
-- Vite for the build
+- Vue 3 and Vue Router
+- Vite
 - Tailwind CSS 4
-- Vitest for unit tests, Cypress for an end-to-end smoke test
+- Vitest for unit tests, Cypress for end-to-end tests
 
 ## Layout
 
-```shell
+```text
 web/                  the app
   src/
-    components/       pages, plus Navigation and AppFooter
+    views/            one component per route: Info, Works, Live, not found
+    components/       shared components
+    router/           routes, titles and meta tags
     data/             content
-    lib/              logic
-    assets/           css and images
-  public/             _redirects, _headers, favicon, og image
-deploy/iac/           Terraform
-  cloudflare/         the CL Pages project and custom domain
-  gcp/                the old GCS bucket setup
-docs                  docs/decision records
-repo-operator/        submodule: shared Makefiles and changelog templates
+    lib/              plain JavaScript logic, with unit tests
+    assets/           CSS and images
+  public/             _headers, robots.txt, sitemap.xml, favicon, og image
+  cypress/            end-to-end tests
+deploy/iac/           Terraform modules, applied from micro-infra
+  cloudflare/         Pages project, custom domain, apex and www records
+  github/             this repository's environments and rulesets
+docs/                 system design and decision records
+repo-operator/        submodule: shared Makefiles
 Makefile              entrypoint
 ```
 
 ## Content
 
-- `info.json` — profile, artistic approach, selected works, collaborations, contact
-- `releases.json` — releases
-- `live.json` — performances
+The content is in `web/src/data/`:
+
+- `info.json`: profile, artistic approach, selected works, collaborations, contact
+- `releases.json`: releases
+- `live.json`: performances
+
+Vite bundles these files into the build, so a content change reaches the site with the
+next deploy.
 
 ## Development
 
+The Node version is in `web/.nvmrc`.
+
 ```shell
 make website-install    # npm ci
-make website-dev        # vite dev server
+make website-dev        # Vite dev server
 make website-check      # lint, unit tests, build
-make website-test-e2e   # cypress smoke test
+make website-test-e2e   # Cypress against the production build
 make help               # every target
 ```
 
 ## Deployment
 
-Cloudflare Pages, Direct Upload, driven by GitHub Actions. This does not use the CP Pages Git integration, so we managed the Release Engineering.
+GitHub Actions builds `web/dist` and uploads it to Cloudflare Pages with Wrangler
+(_Direct Upload_). The Pages Git integration is not used.
 
-### Environments
+| Trigger          | Workflow       | GitHub environment | Pages label  | Pages environment | Served at                                                           |
+| ---------------- | -------------- | ------------------ | ------------ | ----------------- | ------------------------------------------------------------------- |
+| push to `master` | `web-ci.yaml`  | `preview`          | `master`     | Preview           | `master.ioaiaaii-net.pages.dev`, behind a Cloudflare Access sign-in |
+| `v[0-9]*` tag    | `release.yaml` | `production`       | `production` | Production        | `ioannissavvaidis.com`                                              |
 
-A change goes to preview when it reaches `master`, and to production when it is tagged:
+A _GitHub environment_ stores the Cloudflare API token and account ID as secrets and
+gives them only to runs from its trigger. A run from any other ref does not receive the
+token. The deploy jobs download the build from the job before them and run no npm, so
+dependency install scripts never run where the token is.
 
-| Trigger          | GitHub environment | Pages label (`--branch`) | Pages environment | Served at                                                          |
-| ---------------- | ------------------ | ------------------------ | ----------------- | ------------------------------------------------------------------ |
-| push to `master` | `preview`          | `master`                 | Preview           | `master.ioaiaaii-net.pages.dev`, behind Cloudflare Access          |
-| `v[0-9]*` tag    | `production`       | `production`             | Production        | `ioaiaaii-net.pages.dev`, and `ioannissavvaidis.com` once attached |
+A _Pages label_ is the value passed to `wrangler pages deploy --branch`. It is a name,
+not a git branch. The Pages project's production branch is the label `production`;
+every other label is a preview.
 
-- **GitHub environment**: holds the Cloudflare token and gives it only to runs from
-  that trigger (`deploy/iac/github`).
-- **Pages label**: a name, not a git branch. The project's production branch is the
-  label `production`, so that label is production and every other label is a preview
-  (`deploy/iac/cloudflare`).
-
-Previews need a sign-in as the account owner. Production is public.
+Production also answers at `ioaiaaii-net.pages.dev`, which sends `X-Robots-Tag: noindex`.
+Requests to `www.ioannissavvaidis.com` and to `http://` get a 301 to
+`https://ioannissavvaidis.com`, with the path and query kept.
 
 ### Workflows
 
-- `web-ci.yaml` — pull requests and pushes to `master`: lint, unit tests, build. A
-  master push also deploys a preview.
-- `security.yaml` — pull requests, pushes to `master`, and weekly: Trivy scans
-  dependencies and secrets.
-- `release.yaml` — a `v*` tag: build the tagged tree, deploy to production, and cut a
-  GitHub Release with the changelog.
+- `web-ci.yaml`: on pull requests and pushes to `master`, lint, unit tests, Cypress
+  tests and build. A push to `master` also deploys the preview.
+- `release.yaml`: on a `v[0-9]*` tag, lint, unit tests and build, then the production
+  deploy, then the GitHub Release.
+- `security.yaml`: on pull requests, pushes to `master`, and Mondays at 06:00 UTC,
+  Trivy scans the dependencies, the repository for secrets, and `deploy/iac`.
 
-Both deploy jobs take the build from the job before them and upload it with
-`cloudflare/wrangler-action`; they run no npm. There is no post-deploy smoke test yet.
+### Release a change
 
-### Releasing
+Merge a pull request into `master` to deploy the preview. To deploy production, tag a
+commit on `master` with a version newer than the last tag:
 
-**Preview (development).** Push to `master`; CI builds and publishes
-`master.ioaiaaii-net.pages.dev`. To publish an ad-hoc preview without going through CI:
+```shell
+git tag -s v3.1.1 -m v3.1.1
+git push origin v3.1.1
+```
+
+The release notes come from the conventional commit messages since the previous tag.
+The release-notes job currently fails: it reads `build/changelog/`, which was removed in
+`689bfef`. The deploy is not affected, and the GitHub Release is created by hand.
+
+### Deploy a preview by hand
+
+With Wrangler logged in (`npx wrangler login`):
 
 ```shell
 make website-build
 npx wrangler pages deploy web/dist --project-name=ioaiaaii-net --branch=<label>
 ```
 
-Any `<label>` except `production` is a preview and gets its own
-`<label>.ioaiaaii-net.pages.dev` URL, behind the same Access policy.
+Replace `<label>` with any name except `production`. The preview is served at
+`<label>.ioaiaaii-net.pages.dev`, behind the same Access sign-in.
 
-**Production.** Production is a `v*` git tag, newer than the last one. There is no
-`make release`:
+### Roll back
 
-```shell
-git tag v1.2.0
-git push origin v1.2.0
-```
+Run the Release workflow by hand from the previous tag (Actions → Release → Run
+workflow, then select the tag), or roll back to an earlier production deployment in the
+Pages dashboard. The `production` environment rejects a manual run from a branch.
 
-`release.yaml` builds that exact commit, deploys it with `--branch=production`, and cuts
-a GitHub Release. The release notes are generated from the conventional commit messages
-since the last tag, so write commits accordingly.
+### Routing and headers
 
-To undo a bad release, run Release by hand from the previous tag (Actions → Release →
-Run workflow, pick the tag), or roll back to an earlier deployment in the Pages
-dashboard. A manual run from a branch stops at the deploy job.
-
-Routes need no `_redirects`: with no `404.html` in the build, Pages serves
-`index.html` for any path that isn't a file. `web/public/_headers` sets caching and
-security headers.
+With no `404.html` in the build, Pages serves `index.html` for any path that is not a
+file, so the client-side routes need no `_redirects`. `web/public/_headers` sets the
+security headers and caching.
 
 ## Infrastructure
 
-`deploy/iac/cloudflare` (Terraform, Cloudflare provider) declares what the site needs
-to be served: the Pages project and, once `manage_domain` is true, its custom domain
-and the apex and `www` DNS records. Zone-wide settings (DNSSEC, HTTPS and TLS, CAA, the
-records that say the domain sends no email, and the `www` to apex redirect) belong to
-the platform: `micro-infra`, under `iac/live/cloudflare/zones/<domain>/` in three
-units, `dns`, `ssl-tls` and `rules`. The state and the `apply` for both live in
-`micro-infra`. Domain auto-renew is set in the Cloudflare dashboard; the provider has no
-resource for it.
+The Terraform for the site is split between this repository and
+[micro-infra](https://github.com/ioaiaaii/micro-infra). This repository contains the
+modules; micro-infra has the state, runs `apply`, and pins each module to a release tag
+of this repository.
 
-`deploy/iac/github` (Terraform, GitHub provider) declares the repo's `preview` and
-`production` environments and its rulesets. Only `master` may deploy through `preview`
-and only `v[0-9]*` tags through `production`, and the Cloudflare token and account ID
-are secrets on those two environments, added by hand. It is applied from `micro-infra`,
-`iac/live/github/ioaiaaii.net`.
+| Terraform                                                | Repository  | Manages                                                                                             |
+| -------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- |
+| `deploy/iac/cloudflare`                                  | this        | Pages project; with `manage_domain = true`, the custom domain and the apex and `www` records        |
+| `deploy/iac/github`                                      | this        | environments `preview` and `production` with their ref rules; rulesets `main` and `tag-restriction` |
+| `iac/live/cloudflare/zones/ioannissavvaidis.com/dns`     | micro-infra | the zone, DNSSEC, CAA, and the records for a domain that sends no email                             |
+| `iac/live/cloudflare/zones/ioannissavvaidis.com/ssl-tls` | micro-infra | Always Use HTTPS, TLS 1.2 minimum, TLS 1.3                                                          |
+| `iac/live/cloudflare/zones/ioannissavvaidis.com/rules`   | micro-infra | the `www` to apex redirect                                                                          |
+
+The records and zone settings are described in [DNS](docs/design/dns.md).
+
+micro-infra applies the two modules from `iac/live/cloudflare/pages` and
+`iac/live/github/ioaiaaii.net`. A module change takes effect once it is in a tag and the
+unit's `ref` points at that tag. Before the tag exists, plan against a local checkout:
+
+```shell
+terragrunt plan --source <checkout>/deploy/iac/github
+```
+
+Two settings stay outside Terraform: domain auto-renew, set in the Cloudflare dashboard
+because the provider has no registrar resource, and the environment secrets, set by
+hand so that the token never enters Terraform state.

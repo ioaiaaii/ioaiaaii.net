@@ -1,27 +1,37 @@
-# ADR 001: Use Clean Architecture with Fiber Framework
+# ADR 003: Clean Architecture with Fiber
+
+## Status
+
+Superseded on 2026-07-04 by [ADR 004](004-static-vue-cloudflare-pages.md), which removed the
+Go backend.
 
 ## Context
 
-The project `ioaiaaii.net` requires a maintainable, scalable architecture for both the API and frontend. We need to ensure that the API is flexible enough to allow easy data source changes (e.g., from file-based to database) and maintain separation of concerns between the business logic, data access, and presentation layers.
+The backend API needed to keep business logic, data access and presentation separate,
+so that the data source could change, for example from files to a database, without
+changes to the business logic.
 
 ## Decision
 
-We decided to use **Clean Architecture** for structuring the backend API. The key components are:
+Structure the backend API with Clean Architecture, with the Fiber framework for HTTP:
 
-- **Entities**: Core business objects, such as Resume, Release, and LivePerformance.
-- **Use Cases**: The business logic is separated into use cases, which orchestrate the interaction between the repository and the presentation layer.
-- **Repositories**: The data access layer is abstracted via repository interfaces, allowing the flexibility to switch between different data sources (e.g., file system, database).
-- **Presentation**: The Fiber framework is used to manage HTTP requests and responses.
+- Entities: the core objects, such as Resume, Release and LivePerformance.
+- Use cases: the business logic, which connects the repositories to the presentation
+  layer.
+- Repositories: interfaces over data access, so that the data source can change.
+- Presentation: Fiber handles HTTP requests and responses.
 
-By following Clean Architecture, we ensure that the business logic remains decoupled from frameworks and data sources, improving maintainability and testability.
+The business logic depends on neither the framework nor the data source.
 
-## Alternatives Considered
+## Options considered
 
-1. **Monolithic approach**: Implementing all layers together without separation (tightly coupled) would increase technical debt and reduce maintainability.
-2. **Hexagonal Architecture**: While similar in concept to Clean Architecture, we felt Clean Architecture better emphasizes the dependency direction and is more commonly used in the Go ecosystem.
+- A single layer with no separation: tighter coupling and more maintenance.
+- Hexagonal Architecture: similar in concept. Clean Architecture was chosen because it
+  states the dependency direction more explicitly and is more common in Go projects.
 
 ## Consequences
 
-- **Maintainability**: The separation of concerns will allow developers to easily understand, modify, or extend individual parts of the system.
-- **Scalability**: Clean Architecture allows us to grow the project, especially if we need to switch to more scalable data sources (e.g., database) without refactoring the core logic.
-- **Testing**: The architecture allows us to easily mock external dependencies (like repositories), making unit testing simpler.
+- Each layer can be read, changed or extended on its own.
+- The data source can change, for example to a database, without changes to the
+  business logic.
+- Repositories can be mocked in unit tests.

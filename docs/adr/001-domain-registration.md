@@ -1,23 +1,30 @@
-# ADR #001: Selecting Squarespace for Domain Registration
+# ADR 001: Squarespace for domain registration
+
+## Status
+
+Superseded on 2026-10-19 by [ADR 005](005-domain-ioannissavvaidis-com.md): the site moved
+to `ioannissavvaidis.com`, registered at Cloudflare Registrar.
 
 ## Context
-We need a domain registrar for `ioaiaaii.net`.
+
+The site needed a registrar for `ioaiaaii.net`.
+
+## Options considered
+
+- Squarespace: domain registration and DNS management, with free WHOIS privacy. Google
+  Domains registrations were moving to Squarespace at the time.
+- Google Domains: integration with GCP and transparent pricing. Its registrations were
+  being transferred to Squarespace, which made its long-term support uncertain.
+- Namecheap and GoDaddy: comparable registration services, with more features than the
+  site needed and upselling of additional services.
 
 ## Decision
-We will use **Squarespace** to register and manage our domain.
 
-## Options Considered
-- **Squarespace**: Simple, user-friendly domain registration and DNS management, competitive pricing, free WHOIS privacy, and future-proof given the Google Domains transition.
-- **Google Domains**: Tight GCP integration, transparent pricing. However, transitioning to Squarespace, leading to uncertainty in long-term support.
-- **Namecheap** & **GoDaddy**: Offer similar domain services but include more features than needed or upselling of additional services.
-
-## Rationale
-- **Usage**: Simple DNS management and setup.
-- **Pricing**: Clear costs with free privacy protection.
+Register `ioaiaaii.net` at Squarespace and manage its DNS there for one year, then
+re-evaluate.
 
 ## Consequences
-- **Pros**: Fast setup, transparent pricing, adequate DNS features, and cheaper.
-- **Cons**: Fewer advanced DNS features than other registrars but sufficient for current needs.
 
-## Decision Status
-- **Accepted**: We will proceed with Squarespace for domain registration and DNS management for 1 year, and re-evaluate.
+- Setup is fast, the pricing is clear, and WHOIS privacy is free.
+- Squarespace offers fewer DNS features than other registrars; they covered the site's
+  needs at the time.
