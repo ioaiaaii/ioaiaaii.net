@@ -31,10 +31,10 @@ const socials = [
 
   <!-- Text | side column. Set in the prose font, so the text column is the prose
        measure (66ch); the side column takes the rest, at least 260px. The text starts
-       where the works' titles do (pl-indent). On a phone, one column: the portrait,
+       at the page edge, under the site name. On a phone, one column: the portrait,
        the profile, then contact. -->
   <div
-    class="mx-edge pl-indent gap-x-column text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(260px,1fr)] items-start pt-4 font-serif max-md:grid-cols-1"
+    class="mx-edge gap-x-column text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(260px,1fr)] items-start pt-4 font-serif max-md:grid-cols-1"
   >
     <!-- Left: profile + artistic approach. Its label is for screen readers only. -->
     <div v-reveal>

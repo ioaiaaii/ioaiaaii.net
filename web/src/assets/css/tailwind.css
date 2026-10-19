@@ -54,7 +54,7 @@
   --color-bg: oklch(1 0 0); /* white ground */
   --color-ink: oklch(0.17 0.01 260); /* text, titles */
   --color-soft: oklch(0.45 0.01 260); /* meta (year · label, dates), section labels */
-  --color-link: oklch(0.44 0.2 258); /* links, the + sign, a hovered or open title */
+  --color-link: oklch(0.44 0.2 258); /* links, the + sign, the Works titles */
   /* A link's underline at rest; the full link colour on hover. */
   --color-link-soft: color-mix(in oklch, var(--color-link) 35%, transparent);
 
@@ -116,7 +116,8 @@
      would drift from the pages. */
   --spacing-edge: max(clamp(24px, 5vw, 84px), (100vw - var(--container-frame)) / 2);
   /* Where titles and text start: after the + sign of a Works row (11px sign, 2px
-     margin, 18px gap). Live, Info and Collaborations start there too (0 on a phone). */
+     margin, 18px gap). An open row's text starts there too (0 on a phone). Info, Live and
+     Collaborations start at the page edge. */
   --spacing-indent: 31px;
   --spacing-column: clamp(32px, 5vw, 80px); /* text | image column gap */
   --spacing-section: clamp(60px, 7vw, 104px); /* after each list */

@@ -18,8 +18,8 @@ const performances = (live.performances || []).map((p) => {
   <h1 class="sr-only">Live</h1>
 
   <!-- Date, the event, then INFO ↗ / LISTEN ↗ at the right edge, as Collaborations'
-       VIEW ↗ is, newest first, all in one style. The dates start where the works' titles
-       do (pl-indent), and are all one width, so the events line up. When the links don't
+       VIEW ↗ is, newest first, all in one style. The dates start at the page edge, and
+       are all one width, so the events line up. When the links don't
        fit beside the event (a long name, a phone), they wrap onto a line of their own,
        still at the right, so the name keeps the column's full width. The list's heading
        is for screen readers only. role="list": see WorksView. -->
@@ -29,7 +29,7 @@ const performances = (live.performances || []).map((p) => {
       <li
         v-for="performance in performances"
         :key="performance.date + '-' + performance.title"
-        class="pl-indent grid grid-cols-[max-content_minmax(0,1fr)] items-baseline gap-x-[18px] py-4 max-md:py-3.5"
+        class="grid grid-cols-[max-content_minmax(0,1fr)] items-baseline gap-x-[18px] py-4 max-md:py-3.5"
       >
         <span class="mono-meta">{{ performance.when }}</span>
         <span class="flex min-w-0 flex-wrap items-baseline gap-x-[18px] gap-y-1">

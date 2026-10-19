@@ -13,7 +13,7 @@ const HOME_DESCRIPTION = 'Ioannis Savvaidis, composer of ambient and electro-aco
 const pageTitle = (page) => `${page} - ${SITE}`;
 
 // `name` is the route name, not the component name — Navigation matches its links
-// against these, and App hides the footer on NotFound. They stay single words.
+// against these. They stay single words.
 // `meta.title/description` drive the per-route <head> (see the afterEach hook below).
 const routes = [
   {
@@ -82,23 +82,24 @@ router.afterEach((to) => {
       to.meta.description,
     );
   }
-  upsert(
-    'link[rel="canonical"]',
-    () => Object.assign(document.createElement('link'), { rel: 'canonical' }),
-    'href',
-    ORIGIN + (to.path === '/' ? '/' : to.path),
-  );
-  // Keep the 404 out of the index (it is served with a 200 by the SPA fallback).
-  const robots = document.head.querySelector('meta[name="robots"]');
+  // Keep the 404 out of the index (it is served with a 200 by the SPA fallback), and
+  // give it no canonical: one would name an address that doesn't exist as preferred.
   if (to.meta.noindex) {
+    document.head.querySelector('link[rel="canonical"]')?.remove();
     upsert(
       'meta[name="robots"]',
       () => Object.assign(document.createElement('meta'), { name: 'robots' }),
       'content',
       'noindex',
     );
-  } else if (robots) {
-    robots.remove();
+  } else {
+    upsert(
+      'link[rel="canonical"]',
+      () => Object.assign(document.createElement('link'), { rel: 'canonical' }),
+      'href',
+      ORIGIN + (to.path === '/' ? '/' : to.path),
+    );
+    document.head.querySelector('meta[name="robots"]')?.remove();
   }
 });
 

@@ -4,9 +4,15 @@
 import { SCROLL_ROOT_ID } from '@/lib/dom';
 
 const reveal = {
-  mounted(el) {
+  // Before the element is inserted, so its first style is the hidden start, as on a
+  // fresh load. Added in mounted, a switch between pages could style the new page
+  // visible first: App's focusMain focuses <main> in the same flush, before this
+  // directive's mounted hook, while the new page is already in it. `.reveal` then
+  // started a fade out, and `.in` turned it round: a dip instead of the fade.
+  beforeMount(el) {
     el.classList.add('reveal');
-
+  },
+  mounted(el) {
     // Reduced motion is handled entirely by the .reveal utility's own media
     // query, which neutralises the animation. Doing it here as well was worse
     // than redundant: it was evaluated once at module load, so it could never
@@ -21,8 +27,13 @@ const reveal = {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('in');
             observer.unobserve(entry.target);
+            // Two frames later, as Vue's <Transition> does for an enter, so the
+            // hidden start is painted before it fades in, in every browser. After a
+            // switch the observer reports the new page before it has been painted.
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => entry.target.classList.add('in')),
+            );
           }
         });
       },

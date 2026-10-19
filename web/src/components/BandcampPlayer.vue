@@ -3,7 +3,7 @@
 // nothing from Bandcamp (its code, its cookies) loads until someone wants to listen,
 // and closing it unmounts the frame, which stops the playback.
 // Bandcamp's large size with no artwork, on white with the site's link blue
-// (--color-link, oklch(0.44 0.2 258)). With a height (the one from the release's embed
+// (PLAYER_LINK_COLOR). With a height (the one from the release's embed
 // code, which Bandcamp sizes to its tracks) it shows the tracklist; without one, the
 // compact 120px player, since a guessed height would clip the list or leave a gap.
 // The embed code's height is for a frame 350px wide or more. Narrower (a phone, or the
@@ -12,7 +12,7 @@
 // container query reads the frame's own width, which is what Bandcamp's layout follows.
 // The page's CSP allows exactly this origin as a frame (frame-src in public/_headers).
 // The frame is sandboxed (PLAYER_SANDBOX), as SoundCloudPlayer's is.
-import { PLAYER_SANDBOX } from '@/lib/players';
+import { PLAYER_LINK_COLOR, PLAYER_SANDBOX } from '@/lib/players';
 
 const props = defineProps({
   album: { type: String, required: true }, // the album id from its embed code (album=…)
@@ -20,14 +20,12 @@ const props = defineProps({
   height: { type: Number, default: null }, // px, from its embed code
   href: { type: String, default: null }, // the album page, for the no-frames fallback
 });
-
-const LINK = '0047bd';
 </script>
 
 <template>
   <div class="@container">
     <iframe
-      :src="`https://bandcamp.com/EmbeddedPlayer/album=${album}/size=large/bgcol=ffffff/linkcol=${LINK}/tracklist=${props.height ? 'true' : 'false'}/artwork=none/transparent=true/`"
+      :src="`https://bandcamp.com/EmbeddedPlayer/album=${album}/size=large/bgcol=ffffff/linkcol=${PLAYER_LINK_COLOR}/tracklist=${props.height ? 'true' : 'false'}/artwork=none/transparent=true/`"
       :title="`${title} on Bandcamp`"
       :sandbox="PLAYER_SANDBOX"
       :style="props.height ? { '--player-height': `${props.height}px` } : null"
@@ -37,7 +35,6 @@ const LINK = '0047bd';
           ? 'h-(--player-height) @max-[350px]:h-[calc(var(--player-height)+33px)]'
           : 'h-[120px]'
       "
-      seamless
     >
       <a v-if="href" :href="href">{{ title }} on Bandcamp</a>
     </iframe>

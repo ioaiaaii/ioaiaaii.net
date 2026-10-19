@@ -8,7 +8,7 @@
 // The page's CSP allows exactly this origin as a frame (frame-src in public/_headers).
 // The frame is sandboxed (PLAYER_SANDBOX), as BandcampPlayer's is.
 import { computed } from 'vue';
-import { PLAYER_SANDBOX } from '@/lib/players';
+import { PLAYER_LINK_COLOR, PLAYER_SANDBOX } from '@/lib/players';
 
 const props = defineProps({
   url: { type: String, required: true }, // the url=… from its embed code, decoded
@@ -21,7 +21,7 @@ const DEFAULT_HEIGHT = 450; // SoundCloud's own for a set
 const src = computed(() => {
   const params = new URLSearchParams({
     url: props.url,
-    color: '#0047bd',
+    color: `#${PLAYER_LINK_COLOR}`,
     auto_play: 'false',
     hide_related: 'false',
     show_comments: 'false',

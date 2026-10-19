@@ -42,7 +42,7 @@ describe('router head', () => {
 
   it('sets the title and a hash-free canonical, and noindexes only the 404', async () => {
     const robots = () => document.head.querySelector('meta[name="robots"]');
-    const canonical = () => document.head.querySelector('link[rel="canonical"]').href;
+    const canonical = () => document.head.querySelector('link[rel="canonical"]')?.href ?? null;
 
     await router.push('/works#diataxis');
     expect(document.title).toBe('Works - Ioannis Savvaidis');
@@ -51,9 +51,11 @@ describe('router head', () => {
 
     await router.push('/no-such-page');
     expect(robots()?.content).toBe('noindex');
+    expect(canonical()).toBeNull();
 
     await router.push('/');
     expect(document.title).toBe('Info - Ioannis Savvaidis');
+    expect(canonical()).toBe('https://ioannissavvaidis.com/');
     expect(robots()).toBeNull();
   });
 });

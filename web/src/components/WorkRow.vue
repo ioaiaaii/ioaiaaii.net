@@ -60,7 +60,7 @@ const titleLang = computed(() => (/[Ͱ-Ͽ]/.test(props.title) ? 'el' : null));
        reader the count. A linked row scrolls in by <main>'s --anchor-offset (App.vue),
        so it lands at the top of the screen, like a heading link. -->
   <li :id="anchor" class="mx-edge scroll-mt-(--anchor-offset)">
-    <!-- The head. Hover or open turns the title blue; the + turns 90° on hover, 45°
+    <!-- The head. The title is link blue, so the row reads as clickable; the + turns 90° on hover, 45°
          (an ×) when open, and 135° on hover when open. The + keeps its own column, so
          when a long title pushes "META, YEAR" onto a second line (on a phone), that
          line starts under the title, not under the +. The title starts 31px in: the
@@ -84,11 +84,7 @@ const titleLang = computed(() => (/[Ͱ-Ͽ]/.test(props.title) ? 'el' : null));
         />
       </span>
       <span class="flex min-w-0 flex-wrap items-baseline gap-x-[18px] gap-y-1">
-        <span
-          :lang="titleLang"
-          class="mono-title group-hover:text-link min-w-0 transition-colors duration-200"
-          :class="open ? 'text-link' : 'text-ink'"
-        >
+        <span :lang="titleLang" class="mono-title text-link min-w-0">
           {{ title }}
         </span>
         <span class="mono-meta">{{ metaLine }}</span>

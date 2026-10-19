@@ -192,7 +192,7 @@ if (import.meta.env.DEV) {
   </section>
 
   <!-- Collaborations keeps its label, as these rows are other people's work. Each is
-       one line, the title where the works' titles start, then "TYPE, WHERE, YEAR", and
+       one line, the title at the page edge under the label, then "TYPE, WHERE, YEAR", and
        VIEW ↗ at the right. -->
   <section v-reveal class="mb-section">
     <SectionLabel class="px-edge">Collaborations</SectionLabel>
@@ -200,7 +200,7 @@ if (import.meta.env.DEV) {
       <li
         v-for="collab in collaborations"
         :key="collab.year + '-' + collab.title"
-        class="mx-edge pl-indent group flex flex-wrap items-baseline gap-x-[18px] gap-y-1 py-4 max-md:py-3.5"
+        class="mx-edge group flex flex-wrap items-baseline gap-x-[18px] gap-y-1 py-4 max-md:py-3.5"
       >
         <span class="mono-title group-hover:text-link transition-colors duration-200">
           {{ collab.title }}

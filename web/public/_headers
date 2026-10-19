@@ -12,7 +12,7 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; frame-src https://bandcamp.com https://w.soundcloud.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://bandcamp.com https://w.soundcloud.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 
 # The site's address is https://ioannissavvaidis.com. Keep the project's own pages.dev
 # host out of search results, so it never competes with it. (Preview deployments get

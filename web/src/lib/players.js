@@ -10,3 +10,8 @@
 // allow-top-navigation), forms, alert/confirm dialogs, downloads, pointer lock.
 export const PLAYER_SANDBOX =
   'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
+
+// The players' link colour, in the hex their embed URLs take: --color-link,
+// oklch(0.44 0.2 258), converted to sRGB. A frame can't read the page's CSS, so change
+// both together.
+export const PLAYER_LINK_COLOR = '0047bd';

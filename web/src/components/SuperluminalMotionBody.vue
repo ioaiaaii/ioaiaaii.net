@@ -17,27 +17,27 @@
 <template>
   <div class="prose">
     <p class="mb-paragraph">
-      Time dilation can't be felt from inside one's own motion. A clock keeps its usual rate, and
-      the difference shows only when it is compared with a clock that took another path through
-      spacetime. Around every event, light draws a past and a future cone, marking what could have
-      reached it and what it can reach in turn. Every observer agrees on these. The present is
-      different. Simultaneity is relative, and the hypersurface of events an observer counts as
-      happening now depends on the observer's motion.
+      Time dilation can’t be felt from inside one’s own motion. A clock keeps its own rate, and the
+      difference shows only when it is compared with a clock that took another path through
+      spacetime. Around every event, light draws past and future cones, marking what could have
+      reached it and what it could reach. Every observer agrees on which events lie within these
+      cones. The present is different. Simultaneity is relative, and the hypersurface of events an
+      observer considers to be happening now depends on the observer’s motion.
     </p>
 
     <p class="mb-paragraph">
-      In the Page–Wootters mechanism, time exists only between the parts of a universe that, as a
-      whole, never changes.
+      In the Page–Wootters mechanism, time exists only in the relations between parts of a universe
+      that, as a whole, never changes.
     </p>
 
     <div class="mb-paragraph">
-      The two-state vector formalism describes a system between two measurements by two states, one
-      coming forward from the first,
+      The two-state vector formalism describes a system between two measurements using two states,
+      one forward-evolving from the first,
       <math><mo stretchy="false">|</mo><mi>Ψ</mi><mo stretchy="false">⟩</mo></math
-      >, and one backward from the last,
+      >, and one backward-evolving from the last,
       <math><mo stretchy="false">⟨</mo><mi>Φ</mi><mo stretchy="false">|</mo></math
-      >. A weak measurement of a quantity <math><mi>A</mi></math> in between, too light to disturb
-      the system, finds on average a value shaped by both,
+      >. A weak measurement of a quantity <math><mi>A</mi></math> in between disturbs the system
+      only slightly. Its average result depends on both states, through the weak value
       <math display="block"
         ><msub><mi>A</mi><mi>w</mi></msub
         ><mo>=</mo
@@ -55,33 +55,33 @@
     </div>
 
     <p class="mb-paragraph">
-      Entangled systems, as Bell showed and experiments have confirmed, are correlated more strongly
-      than any local explanation allows, yet neither side can use this to send a signal faster than
-      light.
+      Entangled systems, as Bell showed and experiments have confirmed, are more strongly correlated
+      than any local explanation allows, yet neither side can use these correlations to send a
+      signal faster than light.
     </p>
 
     <p class="mb-paragraph">
-      In the jets of quasars, plasma moving close to the speed of light, almost toward us, appears
-      to cross the sky faster than light, which astronomers call <em>superluminal motion</em>. Its
-      later light has less distance to travel, so the motion looks compressed in time. Nothing in
-      the jet exceeds the speed of light.
+      In quasar jets, plasma moving close to the speed of light and almost toward us appears to
+      cross the sky faster than light, a phenomenon astronomers call <em>superluminal motion</em>.
+      Its later light has less distance to travel, so the motion looks compressed in time. Nothing
+      in the jet exceeds the speed of light.
     </p>
 
     <p class="mb-paragraph">
-      The causal order set by light remains intact even where it appears to give way. That
+      The causal order set by light remains intact, even where it appears to give way. That
       appearance is where the work begins.
     </p>
 
     <p class="mb-paragraph">
       From these physical descriptions, <em>Superluminal Motion</em> moves into speculation.
-      Existence is imagined as one whole that never changes, holding past, present and future at
-      once, with the line between them drawn only from inside, by each observer. Perceived reality
+      Existence is imagined as one whole that never changes, holding past, present, and future at
+      once, with the line between them drawn only from within, by each observer. Perceived reality
       becomes a structure of entangled states.
     </p>
 
     <p class="mb-paragraph">
-      <em>Superluminal Motion</em> is that structure, every hypersurface of the present illuminated
-      from both its past and its future.
+      <em>Superluminal Motion</em> is that structure, with every hypersurface of the present
+      illuminated from both its past and its future.
     </p>
 
     <p>Six pieces, recorded between 2021 and 2025.</p>

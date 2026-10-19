@@ -193,10 +193,9 @@ describe('works', () => {
 });
 
 describe('layout', () => {
-  // Everything starts on one line, after the + sign of a Works row (the indent): the
-  // works' titles, the Collaborations, Live's titles and Info's text. On a phone the
-  // indent goes: Live and Info start at the page edge, under the wordmark.
-  it('titles and text start on one line on every page', () => {
+  // Info's text, Live's dates and the Collaborations start at the page edge, under the
+  // wordmark. A work's title starts after its + sign, 31px in, on a phone too.
+  it('pages start at the page edge, works after the + sign', () => {
     const left = ($el) => Math.round($el[0].getBoundingClientRect().left);
     const starts = {};
     const record = (key, selector) =>
@@ -205,21 +204,25 @@ describe('layout', () => {
         .first()
         .then(($el) => (starts[key] = left($el)));
     [
-      [1440, 900, 31],
-      [375, 812, 0],
-    ].forEach(([w, h, indent]) => {
+      [1440, 900],
+      [375, 812],
+    ].forEach(([w, h]) => {
       cy.viewport(w, h);
       cy.visit('/works');
       record('mark', 'header a');
       cy.contains('#ethertype > button span', 'EtherType').then(($el) => (starts.work = left($el)));
+      cy.contains('main section', 'Collaborations')
+        .find('li > span')
+        .first()
+        .then(($el) => (starts.collab = left($el)));
       cy.visit('/live');
       record('live', 'main li > span');
       cy.visit('/');
       record('info', 'main p');
       cy.then(() => {
-        expect(starts.live, `Live at ${w}`).to.eq(starts.mark + indent);
-        expect(starts.info, `Info at ${w}`).to.eq(starts.mark + indent);
-        // The + sign stays on a phone, so a work's title keeps its 31px.
+        expect(starts.live, `Live at ${w}`).to.eq(starts.mark);
+        expect(starts.info, `Info at ${w}`).to.eq(starts.mark);
+        expect(starts.collab, `Collaborations at ${w}`).to.eq(starts.mark);
         expect(starts.work, `Works at ${w}`).to.eq(starts.mark + 31);
       });
     });
