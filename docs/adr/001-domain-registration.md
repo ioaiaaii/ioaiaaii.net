@@ -3,11 +3,11 @@
 ## Status
 
 Superseded on 2026-10-19 by [ADR 005](005-domain-ioannissavvaidis-com.md): the site moved
-to `ioannissavvaidis.com`, registered at Cloudflare Registrar.
+to ioannissavvaidis.com, registered at Cloudflare Registrar.
 
 ## Context
 
-The site needed a registrar for `ioaiaaii.net`.
+The site needed a registrar for ioaiaaii.net.
 
 ## Options considered
 
@@ -20,7 +20,7 @@ The site needed a registrar for `ioaiaaii.net`.
 
 ## Decision
 
-Register `ioaiaaii.net` at Squarespace and manage its DNS there for one year, then
+Register ioaiaaii.net at Squarespace and manage its DNS there for one year, then
 re-evaluate.
 
 ## Consequences

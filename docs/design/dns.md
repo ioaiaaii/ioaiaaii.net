@@ -1,98 +1,79 @@
 # DNS
 
-The domain `ioannissavvaidis.com` is a Cloudflare full-setup zone, registered at Cloudflare
-Registrar and served by `miki.ns.cloudflare.com` and `weston.ns.cloudflare.com`.
-Terraform manages every record. The two site records come from `deploy/iac/cloudflare`
-in this repository; the zone and the remaining records come from the `dns` unit in
-micro-infra (`iac/live/cloudflare/zones/ioannissavvaidis.com/dns`).
+ioannissavvaidis.com is registered at Cloudflare, and its DNS is hosted there too. Every
+record is in Terraform: the two site records in `deploy/iac/cloudflare`, and the rest in
+the dns unit of [micro-infra](https://github.com/ioaiaaii/micro-infra).
 
 ## Records
 
-| Name           | Type  | Content                                            | Proxied | Terraform               |
-| -------------- | ----- | -------------------------------------------------- | ------- | ----------------------- |
-| `@`            | CNAME | `ioaiaaii-net.pages.dev`                           | yes     | `deploy/iac/cloudflare` |
-| `www`          | CNAME | `ioannissavvaidis.com`                             | yes     | `deploy/iac/cloudflare` |
-| `@`            | CAA   | `0 issue` `letsencrypt.org`, `pki.goog`, `ssl.com` | no      | micro-infra `dns`       |
-| `@`            | MX    | `0 .`                                              | no      | micro-infra `dns`       |
-| `@`            | TXT   | `v=spf1 -all`                                      | no      | micro-infra `dns`       |
-| `*._domainkey` | TXT   | `v=DKIM1; p=`                                      | no      | micro-infra `dns`       |
-| `_dmarc`       | TXT   | `v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s`   | no      | micro-infra `dns`       |
+| Name           | Type  | Content                                        | Proxied |
+| -------------- | ----- | ---------------------------------------------- | ------- |
+| @              | CNAME | ioaiaaii-net.pages.dev                         | yes     |
+| www            | CNAME | ioannissavvaidis.com                           | yes     |
+| @              | CAA   | issue letsencrypt.org, pki.goog, ssl.com       | no      |
+| @              | MX    | 0 .                                            | no      |
+| @              | TXT   | v=spf1 -all                                    | no      |
+| \*.\_domainkey | TXT   | v=DKIM1; p=                                    | no      |
+| \_dmarc        | TXT   | v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s | no      |
 
-## Site hostnames
+## Proxied records
 
-The apex and `www` records are _proxied_: Cloudflare answers queries for them with the
-addresses of its own edge instead of the record content, and every request to the site
-passes through Cloudflare before Pages serves it. On 2026-10-19 both names resolved to
-`104.21.34.136` and `172.67.161.134`, plus two IPv6 addresses, with a TTL of 300 s.
-See [Proxy status](https://developers.cloudflare.com/dns/proxy-status/).
+The two site records are proxied. For a proxied record, Cloudflare does not give out
+the target; it answers with the addresses of its own servers, so every visitor goes
+through Cloudflare, where HTTPS, the headers and the redirects apply
+([proxy status](https://developers.cloudflare.com/dns/proxy-status/)).
 
-A CNAME at the apex conflicts with RFC 1034 §3.6.2, which allows no other data at a name
-that has a CNAME, and the apex carries the SOA and NS records. Cloudflare stores the
-record and answers with addresses, a behaviour it calls
-[CNAME flattening](https://developers.cloudflare.com/dns/cname-flattening/). The
-dashboard therefore shows a CNAME, and resolvers receive A and AAAA records.
+The apex record is also a CNAME, which DNS does not allow next to the zone's SOA and NS
+records (RFC 1034, section 3.6.2). Cloudflare follows it itself and answers with
+addresses, which it calls
+[CNAME flattening](https://developers.cloudflare.com/dns/cname-flattening/). So the
+dashboard shows a CNAME, and dig shows A and AAAA records.
 
-The zone settings that apply to proxied requests are in micro-infra:
+## Redirects and TLS
 
-- The `ssl-tls` unit turns on Always Use HTTPS, which answers `http://` requests with a 301 to
-  `https://`, and sets TLS 1.2 as the minimum version with TLS 1.3 on.
-- The `rules` unit contains the redirect rule that answers requests to `www` with a 301 to the
-  apex, keeping the path and query.
+Requests over http get a 301 to https, and requests to www get a 301 to the bare domain,
+keeping the path and query. TLS 1.0 and 1.1 are refused. These settings are in the
+ssl-tls and rules units of micro-infra.
 
-## Certificate authorities
+## Certificates
 
-The CAA records ([RFC 8659](https://www.rfc-editor.org/rfc/rfc8659)) list the
-certificate authorities that may issue for the domain: Let's Encrypt (`letsencrypt.org`),
-Google Trust Services (`pki.goog`) and SSL.com (`ssl.com`), the authorities Cloudflare
-uses for its certificates. When a zone on Cloudflare DNS has CAA records, Cloudflare
-adds records for its own authorities to the answer
-([SSL FAQ](https://developers.cloudflare.com/ssl/faq/#caa-records)). Resolvers
-therefore also receive `comodoca.com` and `digicert.com`, and an `issuewild` record for
-each authority. The added records appear in neither Terraform nor the dashboard.
+The CAA records allow Let's Encrypt, Google Trust Services and SSL.com to issue
+certificates for the domain. Because the zone has CAA records, Cloudflare adds its own
+certificate authorities when it answers
+([SSL FAQ](https://developers.cloudflare.com/ssl/faq/#caa-records)), so dig also shows
+comodoca.com and digicert.com. Those added records appear in neither Terraform nor the
+dashboard.
 
 ## Email
 
-The domain sends and receives no email, and its records state that to receiving mail
-servers:
+The domain sends and receives no email, and its records say so to other mail servers:
 
-- The MX record `0 .` is a _null MX_: the domain accepts no mail
+- The MX record "0 ." is a null MX: the domain accepts no mail
   ([RFC 7505](https://www.rfc-editor.org/rfc/rfc7505)).
-- The SPF record `v=spf1 -all` authorizes no host to send mail as the domain
+- The SPF record allows no server to send as the domain
   ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
-- The wildcard `*._domainkey` answers every DKIM selector with an empty `p=`, which
-  RFC 6376 §3.6.1 defines as a revoked key, so no DKIM signature for the domain
-  verifies.
-- The DMARC record publishes a `reject` policy for mail that fails DMARC, with strict
-  SPF and DKIM alignment. `sp=reject` extends the policy to subdomains; with no `np`
-  tag, it also applies to subdomains that do not exist
+- Every DKIM selector returns an empty key, which counts as revoked, so no signature
+  verifies (RFC 6376, section 3.6.1).
+- The DMARC policy is reject, with strict alignment, for the domain and its subdomains
   ([RFC 9989](https://www.rfc-editor.org/rfc/rfc9989)).
 
 ## DNSSEC
 
-The `dns` unit turns on DNSSEC (`cloudflare_zone_dnssec`). Cloudflare signs the zone
-with algorithm 13, ECDSA P-256 with SHA-256. For a domain on Cloudflare Registrar,
-Cloudflare publishes the DS record at the `.com` registry through CDS/CDNSKEY scanning,
-which it documents as taking one to two days
-([DNSSEC](https://developers.cloudflare.com/dns/dnssec/)). Until the DS record is
-published, resolvers do not validate the zone, Cloudflare reports the DNSSEC status as
-`pending`, and `terragrunt plan` in the `dns` unit shows `status = "pending" -> "active"`.
-That diff clears without an apply once the DS record is published.
+DNSSEC is on. Cloudflare signs the zone and, because the domain is registered with
+Cloudflare, publishes the DS record at the .com registry itself, which Cloudflare
+documents as taking one to two days ([DNSSEC](https://developers.cloudflare.com/dns/dnssec/)).
+Until then, resolvers do not check the signatures, and a plan of the dns unit shows the
+status changing from pending to active. That change clears without an apply.
 
-## Verify
+## Checks
 
-The DS record at the registry; the output is empty until Cloudflare publishes it:
+The DS record at the registry, empty until it is published:
 
 ```shell
 dig +short DS ioannissavvaidis.com @a.gtld-servers.net
 ```
 
-DNSSEC validation; once the DS record is published, the header flags include `ad`:
-
-```shell
-dig +dnssec ioannissavvaidis.com @1.1.1.1
-```
-
-The `www` redirect:
+The www redirect:
 
 ```shell
 curl -sI https://www.ioannissavvaidis.com/live

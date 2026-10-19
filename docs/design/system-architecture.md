@@ -1,32 +1,27 @@
 # System design
 
-ioannissavvaidis.com is a static single-page app. No server code runs at request time:
-the content is JSON bundled into the build, and Cloudflare Pages serves the built
-files. It replaced a Go backend for frontend on Kubernetes;
-[ADR 004](../adr/004-static-vue-cloudflare-pages.md) records why.
+The site is a static single-page app. Nothing runs on a server: the content is JSON
+compiled into the build, and Cloudflare Pages serves the files. It replaced a Go backend
+on Kubernetes; [ADR 004](../adr/004-static-vue-cloudflare-pages.md) records why.
 
-## Components
+## How a page loads
 
-- App: Vue 3 and Vue Router, with the routes `/` (Info), `/works` and `/live`, and a
-  not-found view for any other path. The router sets each page's title and meta tags.
-- Content: `web/src/data/{info,releases,live}.json`, imported by the views.
-- Logic: plain JavaScript modules in `web/src/lib/`, unit-tested with Vitest.
-- Styling: Tailwind CSS 4, with fonts self-hosted through Fontsource.
-- Players: Bandcamp and SoundCloud iframes on the Works page, sandboxed as set in
-  `web/src/lib/players.js`.
+1. The browser loads `index.html` and the compiled assets from Pages. Pages answers any
+   path that is not a file with `index.html`, because the build has no `404.html`.
+2. Vue Router picks the page (Info, Works, Live, or not found) and sets its title and
+   meta tags. The page reads its text from the bundled JSON, so content needs no
+   request.
+3. On Works, a Bandcamp or SoundCloud player loads only when the reader opens it. The
+   players run in sandboxed iframes, and the Content-Security-Policy allows frames from
+   those two sites only.
 
-## Request flow
+## Code
 
-1. The browser fetches `index.html` and the hashed assets from Pages. A path that is not
-   a file returns `index.html`, because the build has no `404.html`.
-2. Vue Router renders the route, and the view reads its content from the bundled JSON.
-   Content needs no network request.
-3. A player iframe loads from `bandcamp.com` or `w.soundcloud.com` only after the reader
-   opens that work's player. The Content-Security-Policy in `web/public/_headers`
-   allows frames from those two hosts and no others.
+- `web/src/views/`: one component per page.
+- `web/src/data/`: the content.
+- `web/src/lib/`: plain JavaScript logic, with unit tests.
+- `web/src/assets/css/tailwind.css`: the styles, on Tailwind CSS 4. The fonts are
+  self-hosted.
 
-## Delivery
-
-Build, deploy and the Terraform that manages the Pages project, the domain and this
-repository's settings are described in the [README](../../README.md#deployment). The
-zone's records and settings are described in [DNS](dns.md).
+Deploys and Terraform are described in the [README](../../README.md#deployment), and the
+zone in [DNS](dns.md).
