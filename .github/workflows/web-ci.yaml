@@ -85,12 +85,13 @@ jobs:
   # Development delivery: every green master push publishes a Cloudflare Pages
   # PREVIEW (master.ioaiaaii-net.pages.dev). Production is deployed from tags in
   # release.yaml — the project's production branch is "production", so --branch=master
-  # is always a preview.
+  # is always a preview. Its Cloudflare secrets come from the GitHub preview environment.
   deliver:
     needs: [build, e2e]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    environment: preview
     steps:
       - name: Download build output
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1

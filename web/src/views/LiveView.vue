@@ -1,44 +1,43 @@
 <script setup>
 import live from '@/data/live.json';
 import ActionLink from '@/components/ActionLink.vue';
-import SectionLabel from '@/components/SectionLabel.vue';
-import WorkRow from '@/components/WorkRow.vue';
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-// Split "YYYY-MM-DD" by hand rather than `new Date(str)`, which reads it as UTC
-// midnight and shifts the day one back in negative-offset zones — an Apr 16 gig
-// would show as Apr 15 in the Americas. MONTHS is fixed so the label is "Apr" for
-// every visitor, not locale-dependent. year is stringified for WorkRow's String prop.
+// The date as "DD.MM.YYYY" ("16.04.2026"), first on its row. Monospace and zero-padded,
+// so every date is the same width, even one written "2021-12-3", and the event names
+// line up after them. Split "YYYY-MM-DD" by hand
+// rather than `new Date(str)`, which reads it as UTC midnight and shifts the day one
+// back in negative-offset zones — an Apr 16 gig would show as Apr 15 in the Americas.
+const pad = (n) => String(n).padStart(2, '0');
 const performances = (live.performances || []).map((p) => {
-  const [y, m, d] = String(p.date).split('-').map(Number);
-  return { ...p, year: String(y), meta: `${String(d).padStart(2, '0')} ${MONTHS[m - 1]}` };
+  const [y, m, d] = String(p.date).split('-');
+  return { ...p, when: `${pad(d)}.${pad(m)}.${y}` };
 });
 </script>
 
 <template>
-  <h1 class="sr-only">Live performances</h1>
+  <h1 class="sr-only">Live</h1>
 
-  <!-- Same gutter, label and row tracks as Works, so the year and title columns and
-       the first row sit in the same place on both pages. Revealed as one block, like
-       each Works section. The reveal sits on this wrapper, never on WorkRow: the row
-       carries a hover-colour transition, and two transitions on one element don't
-       merge (one wins, dropping the fade). -->
-  <div v-reveal class="px-edge">
-    <SectionLabel>Performances</SectionLabel>
-
-    <!-- role="list": see WorksView — keeps the list and its count in Safari/VoiceOver. -->
+  <!-- Date, the event, then INFO ↗ / LISTEN ↗ at the right edge, as Collaborations'
+       VIEW ↗ is, newest first, all in one style. The dates start where the works' titles
+       do (pl-indent), and are all one width, so the events line up. When the links don't
+       fit beside the event (a long name, a phone), they wrap onto a line of their own,
+       still at the right, so the name keeps the column's full width. The list's heading
+       is for screen readers only. role="list": see WorksView. -->
+  <section v-reveal class="mx-edge">
+    <h2 class="sr-only">Performances</h2>
     <ul role="list">
-      <WorkRow
+      <li
         v-for="performance in performances"
         :key="performance.date + '-' + performance.title"
-        dense
-        :year="performance.year"
-        :title="performance.title"
-        :meta="performance.meta"
+        class="pl-indent grid grid-cols-[max-content_minmax(0,1fr)] items-baseline gap-x-[18px] py-4 max-md:py-3.5"
       >
-        <template #links>
-          <span v-if="performance.event_link || performance.listen_link" class="flex gap-3.5">
+        <span class="mono-meta">{{ performance.when }}</span>
+        <span class="flex min-w-0 flex-wrap items-baseline gap-x-[18px] gap-y-1">
+          <span class="mono-title text-ink">{{ performance.title }}</span>
+          <span
+            v-if="performance.event_link || performance.listen_link"
+            class="ml-auto flex gap-[18px]"
+          >
             <ActionLink
               v-if="performance.event_link"
               :href="performance.event_link"
@@ -54,8 +53,8 @@ const performances = (live.performances || []).map((p) => {
               Listen
             </ActionLink>
           </span>
-        </template>
-      </WorkRow>
+        </span>
+      </li>
     </ul>
-  </div>
+  </section>
 </template>

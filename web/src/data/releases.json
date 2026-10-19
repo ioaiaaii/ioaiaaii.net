@@ -1,5 +1,5 @@
 {
-  "_comment": "FINAL release list = 3 items. The following were REMOVED from the old repo releases.json during design: 'Celestial Electronics vol.1 Rozselini', 'Telepresence', 'Krama Installation 2021', 'Anisotropy'. Display order is newest-first as below. Each renders with a BUY link (bandcamp_link).",
+  "_comment": "FINAL release list = 3 items, the solo records. The shared releases removed from the old repo releases.json during design ('Celestial Electronics vol.1 Rozselini', 'Telepresence', 'Krama Installation 2021', 'Anisotropy') Telepresence and Anisotropy are back since 2026-10, under Collaborations in info.json; the two compilations stay off. Display order is newest-first as below. Each renders with a BUY link (bandcamp_link). A release with a bandcamp_album_id (the number in its Bandcamp embed code, album=…) also gets a LISTEN toggle that opens the Bandcamp player under it, with its tracklist; bandcamp_player_height is the height from that embed code (Bandcamp sizes it to the tracks: 142px + 33px per track).",
   "releases": [
     {
       "title": "Diataxis",
@@ -8,7 +8,9 @@
       "label": "JUNE Records",
       "discogs_link": "https://www.discogs.com/release/13775276-Ioannis-Savvaidis-Diataxis-",
       "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/diataxis",
-      "description": "Formalizes “Αναπαράσταση Δυνάμεων” (Representation of Forces, 1990), a painting by Anastasios Savvaidis, in the language of optical networks, where information moves as light. Its forces are taken as dimensions and dispersed as encoded signals, each carrying a fragment of the image. At the receiving point they are reassembled into a single whole, the Diataxis. Every piece is paired with a text of its own, written in Greek between engineering and lyricism, on a single principle of light transmission. The texts are published with the record, pressed on 12″ vinyl with an A3 poster of the painting."
+      "bandcamp_album_id": "2845458959",
+      "bandcamp_player_height": 274,
+      "description": "The record formalizes “Αναπαράσταση Δυνάμεων” (Representation of Forces, 1990), a painting by Anastasios Savvaidis, the composer's father, in the language of optical networks, where information moves as light. Its forces are taken as dimensions and dispersed as encoded signals, each carrying a fragment of the image. At the receiving point they are reassembled into a single whole, the Diataxis. Each piece starts from a text in Greek, written between engineering and lyricism. The texts are published with the record, pressed on 12″ vinyl with an A3 poster of the painting."
     },
     {
       "title": "DEC/PDC",
@@ -17,7 +19,9 @@
       "label": "JUNE Records",
       "discogs_link": "https://www.discogs.com/release/14420107-Ioannis-Savvaidis-DECPDC",
       "bandcamp_link": "https://ioannissavvaidis.bandcamp.com/album/dec-pdc",
-      "description": "Distributed computation leaves the one machine and spreads across many, with no center to hold it and no conductor to keep time. Two pieces, recorded live, their layered fragments merging and dissipating like processes across a network. A limited edition on transparent lathe-cut 7″ vinyl."
+      "bandcamp_album_id": "1166860690",
+      "bandcamp_player_height": 208,
+      "description": "Distributed computation leaves a single machine and spreads across many, with no center to hold it and no conductor to keep time. The two pieces were recorded live. A limited edition on transparent lathe-cut 7″ vinyl."
     },
     {
       "title": "NSA Trusted Networks",
@@ -26,7 +30,9 @@
       "label": "Lower Parts",
       "discogs_link": "https://www.discogs.com/release/9283679-Ioannis-Savvaidis-NSA-Trusted-Networks",
       "bandcamp_link": "https://lowerparts.bandcamp.com/album/nsa-trusted-networks-2",
-      "description": "The first record carries the vision of the early computing era, of freedom and the making of new realities. Four pieces move through the network and its data, a passage that feels trusted. Live-recorded with ’90s Yamaha synthesizers, pressed on 12″ vinyl with an A3 poster by Layer Based Human Activities."
+      "bandcamp_album_id": "2133087469",
+      "bandcamp_player_height": 307,
+      "description": "The first record carries the vision of the early computing era, of freedom and the making of new realities, in a network that feels trusted. The five pieces were recorded live with ’90s Yamaha synthesizers. Pressed on 12″ vinyl, with an A3 poster by Layer Based Human Activities."
     }
   ]
 }

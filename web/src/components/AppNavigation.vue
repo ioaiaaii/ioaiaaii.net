@@ -50,30 +50,28 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- Fixed and blended over the content; slides away on scroll-down and after a jump
-       to a linked work (without the slide for reduced motion). The bar itself is
-       click-through, so children opt back into pointer events. -->
+  <!-- Fixed over the content, white at 92% and lightly frosted, so it never sits on top
+       of text or an image unreadably. Slides away on scroll-down (past 80px) and after
+       a jump to a linked work, and back on scroll-up: 380ms on the standard curve
+       (ease-in-out). No slide for reduced motion. The current page is underlined in
+       the link blue; hover turns a link blue. -->
   <header
-    class="pointer-events-none px-edge fixed top-0 right-0 left-0 z-50 flex items-center justify-between py-3.5 pt-[max(14px,env(safe-area-inset-top))] mix-blend-multiply transition-transform duration-380 ease-in-out will-change-transform motion-reduce:transition-none sm:items-baseline sm:py-[34px] sm:pt-[34px]"
-    :class="{ '-translate-y-[115%]': !isNavbarVisible }"
+    class="px-edge bg-bg/92 text-nav tracking-mono fixed leading-[normal] top-0 right-0 left-0 z-50 flex items-baseline justify-between py-[34px] font-mono uppercase backdrop-blur-sm transition-transform duration-380 ease-in-out will-change-transform motion-reduce:transition-none max-md:py-3.5 max-md:pt-[max(14px,env(safe-area-inset-top))]"
+    :class="isNavbarVisible ? 'translate-y-0' : '-translate-y-[115%]'"
+    :data-hidden="isNavbarVisible ? null : ''"
     @focusin="isNavbarVisible = true"
   >
-    <router-link
-      to="/"
-      class="text-nav tracking-nav pointer-events-auto font-mono font-medium whitespace-nowrap text-inherit uppercase no-underline"
-    >
+    <router-link to="/" class="text-ink whitespace-nowrap no-underline">
       Ioannis Savvaidis
     </router-link>
 
-    <nav
-      class="text-nav tracking-nav pointer-events-auto flex gap-3 font-mono uppercase xs:gap-4 sm:gap-[18px] lg:gap-9"
-    >
+    <nav class="flex gap-9 max-md:gap-4">
       <router-link
         v-for="item in links"
         :key="item.name"
         :to="item.to"
-        class="text-ink after:bg-link hover:text-link relative py-1.5 no-underline after:absolute after:right-full after:bottom-0 after:left-0 after:h-px after:transition-[right] after:duration-280 after:ease-soft after:content-[''] hover:after:right-0 sm:py-0 sm:pb-0.5"
-        :class="{ 'opacity-40': $route.name === item.name }"
+        class="text-ink hover:text-link no-underline transition-colors duration-200"
+        :class="{ 'pb-[3px] shadow-[inset_0_-1px_0_var(--color-link)]': $route.name === item.name }"
       >
         {{ item.label }}
       </router-link>

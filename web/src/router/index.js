@@ -5,9 +5,8 @@ import LiveView from '@/views/LiveView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 
 const SITE = 'Ioannis Savvaidis';
-const ORIGIN = 'https://ioaiaaii.net';
-const HOME_DESCRIPTION =
-  'Ioannis Savvaidis, composer working through the Abstraction/Representation relation in computing paradigms.';
+const ORIGIN = 'https://ioannissavvaidis.com';
+const HOME_DESCRIPTION = 'Ioannis Savvaidis, composer of ambient and electro-acoustic music.';
 // Tab and search-result titles: every page, home included, leads with its own name,
 // so tabs stay distinguishable when the browser truncates them. index.html carries
 // the Info title too, for crawlers that don't run JS.
