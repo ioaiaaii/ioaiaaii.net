@@ -1,7 +1,8 @@
 <script setup>
 import info from '@/data/info.json';
-import portrait from '@/assets/images/live-portrait.jpg';
+import portrait from '@/assets/images/info/portrait.jpg';
 import { splitTerms } from '@/lib/terms';
+import ActionLink from '@/components/ActionLink.vue';
 import SectionLabel from '@/components/SectionLabel.vue';
 import TextLink from '@/components/TextLink.vue';
 
@@ -28,51 +29,46 @@ const socials = [
 <template>
   <h1 class="sr-only">Ioannis Savvaidis — composer</h1>
 
-  <div class="px-edge gap-column-stacked md:gap-column md:grid-cols-page grid items-start">
-    <!-- Left: profile + artistic approach -->
-    <div class="gap-stack flex flex-col">
-      <div v-reveal>
-        <SectionLabel>Profile</SectionLabel>
-        <p v-for="(paragraph, i) in paragraphs" :key="i" class="prose mb-paragraph last:mb-0">
-          <template v-for="(segment, j) in paragraph" :key="j">
-            <span v-if="segment.term" class="italic">{{ segment.text }}</span>
-            <template v-else>{{ segment.text }}</template>
-          </template>
-        </p>
-      </div>
+  <!-- Text | side column. Set in the prose font, so the text column is the prose
+       measure (66ch); the side column takes the rest, at least 260px. The text starts
+       where the works' titles do (pl-indent). On a phone, one column: the portrait,
+       the profile, then contact. -->
+  <div
+    class="mx-edge pl-indent gap-x-column text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(260px,1fr)] items-start pt-4 font-serif max-md:grid-cols-1"
+  >
+    <!-- Left: profile + artistic approach. Its label is for screen readers only. -->
+    <div v-reveal>
+      <SectionLabel class="sr-only">Profile</SectionLabel>
+      <p v-for="(paragraph, i) in paragraphs" :key="i" class="prose mb-paragraph">
+        <template v-for="(segment, j) in paragraph" :key="j">
+          <span v-if="segment.term" class="italic">{{ segment.text }}</span>
+          <template v-else>{{ segment.text }}</template>
+        </template>
+      </p>
     </div>
 
-    <!-- Right: portrait + contact, sticky once two-column. Stacked, the column
-         dissolves (`contents`) so its two children order independently in the page
-         grid: portrait first, profile, then contact last. -->
-    <div class="gap-aside md:top-sticky contents md:sticky md:flex md:flex-col">
-      <figure class="order-first md:order-none">
+    <!-- Right: portrait, then contact, sticky. On a phone the column dissolves
+         (`contents`) so its two children order independently in the page grid:
+         portrait first, the profile, then contact last. No caption. -->
+    <div class="top-sticky contents md:sticky md:flex md:flex-col md:gap-9">
+      <figure class="order-first max-md:mb-10 md:order-none">
         <img
           :src="portrait"
           alt="Ioannis Savvaidis performing live with synthesizers"
           width="753"
           height="565"
           decoding="async"
-          class="block h-auto w-full [filter:grayscale(0.15)_contrast(1.02)]"
+          class="max-w-figure block h-auto w-full md:ml-auto"
         />
       </figure>
 
-      <div v-reveal>
-        <SectionLabel>Contact</SectionLabel>
-
+      <div v-reveal class="max-w-figure flex w-full flex-col gap-3.5 max-md:mt-10 md:ml-auto">
+        <SectionLabel :spaced="false">Contact</SectionLabel>
         <TextLink :href="'mailto:' + info.email">{{ info.email }}</TextLink>
-
-        <div class="mt-[clamp(8px,1vw,12px)] flex flex-wrap gap-x-3 gap-y-2">
-          <a
-            v-for="social in socials"
-            :key="social.label"
-            :href="social.href"
-            target="_blank"
-            rel="noopener"
-            class="text-ink-soft text-social tracking-meta hover:text-link after:text-link font-mono uppercase no-underline transition-colors duration-160 after:ml-[0.4em] after:text-[0.83em] after:opacity-55 after:transition-opacity after:duration-160 after:content-['↗'] hover:after:opacity-100"
-          >
+        <div class="flex flex-wrap gap-x-[26px] gap-y-3">
+          <ActionLink v-for="social in socials" :key="social.label" :href="social.href">
             {{ social.label }}
-          </a>
+          </ActionLink>
         </div>
       </div>
     </div>

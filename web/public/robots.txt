@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ioaiaaii.net/sitemap.xml
+Sitemap: https://ioannissavvaidis.com/sitemap.xml

@@ -6,17 +6,15 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router';
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import AppNavigation from '@/components/AppNavigation.vue';
-import AppFooter from '@/components/AppFooter.vue';
 import { ANCHOR_JUMP_EVENT, SCROLL_ROOT_ID } from '@/lib/dom';
 import { revealNow } from '@/directives/reveal';
 
 const route = useRoute();
 const router = useRouter();
 const scrollContainer = ref(null);
-
-const showFooter = computed(() => route.name !== 'NotFound');
+const mainEl = ref(null);
 
 // A link to one work (/works#diataxis) lands on that row; every other navigation
 // starts at the top. The browser's own fragment jump can't be relied on: the row only
@@ -75,13 +73,30 @@ onUnmounted(() => {
 
 watch(() => route.fullPath, landOnRoute, { flush: 'post' });
 
+// The keyboard (Page Down, the arrows, space) scrolls whatever holds focus, and the
+// page scrolls this inner container, not the document. With focus on <body> after a
+// load, or on the header link just clicked, the keys went to the document, which
+// never scrolls, and did nothing until a click inside the page. So after a load and
+// every navigation, focus <main> unless focus is already inside it: the keys then
+// scroll the container, and a screen reader starts at the new page. A row picked on
+// Works holds focus inside <main> already, so it stays where the visitor put it.
+// preventScroll, so it never moves the view.
+function focusMain() {
+  const main = mainEl.value;
+  if (main && !main.contains(document.activeElement)) main.focus({ preventScroll: true });
+}
+onMounted(focusMain);
+watch(() => route.fullPath, focusMain, { flush: 'post' });
+
 // Clicking the row the URL already names is a duplicate navigation: the router drops
 // it and fullPath doesn't change, so the watcher never runs. Land on it anyway, like a
 // heading link clicked a second time. afterEach still fires, with the failure.
 const removeDuplicateHook = router.afterEach((to, from, failure) => {
-  if (to.hash && isNavigationFailure(failure, NavigationFailureType.duplicated)) {
-    landOnRoute();
-  }
+  if (!isNavigationFailure(failure, NavigationFailureType.duplicated)) return;
+  // The header link for the page already open: nothing navigates, but focus is on
+  // that link now, so bring it back into the page (see focusMain).
+  focusMain();
+  if (to.hash) landOnRoute();
 });
 onUnmounted(removeDuplicateHook);
 </script>
@@ -89,35 +104,29 @@ onUnmounted(removeDuplicateHook);
 <template>
   <AppNavigation />
 
-  <!-- The app scrolls this inner container, not the window. Column layout so the
-       footer settles at the bottom on short pages (main grows to fill).
+  <!-- The app scrolls this inner container, not the window.
        overflow-anchor:none: Chrome and Firefox otherwise shift scrollTop themselves
        when content above the viewport reflows (web fonts swapping in), knocking a
        linked row off its landing before the re-land in the script puts it back. -->
   <div
     :id="SCROLL_ROOT_ID"
     ref="scrollContainer"
-    class="fixed inset-0 z-10 flex flex-col overflow-x-hidden overflow-y-auto overscroll-contain [overflow-anchor:none]"
+    class="fixed inset-0 z-10 overflow-x-hidden overflow-y-auto overscroll-contain [overflow-anchor:none]"
   >
     <!-- The page shell lives here, not in each route: there should be exactly one
-         <main> landmark, and clearing the fixed header is a shell concern. This
-         string used to be duplicated byte-for-byte in all four route components,
-         so changing the header height meant four synchronised edits.
-         --clearance is that clearance, one value per breakpoint; <main> pads by it. --anchor-offset is where a linked Works row lands (WorkRow's
-         scroll-margin): at the top of the screen, like a heading link, with a small
-         gap. The header slides away after the jump (see AppNavigation), so this
-         doesn't have to clear it. -->
+         <main> landmark, and clearing the fixed header is a shell concern: 148px
+         above the page (84px on a phone), 120px below (96px). --anchor-offset is
+         where a linked Works row lands (WorkRow's scroll-margin): at the top of the
+         screen, like a heading link, with a small gap. The header slides away after
+         the jump (see AppNavigation), so this doesn't have to clear it.
+         tabindex="-1" lets the script focus it (see focusMain) without adding a tab
+         stop; outline-none, as it is a container, not a control. No footer. -->
     <main
-      class="landscape-short:[--clearance:--spacing(16)] pt-(--clearance) shrink-0 grow basis-auto [--anchor-offset:16px] [--clearance:84px] sm:[--anchor-offset:24px] sm:[--clearance:100px] lg:[--clearance:var(--spacing-stage)]"
+      ref="mainEl"
+      tabindex="-1"
+      class="pt-[148px] pb-[120px] outline-none [--anchor-offset:16px] max-md:pt-[84px] max-md:pb-[96px] md:[--anchor-offset:24px]"
     >
       <RouterView />
     </main>
-
-    <footer
-      v-if="showFooter"
-      class="px-edge pt-footer flex shrink-0 justify-end pb-[max(40px,env(safe-area-inset-bottom))]"
-    >
-      <AppFooter />
-    </footer>
   </div>
 </template>

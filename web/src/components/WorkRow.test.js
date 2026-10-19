@@ -1,79 +1,62 @@
-import { afterEach, describe, it, expect, vi } from 'vitest';
-import { mount, flushPromises } from '@vue/test-utils';
-import { createRouter, createMemoryHistory } from 'vue-router';
+import { describe, it, expect } from 'vitest';
+import { mount } from '@vue/test-utils';
 import WorkRow from './WorkRow.vue';
 
-// The row-click rules and the "current" marking are easy to break in a refactor and
-// only show up in a browser, so they are pinned here against a memory router.
-async function setup({ path = '/works', anchor = 'diataxis' } = {}) {
-  const router = createRouter({
-    history: createMemoryHistory(),
-    routes: [{ path: '/works', component: { render: () => null } }],
-  });
-  await router.push(path);
-  await router.isReady();
-  const wrapper = mount(WorkRow, {
-    props: { year: '2019', title: 'Diataxis', anchor },
-    // No href: clicking a real external link would make jsdom try to navigate.
-    slots: { links: '<a class="buy">Buy</a>' },
-    global: { plugins: [router] },
-  });
-  return { router, wrapper };
-}
-
-const at = (router) => router.currentRoute.value.fullPath;
-
-describe('WorkRow links', () => {
-  afterEach(() => vi.restoreAllMocks());
-
-  it('a click anywhere in the row sets the URL to the work', async () => {
-    const { router, wrapper } = await setup();
-    await wrapper.find('li > div').trigger('click'); // the year cell
-    await flushPromises();
-    expect(at(router)).toBe('/works#diataxis');
+// The disclosure's wiring (the head as a button that names its body, the body inert
+// while closed, the toggle left to the parent) is easy to break in a refactor and
+// only shows up with a keyboard or a screen reader, so it is pinned here.
+const row = (props = {}, slots = {}) =>
+  mount(WorkRow, {
+    props: { anchor: 'diataxis', year: '2019', title: 'Diataxis', meta: 'JUNE Records', ...props },
+    slots,
   });
 
-  it("leaves the row's own links alone", async () => {
-    const { router, wrapper } = await setup();
-    await wrapper.find('a.buy').trigger('click');
-    await flushPromises();
-    expect(at(router)).toBe('/works');
+describe('WorkRow', () => {
+  it('is one line closed: the title, then "META, YEAR", in a button', () => {
+    const head = row().get('li > button');
+    expect(head.attributes('type')).toBe('button');
+    expect(head.text()).toContain('Diataxis');
+    expect(head.text()).toContain('JUNE Records, 2019');
   });
 
-  it('ignores modified clicks', async () => {
-    const { router, wrapper } = await setup();
-    await wrapper.find('li > div').trigger('click', { metaKey: true });
-    await flushPromises();
-    expect(at(router)).toBe('/works');
+  it('takes the anchor as its id, for /works#diataxis', () => {
+    expect(row().get('li').attributes('id')).toBe('diataxis');
   });
 
-  it('ignores a click that ends a text selection', async () => {
-    const { router, wrapper } = await setup();
-    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected words' });
-    await wrapper.find('li > div').trigger('click');
-    await flushPromises();
-    expect(at(router)).toBe('/works');
+  it('names its body, which is inert while closed', () => {
+    const wrapper = row();
+    const head = wrapper.get('li > button');
+    expect(head.attributes('aria-expanded')).toBe('false');
+    expect(head.attributes('aria-controls')).toBe('diataxis-body');
+    expect(wrapper.get('#diataxis-body').attributes()).toHaveProperty('inert');
   });
 
-  it('marks only the linked row as the current location, never "page"', async () => {
-    const linked = await setup({ path: '/works#diataxis' });
-    expect(linked.wrapper.get('a[href="/works#diataxis"]').attributes('aria-current')).toBe(
-      'location',
+  it('opens when the parent says so', () => {
+    const wrapper = row({ open: true });
+    expect(wrapper.get('li > button').attributes('aria-expanded')).toBe('true');
+    expect(wrapper.get('#diataxis-body').attributes()).not.toHaveProperty('inert');
+  });
+
+  it('leaves opening to the parent: a click on the head only asks', async () => {
+    const wrapper = row();
+    await wrapper.get('li > button').trigger('click');
+    expect(wrapper.emitted('toggle')).toHaveLength(1);
+    expect(wrapper.get('li > button').attributes('aria-expanded')).toBe('false');
+  });
+
+  it('sets the description with its terms in italic, then the actions and the image', () => {
+    const wrapper = row(
+      { desc: 'A record called Diataxis.', terms: ['Diataxis'], open: true },
+      { actions: '<a class="buy">Buy</a>', media: '<img class="cover">' },
     );
-    expect(linked.wrapper.get('li').classes()).toContain('bg-row-hover');
-
-    const other = await setup({ path: '/works#dec-pdc' });
-    expect(
-      other.wrapper.get('a[href="/works#diataxis"]').attributes('aria-current'),
-    ).toBeUndefined();
-    expect(other.wrapper.get('li').classes()).not.toContain('bg-row-hover');
+    const body = wrapper.get('#diataxis-body');
+    expect(body.get('p span.italic').text()).toBe('Diataxis');
+    expect(body.find('a.buy').exists()).toBe(true);
+    expect(body.find('img.cover').exists()).toBe(true);
   });
 
-  it('a row without an anchor has no title link and no click behaviour', async () => {
-    const { router, wrapper } = await setup({ anchor: null });
-    expect(wrapper.find('a[href^="/works#"]').exists()).toBe(false);
-    await wrapper.find('li > div').trigger('click');
-    await flushPromises();
-    expect(at(router)).toBe('/works');
+  it('marks a Greek title as Greek, so it uppercases without accents', () => {
+    const wrapper = row({ anchor: 'desmi-fotos', title: 'Δέσμη Φωτός' });
+    expect(wrapper.get('li > button span[lang="el"]').text()).toBe('Δέσμη Φωτός');
   });
 });

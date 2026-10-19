@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue';
-import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { splitTerms } from '@/lib/terms';
 import SuperluminalMotionBody from '@/components/SuperluminalMotionBody.vue';
 
@@ -11,26 +10,27 @@ const BODY_COMPONENTS = {
   'superluminal-motion': SuperluminalMotionBody,
 };
 
-// One ledger row, shared by Works and Live.
-// `dense` is the Live variant: the same year track and column gap as Works (so the
-// titles line up across pages), its own wide tracks, tighter rows, a smaller
-// non-uppercase title, no description.
+// One Works row, a + disclosure. Closed, it is one line: the + sign, the title, then
+// "META, YEAR" (a release's label, a work's "Unreleased": "JUNE RECORDS, 2019"). The
+// line is a button that opens the row's body: its description (or rich body), its actions and, once Listen
+// is pressed, its player on the left, and its image on the right. The parent owns
+// which rows are open (`open`) and hears `toggle`, so it can open the row a link names
+// and close a row's player with it.
 const props = defineProps({
+  // The row's link anchor (/works#diataxis): its id, and the base of its body's id.
+  anchor: { type: String, required: true },
   year: { type: String, required: true },
   title: { type: String, required: true },
-  desc: { type: String, default: null },
   meta: { type: String, default: null },
-  dense: { type: Boolean, default: false },
-  // Phrases to italicise in `desc` — the same site-wide list Info uses. Empty for
-  // Live, which has no descriptions.
+  desc: { type: String, default: null },
+  // Phrases to italicise in `desc`: the same site-wide list Info uses.
   terms: { type: Array, default: () => [] },
   // A key into BODY_COMPONENTS, for works with a rich body instead of a plain desc.
   body: { type: String, default: null },
-  // The row's link anchor (/works#diataxis). Set, the row takes it as its id and its
-  // title links to it, so clicking the title, or anywhere in the row, puts that work's
-  // link in the address bar.
-  anchor: { type: String, default: null },
+  open: { type: Boolean, default: false },
 });
+
+defineEmits(['toggle']);
 
 const bodyComponent = computed(() => (props.body ? (BODY_COMPONENTS[props.body] ?? null) : null));
 
@@ -43,6 +43,8 @@ if (import.meta.env.DEV && props.body && !BODY_COMPONENTS[props.body]) {
 }
 
 const descSegments = computed(() => (props.desc ? splitTerms(props.desc, props.terms) : []));
+const metaLine = computed(() => [props.meta, props.year].filter(Boolean).join(', '));
+const bodyId = computed(() => `${props.anchor}-body`);
 
 // Greek drops its accents when uppercased — Δέσμη Φωτός sets as ΔΕΣΜΗ ΦΩΤΟΣ. The
 // browser only applies that rule when it knows the text is Greek; under the page's
@@ -51,106 +53,91 @@ const descSegments = computed(() => (props.desc ? splitTerms(props.desc, props.t
 // its accents and only the rendering needs the hint. It also stops a screen reader
 // from reading Greek as if it were English.
 const titleLang = computed(() => (/[Ͱ-Ͽ]/.test(props.title) ? 'el' : null));
-
-// The row's link, and whether the current URL points at it: that row is tinted and
-// its title marked aria-current, so a visitor arriving from a shared link sees which
-// work it meant.
-const route = useRoute();
-const router = useRouter();
-const to = computed(() => ({ hash: `#${props.anchor}` }));
-const current = computed(() => !!props.anchor && route.hash === to.value.hash);
-
-// The whole row is a click target for its link, as a mouse convenience; the title
-// stays the real link for keyboard and screen readers. Clicks on the row's own links
-// (the title, Buy/Listen), modified clicks, and a click that ends a text selection are
-// left alone, so those still work and a visitor can select part of a description.
-function onRowClick(event) {
-  if (event.target.closest('a')) return;
-  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  if (window.getSelection()?.toString()) return;
-  router.push(to.value);
-}
 </script>
 
 <template>
-  <!-- <li>, not <article>: a ledger row is an item in a list, not independently
-       distributable content. The <ul> in Works/Live gives a screen reader the
-       count and item-by-item navigation. -->
-  <!-- The hover tint bleeds past the text: to the screen edges on phones, and a fixed
-       16px either side from `md` up. The row's own padding cancels the negative
-       margin, so the text never moves. -->
-  <!-- An anchored row scrolls in by <main>'s --anchor-offset (set in App.vue), so a
-       linked work lands at the top of the screen, like a heading link, as the
-       header slides away.
-       Only an anchored row gets the click listener: a listener on Live and
-       Collaborations rows would have screen readers announce them as clickable. -->
-  <li
-    :id="anchor"
-    v-on="anchor ? { click: onRowClick } : {}"
-    class="hover:bg-row-hover -mx-edge px-edge grid-cols-work-stack gap-x-row grid items-baseline transition-colors duration-200 md:-mx-4 md:px-4"
-    :class="[
-      dense
-        ? 'gap-y-1 py-[18px] lg:grid-cols-work-dense lg:gap-y-0'
-        : 'gap-y-2.5 py-[26px] lg:grid-cols-work-narrow',
-      { 'scroll-mt-(--anchor-offset) cursor-pointer': anchor, 'bg-row-hover': current },
-    ]"
-  >
-    <div
-      class="text-ink-soft text-meta tracking-meta font-mono uppercase"
-      :class="{ 'pt-px': !dense }"
+  <!-- <li>, not <article>: a row is an item in a list; the <ul> in Works gives a screen
+       reader the count. A linked row scrolls in by <main>'s --anchor-offset (App.vue),
+       so it lands at the top of the screen, like a heading link. -->
+  <li :id="anchor" class="mx-edge scroll-mt-(--anchor-offset)">
+    <!-- The head. Hover or open turns the title blue; the + turns 90° on hover, 45°
+         (an ×) when open, and 135° on hover when open. The + keeps its own column, so
+         when a long title pushes "META, YEAR" onto a second line (on a phone), that
+         line starts under the title, not under the +. The title starts 31px in: the
+         11px sign and a 20px gap (--spacing-indent). -->
+    <button
+      type="button"
+      class="group flex w-full cursor-pointer items-start gap-x-5 py-4 text-left max-md:py-3.5"
+      :aria-expanded="open ? 'true' : 'false'"
+      :aria-controls="bodyId"
+      @click="$emit('toggle')"
     >
-      {{ year }}
-    </div>
-
-    <div
-      :lang="titleLang"
-      class="min-w-0 font-mono"
-      :class="
-        dense
-          ? 'text-meta tracking-meta leading-dense font-normal'
-          : 'text-title tracking-title leading-title font-medium uppercase'
-      "
-    >
-      <!-- RouterLink marks every title aria-current="page": its active check ignores the
-           hash, and every title links to /works. Overridden so only the row the URL
-           points at is marked, as the current location within the page. -->
-      <RouterLink
-        v-if="anchor"
-        :to="to"
-        :aria-current="current ? 'location' : null"
-        class="hover:text-link transition-colors duration-200"
+      <!-- The + sign: two 1px bars, centred on the title's first line (its box is one
+           title line tall). -->
+      <span
+        aria-hidden="true"
+        class="flex h-[calc(var(--text-row)*var(--leading-title))] flex-none items-center"
       >
-        {{ title }}
-      </RouterLink>
-      <template v-else>{{ title }}</template>
-    </div>
+        <span
+          class="text-link ease-soft relative size-[11px] transition-transform duration-400 before:absolute before:top-1/2 before:left-1/2 before:h-px before:w-[11px] before:-translate-1/2 before:bg-current before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:h-[11px] after:w-px after:-translate-1/2 after:bg-current after:content-[''] motion-reduce:transition-none"
+          :class="open ? 'rotate-45 group-hover:rotate-[135deg]' : 'group-hover:rotate-90'"
+        />
+      </span>
+      <span class="flex min-w-0 flex-wrap items-baseline gap-x-[18px] gap-y-1">
+        <span
+          :lang="titleLang"
+          class="mono-title group-hover:text-link min-w-0 transition-colors duration-200"
+          :class="open ? 'text-link' : 'text-ink'"
+        >
+          {{ title }}
+        </span>
+        <span class="mono-meta">{{ metaLine }}</span>
+      </span>
+    </button>
 
-    <!-- Runs from the title column through the links column to the row's end, on its
-         own line. Year/title/links are a header; the description is prose and wants
-         the full measure, which it cannot reach boxed into the title's column. It
-         precedes the links in the DOM so it claims the row under the title — the
-         links then explicitly return to row 1 once the third column exists. -->
-    <p v-if="desc" class="prose col-start-2 col-end-[-1]">
-      <template v-for="(segment, i) in descSegments" :key="i">
-        <span v-if="segment.term" class="italic">{{ segment.text }}</span>
-        <template v-else>{{ segment.text }}</template>
-      </template>
-    </p>
-
-    <!-- Rich body (prose + typeset maths) in the description's slot, for the one work
-         that needs it. Never in the dense (Live) variant. -->
-    <component
-      :is="bodyComponent"
-      v-if="bodyComponent && !dense"
-      class="col-start-2 col-end-[-1]"
-    />
-
+    <!-- The body opens by its grid row, 0fr → 1fr, and its content fades in a moment
+         after, rising 6px. Closed, it is inert: out of the tab order and hidden from
+         screen readers, and its lazy image isn't fetched. -->
     <div
-      class="text-ink-soft text-meta tracking-meta col-start-2 col-end-[-1] flex items-baseline font-mono uppercase lg:col-start-3 lg:col-end-auto lg:row-start-1"
-      :class="dense ? 'gap-side-dense' : 'gap-side pt-px'"
+      :id="bodyId"
+      class="ease-soft grid transition-[grid-template-rows] duration-500 motion-reduce:transition-none"
+      :class="open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+      :inert="open ? null : true"
     >
-      <span v-if="meta" class="text-muted" :class="dense ? 'min-w-[52px]' : ''">{{ meta }}</span>
-      <slot name="links" />
+      <div class="min-h-0 overflow-hidden">
+        <!-- Text | image. Set in the prose font, so the text column is the prose
+             measure (66ch); the image column takes the rest, at least 240px, so on a
+             narrower window the text gives way first. The text starts after the + sign
+             (pl-indent). On a phone, one column, the image first, no indent. -->
+        <div
+          class="gap-x-column pl-indent text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(240px,1fr)] pt-2.5 pb-12 font-serif [transition:opacity_400ms_ease,translate_500ms_var(--ease-soft)] max-md:grid-cols-1 max-md:pb-10 motion-reduce:transition-none"
+          :class="
+            open
+              ? 'translate-y-0 opacity-100 [transition-delay:80ms]'
+              : '-translate-y-1.5 opacity-0'
+          "
+        >
+          <div class="min-w-0">
+            <p v-if="desc" class="prose">
+              <template v-for="(segment, i) in descSegments" :key="i">
+                <span v-if="segment.term" class="italic">{{ segment.text }}</span>
+                <template v-else>{{ segment.text }}</template>
+              </template>
+            </p>
+            <component :is="bodyComponent" v-else-if="bodyComponent" />
+
+            <div v-if="$slots.actions" class="mt-[30px] flex flex-wrap gap-x-[26px] gap-y-3">
+              <slot name="actions" />
+            </div>
+
+            <slot name="player" />
+          </div>
+
+          <div v-if="$slots.media" class="min-w-0 max-md:order-first max-md:mb-6">
+            <slot name="media" />
+          </div>
+        </div>
+      </div>
     </div>
   </li>
 </template>

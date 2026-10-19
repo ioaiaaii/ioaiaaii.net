@@ -1,5 +1,6 @@
 <script setup>
-// The tracked mono caps that head each section ("Profile", "Releases", …).
+// The grey mono caps that head a section ("Collaborations", "Contact"), in the row
+// details' style.
 // This class string used to be pasted into four places and had already drifted:
 // NotFound's copy dropped the margin (its parent uses a gap instead) and is an
 // <h1>, since there the label *is* the page heading. Both differences are props
@@ -15,11 +16,7 @@ defineProps({
 </script>
 
 <template>
-  <component
-    :is="as"
-    class="text-ink-soft text-label tracking-label font-mono font-medium uppercase"
-    :class="spaced ? 'mb-4 md:mb-5' : ''"
-  >
+  <component :is="as" class="mono-label" :class="spaced ? 'mb-5' : ''">
     <slot />
   </component>
 </template>

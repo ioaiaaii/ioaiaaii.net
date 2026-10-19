@@ -38,9 +38,9 @@ export default [
 
   {
     ...pluginVitest.configs.recommended,
-    // Tests sit next to their subject as src/lib/*.test.js — they are not in a
-    // __tests__/ directory, which the old glob assumed, so these rules matched
-    // nothing at all.
+    // Tests sit next to their subject as *.test.js (src/lib, src/components,
+    // src/router) — they are not in a __tests__/ directory, which the old glob
+    // assumed, so these rules matched nothing at all.
     files: ['src/**/*.test.js'],
   },
 
