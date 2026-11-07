@@ -11,7 +11,7 @@ const BODY_COMPONENTS = {
 };
 
 // One Works row, a + disclosure. Closed, it is one line: the + sign, the title, then
-// "META, YEAR" (a release's label, a work's "Unreleased": "JUNE RECORDS, 2019"). The
+// "META, YEAR" (a release's label: "JUNE RECORDS, 2019"; a work in progress has the year alone). The
 // line is a button that opens the row's body: its description (or rich body), its actions and, once Listen
 // is pressed, its player on the left, and its image on the right. The parent owns
 // which rows are open (`open`) and hears `toggle`, so it can open the row a link names
@@ -106,7 +106,7 @@ const titleLang = computed(() => (/[Ͱ-Ͽ]/.test(props.title) ? 'el' : null));
              narrower window the text gives way first. The text starts after the + sign
              (pl-indent). On a phone, one column, the image first, no indent. -->
         <div
-          class="gap-x-column pl-indent text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(240px,1fr)] pt-2.5 pb-12 font-serif [transition:opacity_400ms_ease,translate_500ms_var(--ease-soft)] max-md:grid-cols-1 max-md:pb-10 motion-reduce:transition-none"
+          class="gap-x-column pl-indent text-body grid grid-cols-[minmax(0,var(--container-measure))_minmax(240px,1fr)] pt-2.5 pb-12 font-sans [transition:opacity_400ms_ease,translate_500ms_var(--ease-soft)] max-md:grid-cols-1 max-md:pb-10 motion-reduce:transition-none"
           :class="
             open
               ? 'translate-y-0 opacity-100 [transition-delay:80ms]'

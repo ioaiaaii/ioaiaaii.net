@@ -1,5 +1,5 @@
 // Split prose into plain/term segments so the phrases in `terms` can render
-// as inline emphasis (Newsreader italic) without v-html.
+// as inline emphasis (italic) without v-html.
 // Returns an ordered list of { text, term } segments; joining every `text`
 // reproduces the original string exactly.
 

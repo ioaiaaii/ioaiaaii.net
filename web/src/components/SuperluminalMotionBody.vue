@@ -89,9 +89,12 @@
 </template>
 
 <style scoped>
-/* Inline symbols sit on the baseline at prose size. */
+/* Inline symbols sit on the baseline at prose size. The maths is set in the browser's
+   maths font, so the body's Mona Sans features (ss05, no liga) are turned off here:
+   in another font those tags can mean other glyphs. */
 math {
   font-size: 1em;
+  font-feature-settings: normal;
 }
 /* A display equation gets its own line, left-flush with the prose. Block MathML
    centres its content and ignores `text-align`, so shrink the box to its content and

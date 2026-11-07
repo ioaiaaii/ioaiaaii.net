@@ -6,13 +6,17 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router';
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import AppNavigation from '@/components/AppNavigation.vue';
+import AppFooter from '@/components/AppFooter.vue';
 import { ANCHOR_JUMP_EVENT, SCROLL_ROOT_ID } from '@/lib/dom';
 import { revealNow } from '@/directives/reveal';
 
 const route = useRoute();
 const router = useRouter();
+
+// The footer (contact) is on Info only.
+const hasFooter = computed(() => route.name === 'Info');
 const scrollContainer = ref(null);
 const mainEl = ref(null);
 
@@ -107,26 +111,37 @@ onUnmounted(removeDuplicateHook);
   <!-- The app scrolls this inner container, not the window.
        overflow-anchor:none: Chrome and Firefox otherwise shift scrollTop themselves
        when content above the viewport reflows (web fonts swapping in), knocking a
-       linked row off its landing before the re-land in the script puts it back. -->
+       linked row off its landing before the re-land in the script puts it back.
+       A column, with <main> taking the height left over: on a page shorter than the
+       screen the footer sits at the bottom of the screen, not right under the page.
+       <main> is a column too, so a page can take that height (Info centres its photo
+       in it). -->
   <div
     :id="SCROLL_ROOT_ID"
     ref="scrollContainer"
-    class="fixed inset-0 z-10 overflow-x-hidden overflow-y-auto overscroll-contain [overflow-anchor:none]"
+    class="fixed inset-0 z-10 flex flex-col overflow-x-hidden overflow-y-auto overscroll-contain [overflow-anchor:none]"
   >
     <!-- The page shell lives here, not in each route: there should be exactly one
-         <main> landmark, and clearing the fixed header is a shell concern: 148px
-         above the page (84px on a phone), 120px below (96px). --anchor-offset is
-         where a linked Works row lands (WorkRow's scroll-margin): at the top of the
-         screen, like a heading link, with a small gap. The header slides away after
-         the jump (see AppNavigation), so this doesn't have to clear it.
+         <main> landmark, and clearing the fixed header is a shell concern: 100px
+         above the page (64px on a phone, growing with the header on a notched one).
+         The footer is on Info only (the user's pick, 2026-11-07). There the page ends
+         the site's one space above it (--spacing-section: 49px, 36px on a phone). The
+         other pages have no footer and end with the room they had before it, 120px
+         (96px on a phone).
+         --anchor-offset is where a linked Works row lands (WorkRow's scroll-margin):
+         at the top of the screen, like a heading link, with a small gap. The header
+         slides away after the jump (see AppNavigation), so this doesn't have to clear
+         it.
          tabindex="-1" lets the script focus it (see focusMain) without adding a tab
-         stop; outline-none, as it is a container, not a control. No footer. -->
+         stop; outline-none, as it is a container, not a control. -->
     <main
       ref="mainEl"
       tabindex="-1"
-      class="pt-[148px] pb-[120px] outline-none [--anchor-offset:16px] max-md:pt-[84px] max-md:pb-[96px] md:[--anchor-offset:24px]"
+      class="flex flex-1 shrink-0 flex-col pt-[100px] outline-none [--anchor-offset:16px] max-md:pt-[max(64px,env(safe-area-inset-top)+50px)] md:[--anchor-offset:24px]"
+      :class="hasFooter ? 'pb-section' : 'pb-[120px] max-md:pb-[96px]'"
     >
       <RouterView />
     </main>
+    <AppFooter v-if="hasFooter" class="shrink-0" />
   </div>
 </template>

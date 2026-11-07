@@ -70,8 +70,8 @@ onBeforeUnmount(() => {
         v-for="item in links"
         :key="item.name"
         :to="item.to"
-        class="text-ink hover:text-link no-underline transition-colors duration-200"
-        :class="{ 'pb-[3px] shadow-[inset_0_-1px_0_var(--color-link)]': $route.name === item.name }"
+        class="text-ink hover:text-link pb-[3px] no-underline transition-colors duration-200"
+        :class="{ 'shadow-[inset_0_-1px_0_var(--color-link)]': $route.name === item.name }"
       >
         {{ item.label }}
       </router-link>

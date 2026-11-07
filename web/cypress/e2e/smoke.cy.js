@@ -14,17 +14,17 @@ const landedOn = (id) =>
   });
 
 describe('pages', () => {
-  // Info's Profile, Works' Releases and Live's Performances are headings for screen
-  // readers only (sr-only), so those are checked to exist, not to be seen.
+  // Info's page heading and Live's Performances are for screen readers only (sr-only),
+  // so those are checked to exist, not to be seen. Works' are visible labels.
   [
-    ['/', 'Info - Ioannis Savvaidis', 'Profile', 'exist'],
-    ['/works', 'Works - Ioannis Savvaidis', 'Releases', 'exist'],
-    ['/live', 'Live - Ioannis Savvaidis', 'Performances', 'exist'],
-  ].forEach(([path, title, label, state]) => {
+    ['/', 'Info - Ioannis Savvaidis', 'h1', 'Ioannis Savvaidis', 'exist'],
+    ['/works', 'Works - Ioannis Savvaidis', 'h2', 'Releases', 'be.visible'],
+    ['/live', 'Live - Ioannis Savvaidis', 'h2', 'Performances', 'exist'],
+  ].forEach(([path, title, heading, label, state]) => {
     it(`${path} renders with its tab title`, () => {
       cy.visit(path);
       cy.title().should('eq', title);
-      cy.contains('h2', label).should(state);
+      cy.contains(heading, label).should(state);
     });
   });
 
@@ -85,6 +85,23 @@ describe('works', () => {
     cy.document().then((doc) => doc.fonts.ready);
     scrollRoot().then(($root) => $root[0].scrollBy(0, -200));
     cy.get('header').should('not.have.attr', 'data-hidden');
+  });
+
+  // Three lists, each under its label. A release shows "LABEL, YEAR", a work in
+  // progress the year alone, as its heading says the rest.
+  it('splits Works into Releases, In Progress and Collaborations', () => {
+    cy.visit('/works');
+    cy.get('main section > h2').then(($labels) => {
+      expect([...$labels].map((label) => label.textContent.trim())).to.deep.eq([
+        'Releases',
+        'In Progress',
+        'Collaborations',
+      ]);
+    });
+    cy.contains('main section', 'Releases').find('#diataxis').should('exist');
+    cy.get('#diataxis > button .mono-meta').should('have.text', 'JUNE Records, 2019');
+    cy.contains('main section', 'In Progress').find('#ethertype').should('exist');
+    cy.get('#ethertype > button .mono-meta').should('have.text', '2024');
   });
 
   // Closed, a row is one line and its body is inert. Open (+ → ×), its text sits on
@@ -193,8 +210,8 @@ describe('works', () => {
 });
 
 describe('layout', () => {
-  // Info's text, Live's dates and the Collaborations start at the page edge, under the
-  // wordmark. A work's title starts after its + sign, 31px in, on a phone too.
+  // Live's dates and the Collaborations start at the page edge, under the wordmark. A
+  // work's title starts after its + sign, 31px in, on a phone too.
   it('pages start at the page edge, works after the + sign', () => {
     const left = ($el) => Math.round($el[0].getBoundingClientRect().left);
     const starts = {};
@@ -217,24 +234,66 @@ describe('layout', () => {
         .then(($el) => (starts.collab = left($el)));
       cy.visit('/live');
       record('live', 'main li > span');
-      cy.visit('/');
-      record('info', 'main p');
       cy.then(() => {
         expect(starts.live, `Live at ${w}`).to.eq(starts.mark);
-        expect(starts.info, `Info at ${w}`).to.eq(starts.mark);
         expect(starts.collab, `Collaborations at ${w}`).to.eq(starts.mark);
         expect(starts.work, `Works at ${w}`).to.eq(starts.mark + 31);
       });
     });
   });
 
-  // The + keeps its own column: when a long title pushes its "YEAR · META" onto a
+  // Works, Live and the 404 start their first line at one height, 116px down on a
+  // desktop and 80px on a phone (<main>'s padding and the page's 16px, or a row's).
+  it('pages start at one height', () => {
+    const top = ($el) => $el[0].getBoundingClientRect().top;
+    [
+      [1440, 900, 116],
+      [375, 812, 80],
+    ].forEach(([w, h, start]) => {
+      const near = (selector, what) =>
+        cy
+          .get(selector)
+          .first()
+          .should(($el) => {
+            expect(Math.abs(top($el) - start), `${what} at ${w}`).to.be.at.most(2);
+          });
+      cy.viewport(w, h);
+      cy.visit('/works');
+      near('main section > h2', 'Works label');
+      cy.visit('/live');
+      near('main li > span', 'Live date');
+      cy.visit('/no-such-page');
+      near('main h1', '404 heading');
+    });
+  });
+
+  // Every list row is the same height, whether it holds a + sign, a link or neither:
+  // the action links sit at the title's line height (the action-link utility).
+  it('gives every list row the same height', () => {
+    cy.viewport(1440, 900);
+    const pitches = [];
+    const collect = (selector) =>
+      cy.get(selector).then(($els) => {
+        const tops = [...$els].map((el) => el.getBoundingClientRect().top);
+        tops.slice(1).forEach((t, i) => pitches.push(t - tops[i]));
+      });
+    cy.visit('/works');
+    collect('main section:first-of-type li .mono-title');
+    collect('main section:last-of-type li > .mono-title');
+    cy.visit('/live');
+    collect('main li > span:first-child');
+    cy.then(() => {
+      expect(Math.max(...pitches) - Math.min(...pitches), pitches.join(', ')).to.be.at.most(2);
+    });
+  });
+
+  // The + keeps its own column: when a long title pushes its "META, YEAR" onto a
   // second line, that line starts under the title.
   it("on a phone, a long title's year and label wrap under the title", () => {
     cy.viewport(375, 812);
     cy.visit('/works');
-    cy.contains('#inter-process-communication > button span', 'Inter-process').then(($title) => {
-      cy.get('#inter-process-communication > button .mono-meta').should(($meta) => {
+    cy.contains('#nsa-trusted-networks > button span', 'NSA Trusted').then(($title) => {
+      cy.get('#nsa-trusted-networks > button .mono-meta').should(($meta) => {
         const title = $title[0].getBoundingClientRect();
         const meta = $meta[0].getBoundingClientRect();
         expect(meta.top, 'on its own line').to.be.greaterThan(title.bottom - 1);
@@ -277,17 +336,35 @@ describe('layout', () => {
     });
   });
 
-  it('on a phone, Info orders the photo, then the profile, then contact', () => {
-    cy.viewport(375, 812);
-    cy.visit('/');
-    const top = ($el) => $el[0].getBoundingClientRect().top;
-    cy.get('main figure').then(($photo) => {
-      cy.contains('h2', 'Profile').then(($profile) => {
-        cy.contains('h2', 'Contact').then(($contact) => {
-          expect(top($photo)).to.be.lessThan(top($profile));
-          expect(top($profile)).to.be.lessThan(top($contact));
-        });
+  // Info is the photo alone, centred between the wordmark and the footer, which sits
+  // at the bottom of the screen. The footer (contact) is on Info only.
+  it('Info centres its photo above the footer, the only page with one', () => {
+    const box = ($el) => $el[0].getBoundingClientRect();
+    [
+      [1440, 900],
+      [375, 812],
+    ].forEach(([w, h]) => {
+      cy.viewport(w, h);
+      cy.visit('/');
+      cy.get('main p').should('not.exist');
+      cy.get('footer').should(($footer) => {
+        expect(Math.round(box($footer).bottom), `footer at the bottom at ${w}`).to.eq(h);
+      });
+      cy.get('main figure img').should(($img) => {
+        const mark = box(Cypress.$('header a').first());
+        const footerText = box(Cypress.$('footer a').first());
+        const centre = box($img).top + box($img).height / 2;
+        expect(centre, `photo centred at ${w}`).to.be.closeTo(
+          (mark.bottom + footerText.top) / 2,
+          3,
+        );
       });
     });
+    cy.get('footer a[href^="mailto:"]').should('have.text', 'Email');
+    cy.get('footer a[target="_blank"]').should('have.length', 3);
+    cy.visit('/works');
+    cy.get('footer').should('not.exist');
+    cy.visit('/live');
+    cy.get('footer').should('not.exist');
   });
 });

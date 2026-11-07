@@ -6,10 +6,10 @@
   "engineeringProfile": "https://github.com/ioaiaaii",
   "engineeringBlog": "https://ioaiaaii.github.io",
 
-  "_comment_identity": "Composer-first site. No engineer title or bio is rendered. As of 2026-07, Contact does link the SRE blog (engineeringBlog) labelled 'ioaiaaii' — a deliberate cross-link to the engineer identity, at the composer's request, reversing the earlier composer-only rule. engineeringProfile (the GitHub URL) stays data-only, not rendered.",
+  "_comment_identity": "Composer-first site. No engineer title or bio is rendered. As of 2026-07, the contact links (now the footer on Info) include the SRE blog (engineeringBlog) labelled 'ioaiaaii' — a deliberate cross-link to the engineer identity, at the composer's request, reversing the earlier composer-only rule. engineeringProfile (the GitHub URL) stays data-only, not rendered.",
 
   "profile": "Composer of ambient and electro-acoustic music. Drawing from a background in Computer Engineering, approached music by shaping vector spaces and multilinear maps into sound.",
-  "_comment_approach": "profile + these paragraphs render as one continuous block. Phrases in `emphasis` render as Newsreader italic inline, in the profile too. They are matched literally: if a phrase does not appear verbatim in the copy it silently does not italicise, with no error. Re-check that list whenever the copy changes.",
+  "_comment_approach": "Not shown on the site since 2026-11-07, when Info became the portrait alone (the user's pick); kept here to bring back. When shown, profile + these paragraphs render as one continuous block. Phrases in `emphasis` render in italic inline, in the profile too. They are matched literally: if a phrase does not appear verbatim in the copy it silently does not italicise, with no error. Re-check that list whenever the copy changes.",
   "artisticApproach": [
     "Released NSA Trusted Networks (Lower Parts, 2016), DEC/PDC (JUNE Records, 2019) and Diataxis (JUNE Records, 2019). Since Diataxis, the composition process has formed around information and light.",
     "Currently working on Superluminal Motion, which approaches reality as a structure of entangled states spanning past, present and future at once, and warps its sounds until none can be described on its own.",
@@ -25,12 +25,11 @@
     "trusted"
   ],
 
-  "_comment_selectedWorks": "Diataxis was intentionally REMOVED from Selected Works (it lives only under Releases). Display order is as below. Each renders with a LISTEN link; a work with a soundcloud_url (the url=… in its SoundCloud embed code, decoded) gets the SoundCloud player under it instead, opened by that LISTEN, and soundcloud_player_height sizes it to its tracks.",
+  "_comment_selectedWorks": "Listed on Works under In Progress, with the year alone. Diataxis was intentionally REMOVED from Selected Works (it lives only under Releases). Display order is as below. Each renders with a LISTEN link; a work with a soundcloud_url (the url=… in its SoundCloud embed code, decoded) gets the SoundCloud player under it instead, opened by that LISTEN, and soundcloud_player_height sizes it to its tracks.",
   "selectedWorks": [
     {
       "title": "Superluminal Motion",
       "date": "2026",
-      "released": "Unreleased",
       "link": "https://on.soundcloud.com/LQS7Zv4wZ0uWhUnlpe",
       "soundcloud_url": "https://api.soundcloud.com/playlists/soundcloud:playlists:2010756078?secret_token=s-kXJa3UK1zk7",
       "soundcloud_player_height": 450,
@@ -40,7 +39,6 @@
     {
       "title": "Inter-process Communication",
       "date": "2025",
-      "released": "Unreleased",
       "link": "https://on.soundcloud.com/MNb8o228vCNDMfJn4N",
       "soundcloud_url": "https://api.soundcloud.com/playlists/soundcloud:playlists:2028740499",
       "soundcloud_player_height": 360,
@@ -49,7 +47,6 @@
     {
       "title": "EtherType",
       "date": "2024",
-      "released": "Unreleased",
       "link": "https://on.soundcloud.com/cH6zosJCsDRxXvBajh",
       "soundcloud_url": "https://api.soundcloud.com/playlists/soundcloud:playlists:1272282400",
       "soundcloud_player_height": 510,
@@ -59,7 +56,6 @@
       "title": "Δέσμη Φωτός",
       "slug": "desmi-fotos",
       "date": "2023",
-      "released": "Unreleased",
       "link": "https://on.soundcloud.com/oEv8WErALuHexf5v8",
       "soundcloud_url": "https://api.soundcloud.com/playlists/soundcloud:playlists:1388290279",
       "soundcloud_player_height": 360,

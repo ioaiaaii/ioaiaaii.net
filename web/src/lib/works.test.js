@@ -8,7 +8,6 @@ const info = {
     {
       title: 'Inter-process Communication',
       date: '2025–26',
-      released: 'Unreleased',
       link: 'sc://ipc',
       description: 'desc-ipc',
     },
@@ -92,11 +91,11 @@ describe('buildWorks', () => {
     expect(buildWorks(info, releases).works[1].player).toBeNull();
   });
 
-  it('gives a selected work a 4-digit year and `released` as meta', () => {
+  it('gives a work in progress a 4-digit year and no meta, as its heading says it', () => {
     const item = buildWorks(info, releases).works[1];
     expect(item).toMatchObject({
       year: '2025',
-      meta: 'Unreleased',
+      meta: null,
       link: 'sc://ipc',
       desc: 'desc-ipc',
     });

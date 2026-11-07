@@ -21,6 +21,12 @@ import SoundCloudPlayer from '@/components/SoundCloudPlayer.vue';
 // Plain const, not computed — both JSON imports are static and non-reactive.
 const { works, collaborations } = buildWorks(info, releasesData);
 
+// The two lists of + rows, each under its label. Collaborations follow, in their own style.
+const WORK_LISTS = [
+  { label: 'Releases', rows: works.filter((work) => work.kind === 'release') },
+  { label: 'In Progress', rows: works.filter((work) => work.kind === 'work') },
+];
+
 // The rows that are open. Any number at once; a link to one work (/works#diataxis)
 // opens that row, on load and whenever the hash changes, and App.vue lands on it.
 const route = useRoute();
@@ -51,9 +57,8 @@ function toggleRow(id) {
 // The Listen toggle's arrow, after its label as Buy's ↗ is after its: ↘ while closed
 // (the player opens here, below) and ↖ while open, each nudged its way on hover as ↗
 // is. Full class strings, so Tailwind sees them.
-const LISTEN_ARROW = "after:content-['_↘'] hover:after:translate-x-0.5 hover:after:translate-y-0.5";
-const CLOSE_ARROW =
-  "after:content-['_↖'] hover:after:-translate-x-0.5 hover:after:-translate-y-0.5";
+const LISTEN_ARROW = "after:content-['↘'] hover:after:translate-x-0.5 hover:after:translate-y-0.5";
+const CLOSE_ARROW = "after:content-['↖'] hover:after:-translate-x-0.5 hover:after:-translate-y-0.5";
 
 // One image per work, keyed by its id (its link anchor), on the right of the open row
 // (above its text on a phone). The releases' are the records: Diataxis's a render of
@@ -104,14 +109,20 @@ if (import.meta.env.DEV) {
 <template>
   <h1 class="sr-only">Works</h1>
 
-  <!-- One list: the releases, then the selected works. No visible label; the heading
-       stays for screen readers. role="list": Preflight's list-style:none makes
+  <!-- Releases, then In Progress, each under its label. The first label starts 16px
+       down, level with Info's text and Live's first row (a row has that padding of its
+       own, a label doesn't). role="list": Preflight's list-style:none makes
        Safari/VoiceOver stop exposing a <ul> as a list, dropping the item count. -->
-  <section v-reveal class="mb-section">
-    <h2 class="sr-only">Releases and selected works</h2>
+  <section
+    v-for="list in WORK_LISTS"
+    :key="list.label"
+    v-reveal
+    class="mb-section first-of-type:pt-4"
+  >
+    <SectionLabel class="px-edge">{{ list.label }}</SectionLabel>
     <ul role="list">
       <WorkRow
-        v-for="item in works"
+        v-for="item in list.rows"
         :key="item.id"
         :anchor="item.id"
         :year="item.year"
@@ -191,10 +202,10 @@ if (import.meta.env.DEV) {
     </ul>
   </section>
 
-  <!-- Collaborations keeps its label, as these rows are other people's work. Each is
+  <!-- Collaborations: other people's work, so plain rows rather than + rows. Each is
        one line, the title at the page edge under the label, then "TYPE, WHERE, YEAR", and
        VIEW ↗ at the right. -->
-  <section v-reveal class="mb-section">
+  <section v-reveal>
     <SectionLabel class="px-edge">Collaborations</SectionLabel>
     <ul role="list">
       <li
@@ -208,7 +219,7 @@ if (import.meta.env.DEV) {
         <span class="mono-meta">
           {{ [collab.type, collab.where, collab.year].filter(Boolean).join(', ') }}
         </span>
-        <span v-if="collab.link" class="ml-auto">
+        <span v-if="collab.link" class="ml-auto flex">
           <ActionLink :href="collab.link" :aria-label="`View ${collab.title}`">View</ActionLink>
         </span>
       </li>

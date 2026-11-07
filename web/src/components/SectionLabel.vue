@@ -1,5 +1,5 @@
 <script setup>
-// The grey mono caps that head a section ("Collaborations", "Contact"), in the row
+// The grey mono caps that head a section ("Releases", "Collaborations"), in the row
 // details' style.
 // This class string used to be pasted into four places and had already drifted:
 // NotFound's copy dropped the margin (its parent uses a gap instead) and is an

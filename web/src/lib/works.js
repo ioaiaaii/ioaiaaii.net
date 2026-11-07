@@ -1,12 +1,13 @@
 // Normalize the content JSON into what Works renders: one list of works, releases
-// first (releases.json) then selected works (info.json), newest first within each as
-// the data lists them, and the collaborations after it.
+// first (releases.json) then the works in progress (info.json's selectedWorks), newest
+// first within each as the data lists them, and the collaborations after it.
 // Each work is flattened to a common shape { id, kind, year, title, desc, meta, link,
 // body, player } so the template renders every row with one component. `id` is the
-// row's link anchor (/works#diataxis). `kind` is 'release' or 'work': a release's
-// actions are LISTEN ↘ · BUY ↗, a work's LISTEN ↘ alone. `meta` is a release's label
-// or a work's "Unreleased"; the row shows it before `year`, a 4-digit string, never a
-// month ("JUNE RECORDS, 2019"). `player` is the player its Listen opens, or null: { kind: 'bandcamp',
+// row's link anchor (/works#diataxis). `kind` is 'release' or 'work': Works lists them
+// under Releases and In Progress, and a release's actions are LISTEN ↘ · BUY ↗, a
+// work's LISTEN ↘ alone. `meta` is a release's label, shown before `year`, a 4-digit
+// string, never a month ("JUNE RECORDS, 2019"); a work has none, its heading saying
+// what it is, so it shows the year alone. `player` is the player its Listen opens, or null: { kind: 'bandcamp',
 // id, height } for a release, or { kind: 'soundcloud', url, height } for a work. Its
 // height (from the embed code) fits the tracklist, so it doesn't scroll inside.
 // A collaboration is { year, title, type, where, link }: other people's work, not
@@ -63,7 +64,7 @@ export function buildWorks(info, releases) {
     year: yearOf(w.date),
     title: w.title,
     desc: w.description || null,
-    meta: w.released,
+    meta: null,
     link: w.link,
     // A work with a rich body renders that instead of a plain description.
     body: w.body || null,

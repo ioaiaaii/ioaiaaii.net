@@ -36,7 +36,7 @@ const performances = (live.performances || []).map((p) => {
           <span class="mono-title text-ink">{{ performance.title }}</span>
           <span
             v-if="performance.event_link || performance.listen_link"
-            class="ml-auto flex gap-[18px]"
+            class="ml-auto flex gap-[26px]"
           >
             <ActionLink
               v-if="performance.event_link"

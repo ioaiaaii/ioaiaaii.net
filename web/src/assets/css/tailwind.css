@@ -1,50 +1,67 @@
 @import 'tailwindcss';
 
-/* Greek prose, in a serif that pairs with Newsreader.
-   Newsreader ships no Greek, so ΨΥΧΥ and Αναπαράσταση Δυνάμεων fall through the
-   --font-serif stack. Georgia (the old fallback) is a serif but sets heavier than
-   Newsreader; Plex Sans matched the weight but is a *sans* dropped into serif
-   prose. Literata is the fix: a warm literary serif with a real Greek subset, so
-   the Greek keeps the texture of the surrounding Latin. This face is Greek-only —
-   it references Literata's greek woff2 directly and scopes to the Greek range, so
-   the Latin stays Newsreader and every other codepoint is untouched. Range copied
-   verbatim from @fontsource's greek block.
-   Literata sets a touch heavier than Newsreader, so this points at Literata's 300
-   file while *declaring* weight 400: the prose asks for 400 in the Greek range,
-   resolves here, and gets the lighter cut — matching Newsreader's colour without
-   lightening the Latin (which is a separate variable face).
-   --font-mono does NOT use this — work titles (ΔΕΣΜΗ ΦΩΤΟΣ) are monospace, and a
-   serif Greek there would clash; see the --font-mono stack. */
+/* Mona Sans and Mona Sans Mono, GitHub's typefaces (github.com/github/mona-sans,
+   release v2.027), self-hosted from that release: the static Regular and Italic for
+   prose, and the Mono Regular for everything else. Nothing is bolded, so 400 is all
+   that loads. The files are as released, unmodified: the licence (OFL.txt beside them)
+   reserves the name "Mona" for the original.
+   Neither face has Greek apart from μ and π, so both skip the Greek blocks
+   (unicode-range). Greek then falls whole to the next font in the stack, instead of
+   taking those two letters from Mona Sans and mixing two fonts inside one word
+   (Αναπαράσταση Δυνάμεων has both). */
 @font-face {
-  font-family: 'Greek Serif';
+  font-family: 'Mona Sans';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('@fontsource/literata/files/literata-greek-300-normal.woff2') format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+  src: url('../fonts/mona-sans/MonaSans-Regular.woff2') format('woff2');
+  unicode-range: U+0000-036F, U+0400-1EFF, U+2000-FFFF;
 }
-/* Italic pair, for Greek inside an italic run. Artwork titles set in italic, so
-   the Greek original of a title (Αναπαράσταση Δυνάμεων, the "Representation of
-   Forces" painting) needs a real italic — Literata ships one, so the .italic span
-   gets a true cursive Greek rather than a synthesized slant. Same 300-declared-400
-   lightening as the roman face, to sit with the Newsreader italic around it. */
 @font-face {
-  font-family: 'Greek Serif';
+  font-family: 'Mona Sans';
   font-style: italic;
   font-display: swap;
   font-weight: 400;
-  src: url('@fontsource/literata/files/literata-greek-300-italic.woff2') format('woff2');
+  src: url('../fonts/mona-sans/MonaSans-Italic.woff2') format('woff2');
+  unicode-range: U+0000-036F, U+0400-1EFF, U+2000-FFFF;
+}
+@font-face {
+  font-family: 'Mona Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('../fonts/mona-sans/MonaSansMono-Regular.woff2') format('woff2');
+  unicode-range: U+0000-036F, U+0400-1EFF, U+2000-FFFF;
+}
+/* The Greek: IBM Plex Sans, a sans of the same weight, roman and italic (Αναπαράσταση
+   Δυνάμεων and ΨΥΧΥ in the prose, ΔΕΣΜΗ ΦΩΤΟΣ in a row). Only its Greek files are
+   declared, scoped to the Greek range (copied from @fontsource's greek block), so it
+   downloads only on a page with Greek, and never for Latin. */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('@fontsource/ibm-plex-sans/files/ibm-plex-sans-greek-400-normal.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url('@fontsource/ibm-plex-sans/files/ibm-plex-sans-greek-400-italic.woff2') format('woff2');
   unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
 }
 
 /* ─────────────────────────────────────────────────────────
    Design system, v2 (design_handoff_v2: reference/system.css is the source of
-   truth). Two faces: Monaspace Neon for everything that is not prose, always
-   uppercase with light tracking, and Newsreader for prose. Cobalt accent on white.
-   Fonts are self-hosted via @fontsource (imported in main.js).
+   truth). One family, two faces: Mona Sans Mono for everything that is not prose,
+   always uppercase with light tracking, and Mona Sans for prose (the handoff's
+   Monaspace Neon and Newsreader, replaced 2026-11-07). Cobalt accent on white.
 
    Everything below is a design token. Styling lives in the components as Tailwind
-   utilities generated from these names (text-ink, font-serif, px-edge, …). Tokens
+   utilities generated from these names (text-ink, font-sans, px-edge, …). Tokens
    that change on a phone are overridden below 760px in the base layer, so call
    sites need no responsive variants for them.
    ───────────────────────────────────────────────────────── */
@@ -59,39 +76,36 @@
   --color-link-soft: color-mix(in oklch, var(--color-link) 35%, transparent);
 
   /* ─── Type families ──────────────────────────────────── */
-  /* Monaspace Neon ships Latin only. What it lacks (the arrows ↗ ↘ ↖, Greek: ΔΕΣΜΗ
-     ΦΩΤΟΣ) falls to the system monospace first, as in the design (ui-monospace: SF Mono
-     on a Mac), then to Plex Sans, which covers Greek where there is no such font and
-     only downloads its Greek subset when Greek is on the page. (The serif stack
-     catches Greek with Literata instead: see the top of this file.) */
-  --font-mono: 'Monaspace Neon', ui-monospace, SFMono-Regular, 'IBM Plex Sans', monospace;
-  /* @fontsource's variable build registers the family as "Newsreader Variable".
-     "Greek Serif" (Literata, Greek-only: see the @font-face above) catches the Greek
-     that Newsreader lacks. It must precede Georgia. */
-  --font-serif: 'Newsreader Variable', 'Newsreader', 'Greek Serif', Georgia, serif;
-  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  /* What Mona Sans Mono lacks (the arrows ↗ ↘ ↖, Greek: ΔΕΣΜΗ ΦΩΤΟΣ) falls to the
+     system monospace first, as in the design (ui-monospace: SF Mono on a Mac), then to
+     Plex Sans, which covers Greek where there is no such font and only downloads its
+     Greek subset when Greek is on the page. */
+  --font-mono: 'Mona Sans Mono', ui-monospace, SFMono-Regular, 'IBM Plex Sans', monospace;
+  /* Prose, and the body default. Its Greek (Αναπαράσταση Δυνάμεων, ΨΥΧΥ) is set in Plex
+     Sans, roman and italic: a sans of the same weight, where Mona Sans has none. */
+  --font-sans: 'Mona Sans', 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* ─── Type scale ─────────────────────────────────────── */
   /* Named for role. rem, so they follow the reader's browser font size; the px are
      at the 16px root. */
-  --text-nav: 0.875rem; /* 14px (11px on a phone): wordmark + nav */
+  /* The wordmark and the menu: 14px, and on a phone 13px, the size of the rows and
+     links, so the menu reads at the same size as the page there (it was 11px). */
+  --text-nav: 0.875rem;
   /* A list row (Works, Collaborations, Live) is one style: its title, its details
      ("JUNE RECORDS, 2019", a date) and its links all in the same caps, size and weight,
      with no bold; only colour sets them apart (the user's pick, 2026-10-18). */
   --text-row: 0.8125rem; /* 13px: row titles, details, labels and action links */
-  /* Prose, fluid from 16px at a 375px viewport to 17px at 1280px: smaller than the
-     design's 19px, as the site had it. Newsreader has a short x-height, so it reads
-     optically smaller than its nominal size. */
-  --text-body: clamp(1rem, 0.11vw + 0.974rem, 1.0625rem);
-  --text-email: clamp(0.9375rem, 1.5vw, 1.0625rem); /* 15 → 17px: the contact email */
+  /* Prose (the Works texts, the 404 lead), 15px at every width. Mona Sans has a tall
+     x-height, so at 15px it reads the size the old Newsreader did at 16–17px. */
+  --text-body: 0.9375rem;
 
   /* ─── Measure ────────────────────────────────────────── */
   /* Prose line length, and the width of the text column on Info and in an open Works
-     row. 66ch of the prose font (~86 characters, ~626px at 17px), wider than the
+     row. 66ch of the prose font (~617px at 15px, about 80 characters), wider than the
      design's 60ch, as the site had it. */
   --container-measure: 66ch;
   --container-measure-short: 44ch; /* the 404 lead */
-  --container-figure: 480px; /* the widest an image gets (Info portrait, Works images) */
+  --container-figure: 480px; /* the widest an image gets (Works images, the Info photo) */
   --container-frame: 1200px; /* the widest the page gets, margins excluded */
 
   /* ─── Tracking ───────────────────────────────────────── */
@@ -99,7 +113,7 @@
   --tracking-mono: 0.03em;
 
   /* ─── Leading ────────────────────────────────────────── */
-  --leading-prose: 1.55;
+  --leading-prose: 1.6; /* a sans at 15px wants a touch more air than the old serif */
   --leading-title: 1.4;
 
   /* ─── Easing ─────────────────────────────────────────── */
@@ -120,8 +134,11 @@
      Collaborations start at the page edge. */
   --spacing-indent: 31px;
   --spacing-column: clamp(32px, 5vw, 80px); /* text | image column gap */
-  --spacing-section: clamp(60px, 7vw, 104px); /* after each list */
-  --spacing-sticky: 120px; /* where Info's side column parks */
+  /* After each list (36px on a phone). With the last row's own padding (16px, 14px on
+     a phone) it makes the space above the next label the same as the space between
+     the menu and the page: 65px (50px on a phone). One space everywhere, the user's
+     pick, 2026-11-07. */
+  --spacing-section: 49px;
   /* Between paragraphs. em, on the <p>, so it follows the prose size. */
   --spacing-paragraph: 1.1em;
 
@@ -137,9 +154,17 @@
   /* The phone values of the tokens above (below md, 760px). */
   @media (width < 760px) {
     :root {
-      --text-nav: 0.6875rem;
+      --text-nav: 0.8125rem;
       --spacing-edge: 18px;
       --spacing-indent: 0px;
+      --spacing-section: 36px;
+    }
+  }
+  /* The smallest phones (320px, an early iPhone SE): at 13px the wordmark and the
+     menu would touch, so the header steps down to 12px there. */
+  @media (width < 340px) {
+    :root {
+      --text-nav: 0.75rem;
     }
   }
 
@@ -158,6 +183,14 @@
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.55;
+    /* Mona Sans with its double-storey a (ss05, the user's pick over the single-storey
+       one it ships with) and without its joined ti and tt (liga). Set here so every
+       run of it inherits them. Mona Sans Mono shares ss05 (its text is all caps, so it
+       never shows) and has no liga; Plex Sans's Greek has neither. The maths turns
+       them off again (SuperluminalMotionBody). */
+    font-feature-settings:
+      'ss05' 1,
+      'liga' 0;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -193,10 +226,14 @@
 @utility mono-label {
   @apply mono-row text-soft leading-[normal];
 }
-/* The action link: BUY ↗, VIEW ↗, INFO ↗, the Info contact links (ActionLink), and the
-   Works Listen/Close button, which adds its own arrow. */
+/* The action link: BUY ↗, VIEW ↗, INFO ↗, the footer's links (ActionLink), and the
+   Works Listen/Close button, which adds its own arrow. An inline flex box, so the
+   arrow sits the same 0.25em after every label: as plain inline text, a label written
+   on its own line in a template kept a trailing space (BUY ↗, underlined) and one
+   written inline did not (VIEW↗). At the title's line height, with the underline's 1px
+   given back below, so a row with a link is exactly as tall as a row without (50px). */
 @utility action-link {
-  @apply mono-row text-link border-link-soft hover:border-link border-b pb-px leading-[normal] no-underline transition-[border-color] duration-200 after:inline-block after:transition-transform after:duration-280 after:ease-soft;
+  @apply mono-row text-link border-link-soft hover:border-link leading-title -mb-px inline-flex items-baseline gap-x-[0.25em] border-b no-underline transition-[border-color] duration-200 after:inline-block after:transition-transform after:duration-280 after:ease-soft;
 }
 
 /* The one reading style: Info paragraphs and every Works description. Justified at
@@ -204,7 +241,7 @@
    even, which matters most on a phone's narrow column (without it, justified lines
    there open wide gaps). Change it here, not at a call site. */
 @utility prose {
-  @apply text-body leading-prose max-w-measure font-serif tracking-normal hyphens-auto text-justify;
+  @apply text-body leading-prose max-w-measure font-sans tracking-normal hyphens-auto text-justify;
 }
 
 /* ─── Reveal on scroll ─────────────────────────────────── */
